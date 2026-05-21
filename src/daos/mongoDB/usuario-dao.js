@@ -6,15 +6,8 @@ class UsuarioDao extends MongoDao {
         super(model)
     }
 
-    save = async (usuario) => {
-        try {
-            return await this.model.create(usuario)
-        } catch (error) {
-            throw new Error(error)
-        }
-    }
 
-    getByEmail = async (email) => {
+    async getByEmail (email) {
         try {
             return await this.model.findOne({ email })
         } catch (error) {
