@@ -1,7 +1,9 @@
-import { createUser } from "../daos/user.dao.js"
+import  save from "../daos/mongoDB/usuario-dao.js"
 import { createHash } from "../utils/user-bcrypt.js"
 
-export const registerUser = async ({ email, password }) => {
+export const registerUser = async ({nombre, apellido, email, password, rol }) => {
     const hashedPassword = createHash(password)
-    return await createUser({ email, password: hashedPassword })
+    return await createUser({nombre, apellido, email, password: hashedPassword, rol })
 }
+
+
