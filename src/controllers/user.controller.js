@@ -8,7 +8,7 @@ class UserController {
 
     register = async (req, res) => {
         const user = await this.service.registerUser(req.body)
-        res.status(201).json({ message: "user created successfully"})
+        res.status(201).json({ message: "user created successfully", user})
     }
 
     login = async (req, res) => {

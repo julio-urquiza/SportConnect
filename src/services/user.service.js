@@ -8,9 +8,9 @@ class UserService {
     }
 
     registerUser = async (body) => {
-        const {nombre, apellido, email, password, rol } = body
+        const {email, password, role } = body
         const hashedPassword = createHash(password)
-        const retorno = await this.dao.create({nombre, apellido, email, password: hashedPassword, rol })
+        const retorno = await this.dao.create({email, password: hashedPassword, role })
         return retorno
     }
 
