@@ -3,6 +3,7 @@ import usuarioDao from "../daos/mongoDB/usuario-dao.js"
 import { createHash, isValidPassword } from "../utils/user-bcrypt.js"
 import generateToken from "../utils/user-jwt.js"
 import CustomError from "../utils/customError.js"
+import UserDTO from "../dtos/user.dto.js"
 import 'dotenv/config'
 
 class UserService {
@@ -15,7 +16,7 @@ class UserService {
         const hashedPassword = createHash(password)
         const user = await this.dao.create({ email, password: hashedPassword, role })
         if (!user) throw new CustomError(400, 'El usuario no se pudo crear')
-        return { user, 'token': generateToken(user, process.env.CLAVE_JWT, 86400) }
+        return {'user':new UserDTO(user), 'token': generateToken(user, process.env.CLAVE_JWT, 86400) }
     }
 
     loginUser = async (body) => {
@@ -24,7 +25,7 @@ class UserService {
         if (!user) throw new CustomError(400, 'User not found')
         const valid = isValidPassword(password, user.password)
         if (!valid) throw new CustomError(400, 'Invalid password')
-        return { user, 'token': generateToken(user, process.env.CLAVE_JWT, 86400) }
+        return {'user': new UserDTO(user), 'token': generateToken(user, process.env.CLAVE_JWT, 86400) }
     }
 }
 
