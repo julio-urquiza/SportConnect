@@ -1,8 +1,12 @@
 import { Router } from "express"
 
-const router = Router()
+import courtController from "../controllers/court.controller.js";
 
-// declare aqui los nuevos endpoints
-router.get("/", (req, res) => {res.send("test court router")}) // endpoint de prueba, eliminar luego
+const router = Router();
+
+// Declarar el endpoint GET /:id
+router.get("/:id", courtController.getById);
+// PRUEBA DEL POST
+router.post("/", courtController.create);
 
 export default router
