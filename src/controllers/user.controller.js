@@ -26,9 +26,17 @@ class UserController {
         }).json({ 'user': data.user })
     }
 
-    current = async (req, res) => {
+    me = async (req, res) => {
         // const {user} = req
         // res.status(201).json({ message: "token validated successfully", user })
+    }
+
+    logout = async (req, res) => {
+        res.clearCookie("Token", {
+            httpOnly: true,
+            secure: true,
+            sameSite: "strict"
+        }).json({ message: "Logged out successfully" })
     }
 }
 
