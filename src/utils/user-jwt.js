@@ -7,7 +7,7 @@ const generateToken = (user, clave, expires) => {
         email: user.email,
         role: user.role
     }
-    return jwt.sign(payload, clave, {expiresIn: `${expires}m`})
+    return jwt.sign(payload, clave, {expiresIn: `${expires}h`})
 }
 
 export default generateToken
