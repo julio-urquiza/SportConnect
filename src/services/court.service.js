@@ -13,6 +13,13 @@ class CourtService {
         return canchas
     }
 
+    filtrarPorDeporte= async(deporte) => {
+        if(!deporte || deporte.trim() == "") throw new CustomError(404, "No se recibio ningun deporte")
+        const canchas= await this.dao.getByDeporte(deporte)
+        if (canchas.length ===0) throw new CustomError(404, "No se encontraron canchas para ese deporte")
+        return canchas
+    }
+  
     getCourtById = async (id) => {
         if(!id) throw new CustomError(400, "ID de cancha no proporcionado")
         const court = await this.dao.getById(id)

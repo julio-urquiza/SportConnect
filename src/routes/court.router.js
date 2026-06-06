@@ -3,6 +3,8 @@ import courtController from "../controllers/court.controller.js"
 
 const router = Router()
 
+router.get("/searchubicacion", courtController.filtrarPorUbicacion)
+router.get("/searchdeporte", courtController.filtrarPorDeporte)
 router.get("/search", courtController.filtrarPorUbicacion)
 router.get("/:id", courtController.getById);
 router.post("/", courtController.create);

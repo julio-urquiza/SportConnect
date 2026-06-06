@@ -13,6 +13,15 @@ class CourtController {
            canchas
         })
     }
+
+    filtrarPorDeporte = async(req,res) =>{
+        const deporte= req.query.deporte
+
+        const canchas= await this.service.filtrarPorDeporte(deporte)
+        res.status(200).json({
+            canchas
+        })
+    }
     
     getById = async (req, res) => {
         const { id } = req.params; 
