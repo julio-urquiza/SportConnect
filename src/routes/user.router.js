@@ -9,7 +9,7 @@ const router = Router()
 
 router.post("/register", registerValidation, validationMiddleware, userController.register)
 router.post("/login", loginValidation, validationMiddleware, userController.login)
-router.get("/logout", userController.logout)
-router.get("/me",passport.authenticate("jwt", { session: false }), userController.me)
+router.post("/logout", passport.authenticate("jwt", { session: false }), userController.logout)
+router.get("/me", passport.authenticate("jwt", { session: false }), userController.me)
 
 export default router

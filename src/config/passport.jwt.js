@@ -5,6 +5,7 @@ import "dotenv/config"
 const strategyConfig = {
     jwtFromRequest: ExtractJwt.fromExtractors([req => {
         let token = null;
+        console.log(req.cookies)
         if (req && req.cookies) {
             token = req.cookies.Token
         }
