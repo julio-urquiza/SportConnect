@@ -4,6 +4,7 @@ const router = Router()
 
 // declare aqui los nuevos endpoints
 router.get("/", (req, res) => {res.send("test court router")}) // endpoint de prueba, eliminar luego
-router.get("/search", courtController.filtrarPorUbicacion)
+router.get("/searchubicacion", courtController.filtrarPorUbicacion)
+router.get("/searchdeporte", courtController.filtrarPorDeporte)
 
 export default router
