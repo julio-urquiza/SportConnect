@@ -1,4 +1,4 @@
-import  courtModel  from "./models/court.model.js"
+import courtModel from "./models/court.model.js"
 import MongoDao from "./mongo.dao.js"
 
 class CourtDao extends MongoDao {
