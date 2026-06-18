@@ -46,6 +46,7 @@ const canchaSchema = new mongoose.Schema({
   }],
 
   horariosDisponibles: [{
+    dia: String,
     inicio: String,
     fin: String
   }],
