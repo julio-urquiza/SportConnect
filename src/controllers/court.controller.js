@@ -26,6 +26,17 @@ class CourtController {
             canchas
         })
     }
+
+    filtrarPorHorario = async(req,res) =>{
+        const fecha= req.query.fecha
+        const hora= req.query.hora
+        
+        const canchas= await this.service.filtrarPorHorario(hora,fecha)
+
+        res.status(200).json({
+            canchas
+        })
+    }
     
     getById = async (req, res) => {
         const { id } = req.params; 

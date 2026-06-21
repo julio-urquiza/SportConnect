@@ -14,6 +14,18 @@ class CourtDao extends MongoDao {
         return await this.model.find({deporte})
     }
 
+    async getByHorario(hora, dia){
+    return await this.model.find({
+        horariosDisponibles: {
+            $elemMatch: {
+                dia,
+                inicio: { $lte: hora },
+                fin: { $gte: hora }
+            }
+        }
+    });
+    }
+
 }
 
 export default new CourtDao(courtModel)

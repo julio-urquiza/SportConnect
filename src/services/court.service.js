@@ -1,6 +1,6 @@
 import courtDao from "../daos/mongoDB/court.dao.js"
 import CustomError from "../utils/customError.js"
-
+import createDay from "../utils/createDay.js";
 class CourtService {
     constructor(dao) {
         this.dao = dao;
@@ -22,6 +22,16 @@ class CourtService {
         if(!deporte || deporte.trim() == "") throw new CustomError(404, "No se recibio ningun deporte")
         const canchas= await this.dao.getByDeporte(deporte)
         if (canchas.length ===0) throw new CustomError(404, "No se encontraron canchas para ese deporte")
+        return canchas
+    }
+
+    filtrarPorHorario= async(hora, fecha) => {
+        if(!fecha || fecha.trim=="") throw new CustomError(404, "No se recibio ninguna fecha")
+        if(!hora || hora.trim()=="") throw new CustomError(404, "No se recibio ninguna hora")
+
+        const dia= createDay(fecha)
+        const canchas= await this.dao.getByHorario(hora, dia)
+        if (canchas.length === 0) throw new CustomError(404, "No se encontraron canchas con ese horario")
         return canchas
     }
   
