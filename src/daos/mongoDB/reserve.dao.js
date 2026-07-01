@@ -6,6 +6,10 @@ class ReserveDao extends MongoDao{
         super(model)
     }
 
+    findOne = async (filtro) => {
+        return await this.model.findOne(filtro);
+    }
+
     cancelarReserva = async(idReserva) =>{
         return await this.update(idReserva,
             {
