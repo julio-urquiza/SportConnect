@@ -6,5 +6,6 @@ const router= Router()
 
 router.patch("/cancelar",reserveController.cancelarReserva)
 router.post("/", passport.authenticate("jwt", { session: false }), reserveController.create);
+router.get("/horariosdisponibles", reserveController.horariosDisponibles)
 
 export default router

@@ -42,7 +42,14 @@ class ReserveController{
         })
     }
 
-
+    horariosDisponibles= async(req,res) => {
+        const {id, fecha} = req.query
+    
+        const horariosDisponibles= await this.service.consultarDisponibilidadCancha(id,fecha)
+        res.status(200).json({
+            horariosDisponibles
+        })
+    }
 
 }
 
