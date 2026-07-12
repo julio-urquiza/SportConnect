@@ -17,6 +17,13 @@ class ReserveDao extends MongoDao{
             }
         )
     }
+
+    getByUsuario = async (usuarioId) => {
+        return await this.model
+            .find({ usuario: usuarioId })
+            .populate("cancha")
+            .sort({ fechaInicio: 1 });
+    }
 }
 
 export default new ReserveDao(reserveModel)
