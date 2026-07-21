@@ -1,38 +1,38 @@
 import mongoose from "mongoose"
 
 const ReserveSchema = new mongoose.Schema({
-    usuario: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Usuario",
+        ref: "User",
         required: true
     },
-    cancha: {
+    court: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Cancha",
+        ref: "Court",
         required: true
     },
-    complejo: {
+    complex: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Complejo",
+        ref: "Complex",
         required: true
     },
-    fecha: {
+    date: {
         type: Date,
         required: true
     },
-    horaInicio: {
+    timeStart: {
         type: String,
         required: true
     },
-    horaFin: {
+    timeEnd: {
         type: String,
         required: true
     },
-    precio: {
+    price: {
         type: Number,
         required: true
     },
-    estado: {
+    state: {
         type: String,
         enum: [
             "pendiente",
@@ -46,4 +46,4 @@ const ReserveSchema = new mongoose.Schema({
     timestamps: true
 })
 
-export default mongoose.model("Reserve", ReserveSchema)
+export default mongoose.model("Reservation", ReserveSchema)

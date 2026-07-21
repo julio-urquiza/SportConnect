@@ -1,4 +1,4 @@
-import reserveModel from "./models/reserve.model.js"
+import reservationModel from "./models/reservation.model.js"
 import MongoDao from "./mongo.dao.js"
 
 class ReserveDao extends MongoDao{
@@ -21,9 +21,9 @@ class ReserveDao extends MongoDao{
     getByUsuario = async (usuarioId) => {
         return await this.model
             .find({ usuario: usuarioId })
-            .populate("cancha")
+            .populate("court")
             .sort({ fechaInicio: 1 });
     }
 }
 
-export default new ReserveDao(reserveModel)
+export default new ReserveDao(reservationModel)

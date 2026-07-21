@@ -12,7 +12,7 @@ class CourtController {
 
     filtrarPorUbicacion = async(req,res) =>{
         const ubicacion=req.query.ubicacion
-        const canchas= await this.service.filtrarPorUbicacion(ubicacion)
+        const canchas= await this.service.filtrar({ ubicacion })
         res.status(200).json({
            canchas
         })
@@ -21,7 +21,7 @@ class CourtController {
     filtrarPorDeporte = async(req,res) =>{
         const deporte= req.query.deporte
 
-        const canchas= await this.service.filtrarPorDeporte(deporte)
+        const canchas= await this.service.filtrar({ deporte })
         res.status(200).json({
             canchas
         })
@@ -31,7 +31,7 @@ class CourtController {
         const fecha= req.query.fecha
         const hora= req.query.hora
         
-        const canchas= await this.service.filtrarPorHorario(hora,fecha)
+        const canchas= await this.service.filtrar({ hora, fecha })
 
         res.status(200).json({
             canchas

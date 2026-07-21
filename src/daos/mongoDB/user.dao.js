@@ -1,4 +1,4 @@
-import userModel from "./models/usuario.model.js"
+import userModel from "./models/user.model.js"
 import MongoDao from "./mongo.dao.js"
 
 class UsuarioDao extends MongoDao {
