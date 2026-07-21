@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <main class="container mx-auto px-4 py-8">
+      <div class="mb-8" style="opacity: 1; transform: none">
+        <p
+          style="
+            font-family: Roboto, sans-serif;
+            font-size: 0.875rem;
+            color: rgb(140, 140, 140);
+            margin-bottom: 4px;
+          "
+        >
+          Bienvenido, julio@gmail.com
+        </p>
+        <h1
+          style="
+            font-family: Jura, sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            color: rgb(255, 255, 255);
+          "
+        >
+          Panel de Dueño
+        </h1>
+        <div class="grid grid-cols-3 gap-4 mt-6">
+          <div
+            class="p-4 rounded-2xl text-center"
+            style="
+              background: rgba(0, 0, 26, 0.6);
+              border: 1px solid rgb(56, 56, 56);
+            "
+          >
+            <p
+              style="
+                font-family: Jura, sans-serif;
+                font-weight: 700;
+                font-size: 1.8rem;
+                color: rgb(255, 90, 0);
+              "
+            >
+              0
+            </p>
+            <p
+              style="
+                font-family: Roboto, sans-serif;
+                font-size: 0.8rem;
+                color: rgb(140, 140, 140);
+                margin-top: 2px;
+              "
+            >
+              Canchas publicadas
+            </p>
+          </div>
+          <div
+            class="p-4 rounded-2xl text-center"
+            style="
+              background: rgba(0, 0, 26, 0.6);
+              border: 1px solid rgb(56, 56, 56);
+            "
+          >
+            <p
+              style="
+                font-family: Jura, sans-serif;
+                font-weight: 700;
+                font-size: 1.8rem;
+                color: rgb(255, 255, 255);
+              "
+            >
+              0
+            </p>
+            <p
+              style="
+                font-family: Roboto, sans-serif;
+                font-size: 0.8rem;
+                color: rgb(140, 140, 140);
+                margin-top: 2px;
+              "
+            >
+              Canchas totales
+            </p>
+          </div>
+          <div
+            class="p-4 rounded-2xl text-center"
+            style="
+              background: rgba(0, 0, 26, 0.6);
+              border: 1px solid rgb(56, 56, 56);
+            "
+          >
+            <p
+              style="
+                font-family: Jura, sans-serif;
+                font-weight: 700;
+                font-size: 1.8rem;
+                color: rgb(74, 222, 128);
+              "
+            >
+              3
+            </p>
+            <p
+              style="
+                font-family: Roboto, sans-serif;
+                font-size: 0.8rem;
+                color: rgb(140, 140, 140);
+                margin-top: 2px;
+              "
+            >
+              Reservas entrantes
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex gap-1 p-1 rounded-2xl mb-6"
+        style="
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid rgb(56, 56, 56);
+          width: fit-content;
+        "
+      >
+        <button
+          class="flex items-center gap-2 px-5 py-2.5 rounded-xl transition-all duration-200"
+          style="
+            background: transparent;
+            color: rgb(140, 140, 140);
+            font-family: Roboto, sans-serif;
+            font-weight: 400;
+            font-size: 0.875rem;
+            border-width: medium;
+            border-style: none;
+            border-color: currentcolor;
+            border-image: none;
+            cursor: pointer;
+          "
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-layout-dashboard size-4"
+          >
+            <rect width="7" height="9" x="3" y="3" rx="1"></rect>
+            <rect width="7" height="5" x="14" y="3" rx="1"></rect>
+            <rect width="7" height="9" x="14" y="12" rx="1"></rect>
+            <rect width="7" height="5" x="3" y="16" rx="1"></rect></svg
+          >Mis Canchas</button
+        ><button
+          class="flex items-center gap-2 px-5 py-2.5 rounded-xl transition-all duration-200"
+          style="
+            background: transparent;
+            color: rgb(140, 140, 140);
+            font-family: Roboto, sans-serif;
+            font-weight: 400;
+            font-size: 0.875rem;
+            border-width: medium;
+            border-style: none;
+            border-color: currentcolor;
+            border-image: none;
+            cursor: pointer;
+          "
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-circle-plus size-4"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M8 12h8"></path>
+            <path d="M12 8v8"></path></svg
+          >Publicar Cancha</button
+        ><button
+          class="flex items-center gap-2 px-5 py-2.5 rounded-xl transition-all duration-200"
+          style="
+            background: linear-gradient(
+              to right,
+              rgba(255, 90, 0, 0.8),
+              rgba(0, 0, 26, 0.7)
+            );
+            color: rgb(255, 255, 255);
+            font-family: Roboto, sans-serif;
+            font-weight: 600;
+            font-size: 0.875rem;
+            border-width: medium;
+            border-style: none;
+            border-color: currentcolor;
+            border-image: none;
+            cursor: pointer;
+          "
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-calendar-clock size-4"
+          >
+            <path
+              d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"
+            ></path>
+            <path d="M16 2v4"></path>
+            <path d="M8 2v4"></path>
+            <path d="M3 10h5"></path>
+            <path d="M17.5 17.5 16 16.3V14"></path>
+            <circle cx="16" cy="16" r="6"></circle></svg
+          >Reservas Entrantes
+        </button>
+      </div>
+      <div style="opacity: 1; transform: none">
+        <div class="max-w-2xl space-y-6">
+          <div>
+            <p
+              class="mb-3"
+              style="
+                font-family: Jura, sans-serif;
+                font-weight: 700;
+                font-size: 0.9rem;
+                color: rgb(140, 140, 140);
+              "
+            >
+              VIERNES, 12 DE JUNIO
+            </p>
+            <div class="space-y-3">
+              <div
+                class="flex items-center gap-4 p-4 rounded-2xl"
+                style="
+                  background: rgba(0, 0, 26, 0.6);
+                  border: 1px solid rgb(56, 56, 56);
+                "
+              >
+                <div
+                  class="flex items-center justify-center size-10 rounded-xl shrink-0"
+                  style="
+                    background: rgba(255, 90, 0, 0.12);
+                    border: 1px solid rgba(255, 90, 0, 0.3);
+                  "
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-clock size-5"
+                    style="color: rgb(255, 90, 0)"
+                  >
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2 mb-0.5">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-user size-3.5"
+                      style="color: rgb(140, 140, 140)"
+                    >
+                      <path
+                        d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                      ></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <p
+                      style="
+                        font-family: Roboto, sans-serif;
+                        font-weight: 500;
+                        font-size: 0.9rem;
+                        color: rgb(255, 255, 255);
+                      "
+                    >
+                      Lucas M.
+                    </p>
+                  </div>
+                  <p
+                    class="truncate"
+                    style="
+                      font-family: Roboto, sans-serif;
+                      font-size: 0.8rem;
+                      color: rgb(140, 140, 140);
+                    "
+                  >
+                    Padel Palermo Norte · 10:00
+                  </p>
+                </div>
+                <div class="text-right shrink-0">
+                  <p
+                    style="
+                      font-family: Jura, sans-serif;
+                      font-weight: 700;
+                      font-size: 1rem;
+                      color: rgb(255, 90, 0);
+                    "
+                  >
+                    $13.000
+                  </p>
+                  <p
+                    style="
+                      font-family: Roboto, sans-serif;
+                      font-size: 0.75rem;
+                      color: rgb(74, 222, 128);
+                    "
+                  >
+                    Confirmada
+                  </p>
+                </div>
+              </div>
+              <div
+                class="flex items-center gap-4 p-4 rounded-2xl"
+                style="
+                  background: rgba(0, 0, 26, 0.6);
+                  border: 1px solid rgb(56, 56, 56);
+                "
+              >
+                <div
+                  class="flex items-center justify-center size-10 rounded-xl shrink-0"
+                  style="
+                    background: rgba(255, 90, 0, 0.12);
+                    border: 1px solid rgba(255, 90, 0, 0.3);
+                  "
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-clock size-5"
+                    style="color: rgb(255, 90, 0)"
+                  >
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2 mb-0.5">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-user size-3.5"
+                      style="color: rgb(140, 140, 140)"
+                    >
+                      <path
+                        d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                      ></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <p
+                      style="
+                        font-family: Roboto, sans-serif;
+                        font-weight: 500;
+                        font-size: 0.9rem;
+                        color: rgb(255, 255, 255);
+                      "
+                    >
+                      Sofía R.
+                    </p>
+                  </div>
+                  <p
+                    class="truncate"
+                    style="
+                      font-family: Roboto, sans-serif;
+                      font-size: 0.8rem;
+                      color: rgb(140, 140, 140);
+                    "
+                  >
+                    Padel Palermo Norte · 14:00
+                  </p>
+                </div>
+                <div class="text-right shrink-0">
+                  <p
+                    style="
+                      font-family: Jura, sans-serif;
+                      font-weight: 700;
+                      font-size: 1rem;
+                      color: rgb(255, 90, 0);
+                    "
+                  >
+                    $13.000
+                  </p>
+                  <p
+                    style="
+                      font-family: Roboto, sans-serif;
+                      font-size: 0.75rem;
+                      color: rgb(74, 222, 128);
+                    "
+                  >
+                    Confirmada
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p
+              class="mb-3"
+              style="
+                font-family: Jura, sans-serif;
+                font-weight: 700;
+                font-size: 0.9rem;
+                color: rgb(140, 140, 140);
+              "
+            >
+              SÁBADO, 13 DE JUNIO
+            </p>
+            <div class="space-y-3">
+              <div
+                class="flex items-center gap-4 p-4 rounded-2xl"
+                style="
+                  background: rgba(0, 0, 26, 0.6);
+                  border: 1px solid rgb(56, 56, 56);
+                "
+              >
+                <div
+                  class="flex items-center justify-center size-10 rounded-xl shrink-0"
+                  style="
+                    background: rgba(255, 90, 0, 0.12);
+                    border: 1px solid rgba(255, 90, 0, 0.3);
+                  "
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-clock size-5"
+                    style="color: rgb(255, 90, 0)"
+                  >
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2 mb-0.5">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-user size-3.5"
+                      style="color: rgb(140, 140, 140)"
+                    >
+                      <path
+                        d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                      ></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <p
+                      style="
+                        font-family: Roboto, sans-serif;
+                        font-weight: 500;
+                        font-size: 0.9rem;
+                        color: rgb(255, 255, 255);
+                      "
+                    >
+                      Tomás K.
+                    </p>
+                  </div>
+                  <p
+                    class="truncate"
+                    style="
+                      font-family: Roboto, sans-serif;
+                      font-size: 0.8rem;
+                      color: rgb(140, 140, 140);
+                    "
+                  >
+                    Padel Palermo Norte · 16:00
+                  </p>
+                </div>
+                <div class="text-right shrink-0">
+                  <p
+                    style="
+                      font-family: Jura, sans-serif;
+                      font-weight: 700;
+                      font-size: 1rem;
+                      color: rgb(255, 90, 0);
+                    "
+                  >
+                    $13.000
+                  </p>
+                  <p
+                    style="
+                      font-family: Roboto, sans-serif;
+                      font-size: 0.75rem;
+                      color: rgb(74, 222, 128);
+                    "
+                  >
+                    Confirmada
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

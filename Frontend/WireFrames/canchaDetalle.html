@@ -1,0 +1,925 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="container">
+      <div class="tailwind">
+        <div id="fig-code-root" style="height: 100%">
+          <div class="min-h-screen bg-background">
+            <div class="min-h-screen" style="background: rgb(0, 0, 26)">
+              <header
+                class="sticky top-0 z-50 w-full flex items-center justify-between px-8"
+                style="
+                  background: rgb(0, 0, 26);
+                  height: 64px;
+                  border-bottom: 1px solid rgb(26, 26, 58);
+                "
+              >
+                <button
+                  style="
+                    background: none;
+                    border-width: medium;
+                    border-style: none;
+                    border-color: currentcolor;
+                    border-image: none;
+                    cursor: pointer;
+                    padding: 0px;
+                  "
+                >
+                  <p
+                    style="
+                      font-family: Jura, sans-serif;
+                      font-weight: 700;
+                      font-size: 28px;
+                      color: rgb(255, 90, 0);
+                      line-height: normal;
+                    "
+                  >
+                    SportConnect
+                  </p>
+                </button>
+                <div class="flex items-center gap-5">
+                  <button
+                    class="relative transition-opacity hover:opacity-80"
+                    style="
+                      background: none;
+                      border-width: medium;
+                      border-style: none;
+                      border-color: currentcolor;
+                      border-image: none;
+                      cursor: pointer;
+                      padding: 4px 0px;
+                    "
+                  >
+                    <p
+                      style="
+                        font-family: Jura, sans-serif;
+                        font-weight: 700;
+                        font-size: 16px;
+                        color: rgb(255, 255, 255);
+                      "
+                    >
+                      Inicio
+                    </p></button
+                  ><button
+                    class="relative flex items-center gap-1.5 transition-opacity hover:opacity-80"
+                    style="
+                      background: none;
+                      border-width: medium;
+                      border-style: none;
+                      border-color: currentcolor;
+                      border-image: none;
+                      cursor: pointer;
+                      padding: 4px 0px;
+                    "
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-calendar-check size-4"
+                      style="color: rgb(255, 255, 255)"
+                    >
+                      <path d="M8 2v4"></path>
+                      <path d="M16 2v4"></path>
+                      <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+                      <path d="M3 10h18"></path>
+                      <path d="m9 16 2 2 4-4"></path>
+                    </svg>
+                    <p
+                      style="
+                        font-family: Jura, sans-serif;
+                        font-weight: 700;
+                        font-size: 16px;
+                        color: rgb(255, 255, 255);
+                      "
+                    >
+                      Mis Reservas
+                    </p>
+                    <span
+                      class="flex items-center justify-center size-4 rounded-full"
+                      style="
+                        background: rgb(74, 222, 128);
+                        color: rgb(0, 0, 26);
+                        font-family: Roboto, sans-serif;
+                        font-weight: 700;
+                        font-size: 10px;
+                        line-height: 1;
+                      "
+                      >1</span
+                    >
+                  </button>
+                  <div class="relative">
+                    <button
+                      class="h-10 px-4 rounded-[14px] flex items-center gap-2 transition-opacity hover:opacity-90"
+                      style="
+                        background: linear-gradient(
+                          to right,
+                          rgb(255, 90, 0),
+                          rgba(0, 0, 26, 0.95)
+                        );
+                        border-width: medium;
+                        border-style: none;
+                        border-color: currentcolor;
+                        border-image: none;
+                        cursor: pointer;
+                      "
+                    >
+                      <span
+                        style="
+                          font-family: Jura, sans-serif;
+                          font-weight: 700;
+                          font-size: 15px;
+                          color: rgb(255, 255, 255);
+                          white-space: nowrap;
+                        "
+                        >julio@gmail.com</span
+                      ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-chevron-down size-3.5"
+                        style="
+                          color: rgb(255, 255, 255);
+                          transform: none;
+                          transition: transform 0.15s;
+                        "
+                      >
+                        <path d="m6 9 6 6 6-6"></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </header>
+              <main class="container mx-auto px-4 py-8">
+                <button
+                  class="flex items-center gap-2 mb-6 transition-colors duration-150"
+                  style="
+                    background: none;
+                    border-width: medium;
+                    border-style: none;
+                    border-color: currentcolor;
+                    border-image: none;
+                    cursor: pointer;
+                    color: rgb(140, 140, 140);
+                    font-family: Roboto, sans-serif;
+                    font-size: 0.875rem;
+                    padding: 0px;
+                  "
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-arrow-left size-4"
+                  >
+                    <path d="m12 19-7-7 7-7"></path>
+                    <path d="M19 12H5"></path></svg
+                  >Volver a la búsqueda
+                </button>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                  <div
+                    class="lg:col-span-2 space-y-5"
+                    style="opacity: 1; transform: none"
+                  >
+                    <div
+                      class="rounded-2xl overflow-hidden relative h-80"
+                      style="background: rgb(0, 0, 48)"
+                    >
+                      <img
+                        src="https://images.unsplash.com/photo-1622163642998-1ea32b0bbc67?w=800&amp;q=80"
+                        alt="Tenis Recoleta"
+                        class="w-full h-full object-cover"
+                      />
+                      <div
+                        class="absolute inset-0"
+                        style="
+                          background: linear-gradient(
+                            to top,
+                            rgba(0, 0, 26, 0.9) 0%,
+                            transparent 60%
+                          );
+                        "
+                      ></div>
+                      <div class="absolute bottom-5 left-5 right-5">
+                        <div
+                          class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm mb-2"
+                          style="
+                            background: rgba(0, 0, 26, 0.75);
+                            border: 1px solid rgba(255, 140, 74, 0.376);
+                            color: rgb(255, 140, 74);
+                            font-family: Roboto, sans-serif;
+                          "
+                        >
+                          🎾 Tenis
+                        </div>
+                        <h1
+                          class="text-white"
+                          style="
+                            font-family: Jura, sans-serif;
+                            font-size: 2rem;
+                            font-weight: 700;
+                            line-height: 1.1;
+                          "
+                        >
+                          Tenis Recoleta
+                        </h1>
+                      </div>
+                    </div>
+                    <div
+                      class="grid grid-cols-3 rounded-2xl overflow-hidden"
+                      style="border: 1px solid rgb(56, 56, 56)"
+                    >
+                      <div
+                        class="flex flex-col items-center justify-center py-4 px-2 text-center"
+                        style="
+                          background: rgba(0, 0, 26, 0.6);
+                          border-right: 1px solid rgb(56, 56, 56);
+                        "
+                      >
+                        <div class="mb-1">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="lucide lucide-map-pin size-4"
+                            style="color: rgb(140, 140, 140)"
+                          >
+                            <path
+                              d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
+                            ></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                          </svg>
+                        </div>
+                        <p
+                          class="text-xs mb-0.5"
+                          style="
+                            font-family: Roboto, sans-serif;
+                            color: rgb(140, 140, 140);
+                          "
+                        >
+                          Ubicación
+                        </p>
+                        <p
+                          style="
+                            font-family: Jura, sans-serif;
+                            font-size: 1rem;
+                            font-weight: 700;
+                            color: rgb(255, 255, 255);
+                          "
+                        >
+                          Recoleta
+                        </p>
+                      </div>
+                      <div
+                        class="flex flex-col items-center justify-center py-4 px-2 text-center"
+                        style="
+                          background: rgba(0, 0, 26, 0.6);
+                          border-right: 1px solid rgb(56, 56, 56);
+                        "
+                      >
+                        <div class="mb-1">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="lucide lucide-star size-4 fill-yellow-400 text-yellow-400"
+                          >
+                            <path
+                              d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"
+                            ></path>
+                          </svg>
+                        </div>
+                        <p
+                          class="text-xs mb-0.5"
+                          style="
+                            font-family: Roboto, sans-serif;
+                            color: rgb(140, 140, 140);
+                          "
+                        >
+                          Calificación
+                        </p>
+                        <p
+                          style="
+                            font-family: Jura, sans-serif;
+                            font-size: 1rem;
+                            font-weight: 700;
+                            color: rgb(255, 255, 255);
+                          "
+                        >
+                          4.9 / 5.0
+                        </p>
+                      </div>
+                      <div
+                        class="flex flex-col items-center justify-center py-4 px-2 text-center"
+                        style="
+                          background: rgba(0, 0, 26, 0.6);
+                          border-right-width: medium;
+                          border-right-style: none;
+                          border-right-color: currentcolor;
+                        "
+                      >
+                        <div class="mb-1">
+                          <span
+                            style="
+                              font-family: Roboto, sans-serif;
+                              color: rgb(255, 90, 0);
+                            "
+                            >$</span
+                          >
+                        </div>
+                        <p
+                          class="text-xs mb-0.5"
+                          style="
+                            font-family: Roboto, sans-serif;
+                            color: rgb(140, 140, 140);
+                          "
+                        >
+                          Precio/hora
+                        </p>
+                        <p
+                          style="
+                            font-family: Jura, sans-serif;
+                            font-size: 1rem;
+                            font-weight: 700;
+                            color: rgb(255, 90, 0);
+                          "
+                        >
+                          $15.000
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="p-5 rounded-2xl"
+                      style="
+                        background: rgba(0, 0, 26, 0.6);
+                        border: 1px solid rgb(56, 56, 56);
+                      "
+                    >
+                      <h3
+                        class="text-white mb-4"
+                        style="
+                          font-family: Jura, sans-serif;
+                          font-size: 1.15rem;
+                          font-weight: 700;
+                        "
+                      >
+                        INSTALACIONES
+                      </h3>
+                      <div class="flex flex-wrap gap-2">
+                        <div
+                          class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm"
+                          style="
+                            background: rgba(255, 90, 0, 0.1);
+                            border: 1px solid rgba(255, 90, 0, 0.3);
+                            color: rgb(255, 90, 0);
+                            font-family: Roboto, sans-serif;
+                          "
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="lucide lucide-circle-check size-3.5"
+                          >
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="m9 12 2 2 4-4"></path></svg
+                          >Vestuarios
+                        </div>
+                        <div
+                          class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm"
+                          style="
+                            background: rgba(255, 90, 0, 0.1);
+                            border: 1px solid rgba(255, 90, 0, 0.3);
+                            color: rgb(255, 90, 0);
+                            font-family: Roboto, sans-serif;
+                          "
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="lucide lucide-circle-check size-3.5"
+                          >
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="m9 12 2 2 4-4"></path></svg
+                          >Quincho
+                        </div>
+                        <div
+                          class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm"
+                          style="
+                            background: rgba(255, 90, 0, 0.1);
+                            border: 1px solid rgba(255, 90, 0, 0.3);
+                            color: rgb(255, 90, 0);
+                            font-family: Roboto, sans-serif;
+                          "
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="lucide lucide-circle-check size-3.5"
+                          >
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="m9 12 2 2 4-4"></path></svg
+                          >WiFi
+                        </div>
+                        <div
+                          class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm"
+                          style="
+                            background: rgba(255, 90, 0, 0.1);
+                            border: 1px solid rgba(255, 90, 0, 0.3);
+                            color: rgb(255, 90, 0);
+                            font-family: Roboto, sans-serif;
+                          "
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="lucide lucide-circle-check size-3.5"
+                          >
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="m9 12 2 2 4-4"></path></svg
+                          >Cancha cubierta
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="opacity: 1; transform: none">
+                    <div
+                      class="rounded-2xl p-5 sticky top-20"
+                      style="
+                        background: rgba(0, 0, 26, 0.61);
+                        border: 1px solid rgb(56, 56, 56);
+                      "
+                    >
+                      <div class="flex items-center gap-2 mb-5">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="lucide lucide-calendar size-5"
+                          style="color: rgb(255, 90, 0)"
+                        >
+                          <path d="M8 2v4"></path>
+                          <path d="M16 2v4"></path>
+                          <rect
+                            width="18"
+                            height="18"
+                            x="3"
+                            y="4"
+                            rx="2"
+                          ></rect>
+                          <path d="M3 10h18"></path>
+                        </svg>
+                        <h3
+                          class="text-white"
+                          style="
+                            font-family: Jura, sans-serif;
+                            font-size: 1.15rem;
+                            font-weight: 700;
+                          "
+                        >
+                          RESERVAR CANCHA
+                        </h3>
+                      </div>
+                      <div class="mb-5">
+                        <label
+                          class="block text-xs mb-2"
+                          style="
+                            font-family: Roboto, sans-serif;
+                            color: rgb(140, 140, 140);
+                          "
+                          >Fecha</label
+                        ><input
+                          type="date"
+                          min="2026-07-21"
+                          class="w-full px-4 py-2.5 rounded-xl outline-none"
+                          value="2026-07-21"
+                          style="
+                            background: rgb(255, 255, 255);
+                            border: 1px solid rgb(217, 217, 217);
+                            color: rgb(0, 0, 0);
+                            font-family: Roboto, sans-serif;
+                            font-size: 0.875rem;
+                            color-scheme: light;
+                          "
+                        />
+                      </div>
+                      <div class="mb-5">
+                        <div class="flex items-center gap-1.5 mb-3">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="lucide lucide-clock size-4"
+                            style="color: rgb(140, 140, 140)"
+                          >
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline></svg
+                          ><label
+                            class="text-xs"
+                            style="
+                              font-family: Roboto, sans-serif;
+                              color: rgb(140, 140, 140);
+                            "
+                            >Horarios disponibles</label
+                          >
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                          <button
+                            class="py-2.5 rounded-xl text-sm transition-all duration-150"
+                            style="
+                              background: rgba(255, 255, 255, 0.05);
+                              border: 1px solid rgb(56, 56, 56);
+                              color: rgb(255, 255, 255);
+                              font-family: Roboto, sans-serif;
+                              font-weight: 400;
+                              cursor: pointer;
+                              text-decoration: none;
+                            "
+                          >
+                            08:00</button
+                          ><button
+                            class="py-2.5 rounded-xl text-sm transition-all duration-150"
+                            style="
+                              background: rgba(255, 255, 255, 0.05);
+                              border: 1px solid rgb(56, 56, 56);
+                              color: rgb(255, 255, 255);
+                              font-family: Roboto, sans-serif;
+                              font-weight: 400;
+                              cursor: pointer;
+                              text-decoration: none;
+                            "
+                          >
+                            10:00</button
+                          ><button
+                            class="py-2.5 rounded-xl text-sm transition-all duration-150"
+                            style="
+                              background: rgba(255, 255, 255, 0.05);
+                              border: 1px solid rgb(56, 56, 56);
+                              color: rgb(255, 255, 255);
+                              font-family: Roboto, sans-serif;
+                              font-weight: 400;
+                              cursor: pointer;
+                              text-decoration: none;
+                            "
+                          >
+                            12:00</button
+                          ><button
+                            class="py-2.5 rounded-xl text-sm transition-all duration-150"
+                            style="
+                              background: rgba(255, 255, 255, 0.02);
+                              border: 1px solid rgb(26, 26, 26);
+                              color: rgb(56, 56, 56);
+                              font-family: Roboto, sans-serif;
+                              font-weight: 400;
+                              cursor: not-allowed;
+                              text-decoration: line-through;
+                            "
+                            disabled=""
+                          >
+                            15:00 ✓</button
+                          ><button
+                            class="py-2.5 rounded-xl text-sm transition-all duration-150"
+                            style="
+                              background: linear-gradient(
+                                to right,
+                                rgba(255, 90, 0, 0.8),
+                                rgba(0, 0, 26, 0.71)
+                              );
+                              border-width: medium;
+                              border-style: none;
+                              border-color: currentcolor;
+                              border-image: none;
+                              color: rgb(255, 255, 255);
+                              font-family: Roboto, sans-serif;
+                              font-weight: 600;
+                              cursor: pointer;
+                              text-decoration: none;
+                            "
+                          >
+                            17:00</button
+                          ><button
+                            class="py-2.5 rounded-xl text-sm transition-all duration-150"
+                            style="
+                              background: rgba(255, 255, 255, 0.05);
+                              border: 1px solid rgb(56, 56, 56);
+                              color: rgb(255, 255, 255);
+                              font-family: Roboto, sans-serif;
+                              font-weight: 400;
+                              cursor: pointer;
+                              text-decoration: none;
+                            "
+                          >
+                            19:00
+                          </button>
+                        </div>
+                      </div>
+                      <div
+                        class="mb-4 p-4 rounded-xl overflow-hidden"
+                        style="
+                          background: rgba(255, 90, 0, 0.1);
+                          border: 1px solid rgba(255, 90, 0, 0.3);
+                          opacity: 1;
+                          height: auto;
+                        "
+                      >
+                        <p
+                          class="text-xs mb-2"
+                          style="
+                            font-family: Roboto, sans-serif;
+                            color: rgb(255, 90, 0);
+                            font-weight: 600;
+                          "
+                        >
+                          RESUMEN DE RESERVA
+                        </p>
+                        <div
+                          class="space-y-1 text-sm text-white"
+                          style="font-family: Roboto, sans-serif"
+                        >
+                          <p>
+                            <span style="color: rgb(140, 140, 140)"
+                              >Fecha:</span
+                            >
+                            martes, 21 de julio
+                          </p>
+                          <p>
+                            <span style="color: rgb(140, 140, 140)"
+                              >Horario:</span
+                            >
+                            17:00
+                          </p>
+                          <p>
+                            <span style="color: rgb(140, 140, 140)"
+                              >Total:</span
+                            >
+                            <span
+                              style="color: rgb(255, 90, 0); font-weight: 600"
+                              >$15.000</span
+                            >
+                          </p>
+                        </div>
+                      </div>
+                      <button
+                        class="w-full py-3.5 rounded-[18px] flex items-center justify-center gap-2 transition-all duration-150"
+                        style="
+                          background: rgb(34, 197, 94);
+                          color: rgb(255, 255, 255);
+                          font-family: Raleway, sans-serif;
+                          font-size: 1.1rem;
+                          font-weight: 700;
+                          border-width: medium;
+                          border-style: none;
+                          border-color: currentcolor;
+                          border-image: none;
+                          cursor: pointer;
+                          opacity: 1;
+                          box-shadow: rgba(34, 197, 94, 0.35) 0px 4px 20px;
+                        "
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="lucide lucide-calendar-check size-5"
+                        >
+                          <path d="M8 2v4"></path>
+                          <path d="M16 2v4"></path>
+                          <rect
+                            width="18"
+                            height="18"
+                            x="3"
+                            y="4"
+                            rx="2"
+                          ></rect>
+                          <path d="M3 10h18"></path>
+                          <path d="m9 16 2 2 4-4"></path></svg
+                        >CONFIRMAR RESERVA</button
+                      ><button
+                        class="w-full py-2.5 rounded-[18px] flex items-center justify-center gap-1.5 text-sm mt-2 transition-opacity hover:opacity-80"
+                        style="
+                          background: rgba(34, 197, 94, 0.08);
+                          border: 1px solid rgba(34, 197, 94, 0.25);
+                          color: rgb(74, 222, 128);
+                          font-family: Roboto, sans-serif;
+                          cursor: pointer;
+                        "
+                      >
+                        Ver todas mis reservas →
+                      </button>
+                      <p
+                        class="text-center mt-3 text-xs"
+                        style="
+                          font-family: Roboto, sans-serif;
+                          color: rgb(140, 140, 140);
+                        "
+                      >
+                        Al confirmar aceptás los términos y condiciones
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </main>
+              <footer
+                style="
+                  background: rgb(0, 0, 26);
+                  border-top: 1px solid rgb(26, 26, 58);
+                  margin-top: 48px;
+                "
+              >
+                <div class="container mx-auto px-8 py-10">
+                  <div class="flex flex-wrap gap-10 justify-between mb-8">
+                    <div>
+                      <p
+                        style="
+                          font-family: Jura, sans-serif;
+                          font-weight: 700;
+                          font-size: 32px;
+                          color: rgb(255, 90, 0);
+                        "
+                      >
+                        SportConnect
+                      </p>
+                      <p
+                        style="
+                          font-family: Roboto, sans-serif;
+                          font-weight: 400;
+                          font-size: 16px;
+                          color: rgb(255, 255, 255);
+                          margin-top: 8px;
+                        "
+                      >
+                        Reservá canchas deportivas de forma rápida y sencilla.
+                      </p>
+                    </div>
+                    <div>
+                      <p
+                        style="
+                          font-family: Jura, sans-serif;
+                          font-weight: 700;
+                          font-size: 24px;
+                          color: rgb(255, 255, 255);
+                          margin-bottom: 8px;
+                        "
+                      >
+                        Enlaces
+                      </p>
+                      <p
+                        style="
+                          font-family: Roboto, sans-serif;
+                          font-size: 16px;
+                          color: rgb(255, 255, 255);
+                        "
+                      >
+                        Inicio
+                      </p>
+                      <p
+                        style="
+                          font-family: Roboto, sans-serif;
+                          font-size: 16px;
+                          color: rgb(255, 255, 255);
+                          margin-top: 6px;
+                        "
+                      >
+                        Reservas
+                      </p>
+                    </div>
+                    <div>
+                      <p
+                        style="
+                          font-family: Jura, sans-serif;
+                          font-weight: 700;
+                          font-size: 24px;
+                          color: rgb(255, 255, 255);
+                          margin-bottom: 8px;
+                        "
+                      >
+                        Contacto
+                      </p>
+                      <p
+                        style="
+                          font-family: Roboto, sans-serif;
+                          font-size: 16px;
+                          color: rgb(255, 255, 255);
+                        "
+                      >
+                        SportConect@gmail.com
+                      </p>
+                      <p
+                        style="
+                          font-family: Roboto, sans-serif;
+                          font-size: 16px;
+                          color: rgb(255, 255, 255);
+                          margin-top: 6px;
+                        "
+                      >
+                        11-2233-4455
+                      </p>
+                    </div>
+                  </div>
+                  <p
+                    class="text-center"
+                    style="
+                      font-family: Roboto, sans-serif;
+                      font-size: 14px;
+                      color: rgb(255, 255, 255);
+                    "
+                  >
+                    2026. SportConnect. Todos los derechos reservados.
+                  </p>
+                </div>
+              </footer>
+            </div>
+          </div>
+          <section
+            aria-label="Notifications alt+T"
+            tabindex="-1"
+            aria-live="polite"
+            aria-relevant="additions text"
+            aria-atomic="false"
+          ></section>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
