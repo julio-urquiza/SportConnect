@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext.jsx"
+import { ArrowLeft, Users } from "lucide-react";
 
 const schema = yup.object({
   correo: yup
@@ -13,88 +14,158 @@ const schema = yup.object({
   contrasenia: yup
     .string()
     .required("La contraseña es obligatoria")
-    .min(8, "Debe tener al menos 8 caracteres")
+    .min(8, "Debe tener al menos 8 caracteres"),
+  confirmarContrasenia: yup
+    .string()
+    .required("Debes confirmar la contraseña")
+    .oneOf(
+      [yup.ref("contrasenia")],
+      "Las contraseñas deben coincidir"
+    ),
 }).required()
 
-function FormLogin() {
-  const { loginRequest, loading, error } = useContext(AuthContext)
+function FormLogin({ onclickBack, role}) {
+  const [mode, setMode] = useState("login")
+  const { loginRequest, registerRequest, loading, error } = useContext(AuthContext)
   const navigate = useNavigate()
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
   })
 
   const onSubmit = async (data) => {
-    const retorno = await loginRequest(data.correo, data.contrasenia)
+    let retorno = null
+    if(mode == 'login') {
+      retorno = await loginRequest(data.correo, data.contrasenia)
+    }
+    if(mode == 'register') {
+      retorno = await registerRequest(data.correo, data.contrasenia, role.current)
+    }
     if (retorno) navigate('/')
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md"
-    >
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
-        Iniciar Sesión
-      </h2>
+    <div className="relative w-full max-w-sm rounded-3xl border border-[#383838] bg-[#00001a]/70 p-6 pt-7">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3 " >
+        {/* Header */}
+        <div className="mb-1 flex items-center gap-2">
+          <button
+            type="button"
+            className="flex items-center p-0 text-neutral-500"
+            onClick={onclickBack}
+          >
+            <ArrowLeft className="size-4" />
+          </button>
 
-      {/* Correo */}
-      <div className="mb-4">
-        <label className="block text-gray-700 mb-2">
-          Correo electrónico
-        </label>
+          <div className="flex items-center gap-2">
+            <div className="flex size-6 items-center justify-center rounded-lg bg-[#ff5a00]/15">
+              <Users className="size-3.5 text-[#ff5a00]" />
+            </div>
 
-        <input
-          type="email"  
-          {...register("correo")}
-          placeholder="ejemplo@email.com"
-          className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
-        />
+            <p className="font-jura text-xl font-bold text-white">
+              {mode == "login"
+                ? "Iniciar sesión"
+                : "Registrarse"}
+            </p>
+          </div>
+        </div>
 
-        <p className="text-red-500 text-sm mt-1">
-          {errors.correo?.message}
-        </p>
-      </div>
+        {/* Tabs */}
+        <div className="mb-1 flex rounded-xl bg-white/5 p-1">
+          <button
+            type="button"
+            className={`flex-1 rounded-lg py-2 text-sm text-white transition-all ${mode == "login" && "bg-linear-to-r from-[#ff5a00]/80 to-[#00001a]/70 font-semibold"}`}
+            onClick={() => { setMode("login") }}
+          >
+            Iniciar sesión
+          </button>
 
-      {/* Contraseña */}
-      <div className="mb-6">
-        <label className="block text-gray-700 mb-2">
-          Contraseña
-        </label>
+          <button
+            type="button"
+            className={`flex-1 rounded-lg py-2 text-sm text-white transition-all ${mode == "register" && "bg-linear-to-r from-[#ff5a00]/80 to-[#00001a]/70 font-semibold"}`}
+            onClick={() => { setMode("register") }}
+          >
+            Registrarme
+          </button>
+        </div>
 
-        <input
-          type="password"
-          {...register("contrasenia")}
-          placeholder="********"
-          className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
-        />
+        {/* Email */}
+        <div className="flex flex-col gap-1.5">
+          <label className="text-sm font-semibold text-white">
+            Email
+          </label>
 
-        <p className="text-red-500 text-sm mt-1">
-          {errors.contrasenia?.message}
-        </p>
-      </div>
+          <div className="relative w-full rounded-lg border border-gray-300 bg-white">
+            <input
+              type="email"
+              {...register("correo")}
+              placeholder="ejemplo@email.com"
+              className="w-full rounded-lg bg-transparent px-3 py-2.5 text-sm text-black outline-none"
+            />
+          </div>
 
-      {/* Botón */}
-      <button
-        type="submit"
-        className="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition"
-      >
-        {loading ? "Ingresando..." : "Ingresar"}
-      </button>
+          {errors && (<p className="text-red-500 text-sm mt-1">{errors.correo?.message}</p>)}
 
-      {error
-        ?<p className="text-center text-red-500 mt-4"> El correo o contraseña no es válido</p>
-        :null}
+        </div>
 
-      <p className="text-center text-gray-600 mt-4">
-        ¿No tenés cuenta?{" "}
-        <Link
-          to="/register"
-          className="text-green-500 cursor-pointer hover:underline">
-          Registrate
-        </Link>
-      </p>
-    </form>
+        {/* Password */}
+        <div className="flex flex-col gap-1.5">
+          <label className="text-sm font-semibold text-white">
+            Contraseña
+          </label>
 
-  );
+          <div className="relative w-full rounded-lg border border-gray-300 bg-white">
+            <input
+              {...register("contrasenia")}
+              placeholder="********"
+              className="w-full rounded-lg bg-transparent px-3 py-2.5 text-sm text-black outline-none"
+            />
+          </div>
+
+          {errors && (<p className="text-red-500 text-sm mt-1">{errors.contrasenia?.message}</p>)}
+
+        </div>
+
+        {/* Confirm Password */}
+        {mode == "register" && (
+          <div className="flex flex-col gap-1.5">
+            <label className="text-sm font-semibold text-white">
+              Confirmar Contraseña
+            </label>
+
+            <div className="relative w-full rounded-lg border border-gray-300 bg-white">
+              <input
+                {...register("confirmarContrasenia")}
+                placeholder="********"
+                className="w-full rounded-lg bg-transparent px-3 py-2.5 text-sm text-black outline-none"
+              />
+            </div>
+
+            {errors && (<p className="text-red-500 text-sm mt-1">{errors.confirmarContrasenia?.message}</p>)}
+
+          </div>
+        )}
+
+        {/* Submit */}
+        <button
+          type="submit"
+          className="flex h-11 w-full items-center justify-center rounded-[14px] bg-linear-to-r from-[#ff5a00]/85 to-[#00001a]/80 transition-opacity hover:opacity-90"
+        >
+          <span className="font-bold text-white">
+            {mode == "login" 
+              ? loading 
+                ? "Ingresando..." 
+                : "Ingresar" 
+              : null}
+            {mode == "register" 
+              ? loading 
+                ? "Registrando..." 
+                : "Registrar"
+              : null}
+          </span>
+        </button>
+        {error && (<p className="text-center text-red-500 mt-4"> El correo o contraseña no es válido</p>)}
+      </form>
+    </div>
+  )
 }
 export default FormLogin
