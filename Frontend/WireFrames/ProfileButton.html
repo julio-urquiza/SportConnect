@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="relative">
+      <button
+        class="h-10 px-4 rounded-[14px] flex items-center gap-2 transition-opacity hover:opacity-90"
+        style="
+          background: linear-gradient(
+            to right,
+            rgb(255, 90, 0),
+            rgba(0, 0, 26, 0.95)
+          );
+          border-width: medium;
+          border-style: none;
+          border-color: currentcolor;
+          border-image: none;
+          cursor: pointer;
+        "
+      >
+        <span
+          style="
+            font-family: Jura, sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            color: rgb(255, 255, 255);
+            white-space: nowrap;
+          "
+          >julio@gamil.com</span
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-chevron-down size-3.5"
+          style="
+            color: rgb(255, 255, 255);
+            transform: rotate(180deg);
+            transition: transform 0.15s;
+          "
+        >
+          <path d="m6 9 6 6 6-6"></path>
+        </svg>
+      </button>
+      <div
+        class="absolute right-0 mt-2 w-52 rounded-2xl overflow-hidden"
+        style="
+          background: rgb(0, 0, 48);
+          border: 1px solid rgb(56, 56, 56);
+          box-shadow: rgba(0, 0, 0, 0.6) 0px 16px 40px;
+        "
+      >
+        <div class="px-4 py-3" style="border-bottom: 1px solid rgb(56, 56, 56)">
+          <p
+            style="
+              font-family: Roboto, sans-serif;
+              font-size: 12px;
+              color: rgb(140, 140, 140);
+            "
+          >
+            Sesión iniciada como
+          </p>
+          <p
+            class="truncate"
+            style="
+              font-family: Roboto, sans-serif;
+              font-size: 14px;
+              color: rgb(255, 255, 255);
+              font-weight: 500;
+            "
+          >
+            julio@gamil.com
+          </p>
+        </div>
+        <button
+          class="w-full flex items-center gap-2 px-4 py-3"
+          style="
+            background: none;
+            border-width: medium;
+            border-style: none;
+            border-color: currentcolor;
+            border-image: none;
+            cursor: pointer;
+            color: rgb(255, 255, 255);
+            font-family: Roboto, sans-serif;
+            font-size: 14px;
+            text-align: left;
+          "
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-calendar-check size-4"
+          >
+            <path d="M8 2v4"></path>
+            <path d="M16 2v4"></path>
+            <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+            <path d="M3 10h18"></path>
+            <path d="m9 16 2 2 4-4"></path>
+          </svg>
+          Mis Reservas
+        </button>
+        <button
+          class="w-full flex items-center gap-2 px-4 py-3"
+          style="
+            background: none;
+            border-width: medium;
+            border-style: none;
+            border-color: currentcolor;
+            border-image: none;
+            cursor: pointer;
+            color: rgb(248, 81, 73);
+            font-family: Roboto, sans-serif;
+            font-size: 14px;
+            text-align: left;
+          "
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-log-out size-4"
+          >
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" x2="9" y1="12" y2="12"></line>
+          </svg>
+          Cerrar sesión
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
