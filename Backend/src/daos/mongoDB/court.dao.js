@@ -6,24 +6,9 @@ class CourtDao extends MongoDao {
         super(model)
     }
 
-    async getByUbicacion(ubicacion){
-        return await this.model.find({ ubicacion: { $regex: `^${ubicacion}$`, $options: "i" } })
-    }
-
-    async getByDeporte(deporte){
-        return await this.model.find({deporte})
-    }
-
-    async getByHorario(hora, dia){
-    return await this.model.find({
-        horariosDisponibles: {
-            $elemMatch: {
-                dia,
-                inicio: { $lte: hora },
-                fin: { $gte: hora }
-            }
-        }
-    });
+    async getAllCourts(query, limit = {}, skip = {}) {
+        const courts = await this.model.find(query).limit(limit).skip(skip);
+        return courts;
     }
 
 }

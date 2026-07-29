@@ -14,17 +14,24 @@ const schema = yup.object({
     .string()
     .required("La contraseña es obligatoria")
     .min(8, "Debe tener al menos 8 caracteres"),
+  confirmarContrasenia: yup
+    .string()
+    .required("Debes confirmar la contraseña")
+    .oneOf(
+      [yup.ref("contrasenia")],
+      "Las contraseñas deben coincidir"
+    ),
 }).required()
 
-function FormLogin() {
-  const { loginRequest, loading, error } = useContext(AuthContext)
+function FormRegister({ role }) {
+  const { registerRequest, loading, error } = useContext(AuthContext)
   const navigate = useNavigate()
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
   })
 
   const onSubmit = async (data) => {
-    const retorno = await loginRequest(data.correo, data.contrasenia)
+    const retorno = await registerRequest(data.correo, data.contrasenia, role.current)
     if (retorno) navigate('/')
   }
 
@@ -69,6 +76,26 @@ function FormLogin() {
 
       </div>
 
+      {/* Confirm Password */}
+      <div className="flex flex-col gap-1.5">
+        <label className="text-sm font-semibold text-white">
+          Confirmar Contraseña
+        </label>
+
+        <div className="relative w-full rounded-lg border border-gray-300 bg-white">
+          <input
+            type="password"
+            {...register("confirmarContrasenia")}
+            placeholder="********"
+            className="w-full rounded-lg bg-transparent px-3 py-2.5 text-sm text-black outline-none"
+          />
+        </div>
+
+        {errors && (<p className="text-red-500 text-sm mt-1">{errors.confirmarContrasenia?.message}</p>)}
+
+      </div>
+
+
       {/* Submit */}
       <button
         type="submit"
@@ -76,12 +103,12 @@ function FormLogin() {
       >
         <span className="font-bold text-white">
           {loading
-            ? "Ingresando..."
-            : "Ingresar"}
+            ? "Registrando..."
+            : "Registrar"}
         </span>
       </button>
       {error && (<p className="text-center text-red-500 mt-4"> El correo o contraseña no es válido</p>)}
     </form>
   )
 }
-export default FormLogin
+export default FormRegister

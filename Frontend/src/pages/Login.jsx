@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import FormLogin from "../components/FormLogin.jsx"
+import ContainerForm from "../components/ContainerForm.jsx"
 import RoleCard from "../components/RoleCard.jsx"
 import { Users, Building2 } from "lucide-react";
 
@@ -72,7 +72,7 @@ function Login() {
                             </div>
                         </div>
                     )
-                    : (<FormLogin onclickBack={()=>{setModal(true)}} role={userType}/>)
+                    : (<ContainerForm onclickBack={()=>{setModal(true)}} role={userType}/>)
                 }
 
             </div>
