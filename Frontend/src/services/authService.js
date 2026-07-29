@@ -1,4 +1,4 @@
-const request = async (endpoint, { method = "POST", body ,credentials=undefined } = {}) => {
+const request = async (endpoint, { method = "POST", body } = {}) => {
   const headers = {
     "Content-Type": "application/json",
   }
