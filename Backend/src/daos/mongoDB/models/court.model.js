@@ -12,7 +12,6 @@ const canchaSchema = new mongoose.Schema({
     enum: ["futbol", "padel", "tenis", "basquet"]
   },
 
-  
   descripcion: {
     type: String
   },

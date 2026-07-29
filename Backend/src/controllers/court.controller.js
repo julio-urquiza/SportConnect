@@ -6,45 +6,20 @@ class CourtController {
         this.service = service;
     }
     getCourts = async (req, res) => {
-        const courts = await this.service.getCourts()
+        const courts = await this.service.getCourts(req.query)
         res.status(200).json({ courts })
-    }
-
-    filtrarPorUbicacion = async(req,res) =>{
-        const ubicacion=req.query.ubicacion
-        const canchas= await this.service.filtrarPorUbicacion(ubicacion)
-        res.status(200).json({
-           canchas
-        })
-    }
-
-    filtrarPorDeporte = async(req,res) =>{
-        const deporte= req.query.deporte
-
-        const canchas= await this.service.filtrarPorDeporte(deporte)
-        res.status(200).json({
-            canchas
-        })
-    }
-
-    filtrarPorHorario = async(req,res) =>{
-        const fecha= req.query.fecha
-        const hora= req.query.hora
-        
-        const canchas= await this.service.filtrarPorHorario(hora,fecha)
-
-        res.status(200).json({
-            canchas
-        })
     }
     
     getById = async (req, res) => {
         const { id } = req.params; 
         const court = await this.service.getCourtById(id);
-        res.status(200).json({ 
-            message: "Cancha obtenida con éxito", 
-            court 
-        });
+        res.status(200).json({ message: "Cancha obtenida con éxito", court });
+    }
+
+    updateById = async (req, res) => {
+        const { id } = req.params; 
+        const court = await this.service.updateCourtById(id, req.body);
+        res.status(200).json({ message: "Cancha obtenida con éxito", court });
     }
 
     create = async (req, res) => {

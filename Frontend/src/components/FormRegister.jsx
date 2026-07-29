@@ -1,8 +1,8 @@
-import { useContext } from "react"
 import { useForm } from "react-hook-form";
+import { useContext } from "react"
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext.jsx"
 
 const schema = yup.object({
@@ -10,12 +10,10 @@ const schema = yup.object({
     .string()
     .email("El correo electrónico no es válido")
     .required("El correo electrónico es obligatorio"),
-
   contrasenia: yup
     .string()
     .required("La contraseña es obligatoria")
     .min(8, "Debe tener al menos 8 caracteres"),
-
   confirmarContrasenia: yup
     .string()
     .required("Debes confirmar la contraseña")
@@ -23,110 +21,94 @@ const schema = yup.object({
       [yup.ref("contrasenia")],
       "Las contraseñas deben coincidir"
     ),
-});
+}).required()
 
-function FormRegister() {
+function FormRegister({ role }) {
   const { registerRequest, loading, error } = useContext(AuthContext)
   const navigate = useNavigate()
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
   })
 
   const onSubmit = async (data) => {
-    const retorno = await registerRequest(data.correo, data.contrasenia, 'user')
+    const retorno = await registerRequest(data.correo, data.contrasenia, role.current)
     if (retorno) navigate('/')
-  };
+  }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md"
-    >
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
-        Crear Cuenta
-      </h2>
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3 " >
 
-      {/* Correo */}
-      <div className="mb-4">
-        <label className="block text-gray-700 mb-2">
-          Correo electrónico
+      {/* Email */}
+      <div className="flex flex-col gap-1.5">
+        <label className="text-sm font-semibold text-white">
+          Email
         </label>
 
-        <input
-          type="email"
-          {...register("correo")}
-          placeholder="ejemplo@email.com"
-          className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
-        />
+        <div className="relative w-full rounded-lg border border-gray-300 bg-white">
+          <input
+            type="email"
+            {...register("correo")}
+            placeholder="ejemplo@email.com"
+            className="w-full rounded-lg bg-transparent px-3 py-2.5 text-sm text-black outline-none"
+          />
+        </div>
 
-        <p className="text-red-500 text-sm mt-1">
-          {errors.correo?.message}
-        </p>
+        {errors && (<p className="text-red-500 text-sm mt-1">{errors.correo?.message}</p>)}
+
       </div>
 
-      {/* Contraseña */}
-      <div className="mb-4">
-        <label className="block text-gray-700 mb-2">
+      {/* Password */}
+      <div className="flex flex-col gap-1.5">
+        <label className="text-sm font-semibold text-white">
           Contraseña
         </label>
 
-        <input
-          type="password"
-          {...register("contrasenia")}
-          placeholder="********"
-          className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
-        />
+        <div className="relative w-full rounded-lg border border-gray-300 bg-white">
+          <input
+            type="password"
+            {...register("contrasenia")}
+            placeholder="********"
+            className="w-full rounded-lg bg-transparent px-3 py-2.5 text-sm text-black outline-none"
+          />
+        </div>
 
-        <p className="text-red-500 text-sm mt-1">
-          {errors.contrasenia?.message}
-        </p>
+        {errors && (<p className="text-red-500 text-sm mt-1">{errors.contrasenia?.message}</p>)}
+
       </div>
 
-      {/* Confirmar contraseña */}
-      <div className="mb-6">
-        <label className="block text-gray-700 mb-2">
-          Confirmar contraseña
+      {/* Confirm Password */}
+      <div className="flex flex-col gap-1.5">
+        <label className="text-sm font-semibold text-white">
+          Confirmar Contraseña
         </label>
 
-        <input
-          type="password"
-          {...register("confirmarContrasenia")}
-          placeholder="********"
-          className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
-        />
+        <div className="relative w-full rounded-lg border border-gray-300 bg-white">
+          <input
+            type="password"
+            {...register("confirmarContrasenia")}
+            placeholder="********"
+            className="w-full rounded-lg bg-transparent px-3 py-2.5 text-sm text-black outline-none"
+          />
+        </div>
 
-        <p className="text-red-500 text-sm mt-1">
-          {errors.confirmarContrasenia?.message}
-        </p>
+        {errors && (<p className="text-red-500 text-sm mt-1">{errors.confirmarContrasenia?.message}</p>)}
+
       </div>
 
-      {/* Botón */}
+
+      {/* Submit */}
       <button
         type="submit"
-        className="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition"
+        className="flex h-11 w-full items-center justify-center rounded-[14px] bg-linear-to-r from-[#ff5a00]/85 to-[#00001a]/80 transition-opacity hover:opacity-90"
       >
-        {loading ? "Registrando..." : "Registrarse"}
+        <span className="font-bold text-white">
+          {loading
+            ? "Registrando..."
+            : "Registrar"}
+        </span>
       </button>
-
-      {error
-        ?<p className="text-center text-red-500 mt-4"> El correo electrónico no es valido</p>
-        :null}  
-
-      <p className="text-center text-gray-600 mt-4">
-        ¿Ya tenés cuenta?{" "}
-        <Link
-          to="/login"
-          className="text-green-500 hover:underline"
-        >
-          Iniciar sesión
-        </Link>
-      </p>
+      {error && (<p className="text-center text-red-500 mt-4"> El correo o contraseña no es válido</p>)}
     </form>
-  );
+  )
 }
-
-export default FormRegister;
+export default FormRegister

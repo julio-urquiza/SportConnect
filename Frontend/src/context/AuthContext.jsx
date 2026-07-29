@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { loginRequest, registerRequest, logoutRequest } from "../services/authService.js";
+import { loginRequest, registerRequest, logoutRequest } from "../services/auth.service.js";
 
 export const AuthContext = createContext();
 
@@ -17,13 +17,14 @@ export function AuthProvider({ children }) {
 
     try {
       const data = await loginRequest({ email, password });
-
+      console.log(data)
       setUser(data.user);
-
-      localStorage.setItem(
-        "user",
-        JSON.stringify(data.user)
-      );
+      if(data){
+        localStorage.setItem(
+          "user",
+          JSON.stringify(data.user)
+        );
+      }
 
       return data.user;
     } catch (err) {
