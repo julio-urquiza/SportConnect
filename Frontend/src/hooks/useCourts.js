@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   getCourtsRequest,
   getCourtByIdRequest,
@@ -6,21 +6,19 @@ import {
   updateCourtRequest,
 } from "../services/courtService";
 
-export function useCourts({ id, filters = {} } = {}) {
+export function useCourts({ id, filters }) {
   const [courts, setCourts] = useState([]);
   const [court, setCourt] = useState(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
-  const cancelled = useRef(false);
 
   const getCourts = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
 
-      const { data } = await getCourtsRequest(filters);
-      if (cancelled.current) return;
+      const data = await getCourtsRequest(filters);
       setCourts(data.courts);
     } catch (err) {
       setError(
@@ -29,15 +27,14 @@ export function useCourts({ id, filters = {} } = {}) {
     } finally {
       setLoading(false);
     }
-  },[filters])
+  }, [filters]);
 
   const getCourtById = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
 
-      const { data } = await getCourtByIdRequest(id);
-      if (cancelled.current) return;
+      const data = await getCourtByIdRequest(id);
       setCourt(data.court);
       return data.court;
     } catch (err) {
@@ -46,7 +43,7 @@ export function useCourts({ id, filters = {} } = {}) {
     } finally {
       setLoading(false);
     }
-  },[id])
+  }, [id]);
 
   const createCourt = async (courtData) => {
     try {
@@ -84,15 +81,40 @@ export function useCourts({ id, filters = {} } = {}) {
   };
 
   useEffect(() => {
-    if (id) {
-      getCourtById();
-    } else {
-      getCourts();
-    }
-    return () => {
-      cancelled.current = true;
+    let cancelled = false;
+
+    const load = async () => {
+      try {
+        const data = id
+          ? await getCourtByIdRequest(id)
+          : await getCourtsRequest(filters);
+
+        if (cancelled) return;
+
+        if (id) {
+          setCourt(data.court);
+        } else {
+          setCourts(data.courts);
+        }
+      } catch (err) {
+        if (!cancelled) {
+          setError(
+            err.response?.data?.message ?? "No se pudieron cargar los datos",
+          );
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
     };
-  }, [getCourtById,getCourts]);
+
+    load();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [id,filters]);
 
   return {
     courts,

@@ -1,7 +1,12 @@
 import { SlidersHorizontal, Search, MapPin } from "lucide-react";
 import CourtCard from "../components/CourtCard";
+import { useCourts } from "../hooks/useCourts.js";
+import { useState } from "react";
 
 function Home() {
+    const [filters] = useState({})
+    const { courts, loading, error } = useCourts({ id: null, filters })
+
     return (
         <main className="min-h-screen bg-[#00001A]">
             <section className="relative overflow-hidden border-b border-[#1A1A3A] px-4 py-16">
@@ -114,11 +119,20 @@ function Home() {
 
                 {/* Grid */}
                 <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+                    {loading && "cargando"}
 
-                {/* reemplazar */}
-                {/* card */}
-                <CourtCard />
-            
+                    {!loading && error && "erorr"}
+
+                    {!loading && !error && !courts.length && (
+                        "no hay canchas"
+                    )}
+
+                    {!loading && !error && courts.length > 0 &&
+                        courts.map((court, index) => (
+                            <CourtCard key={index} cancha={court} />
+                        ))
+                    }
+
                 </div>
             </section>
         </main>

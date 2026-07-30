@@ -1,4 +1,5 @@
 import CourtCard from "./CourtCard.jsx";
+import { useCourts } from "../hooks/useCourts.js";
 
 const cancha = {
   id: 1,
@@ -17,11 +18,12 @@ const cancha = {
 
 
 function CourtGrid() {
+  const {courts} = useCourts()
   return (
     <div className="mx-auto flex flex-wrap justify-center gap-4 p-4">
       {
-        [1,2,3,4].map((_, index) => (
-          <CourtCard key={index} cancha={cancha} />
+        courts.map((court, index) => (
+          <CourtCard key={index} cancha={court} />
         ))
       }
     </div>

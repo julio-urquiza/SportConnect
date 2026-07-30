@@ -7,7 +7,6 @@ const ProfileButton = () => {
     const navigate = useNavigate()
     const { user, logoutRequest } = useContext(AuthContext)
     const [open, setOpen] = useState(false);
-    console.log(user)
     return (
         <div className="relative">
             {/* Botón */}
