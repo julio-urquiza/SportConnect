@@ -11,7 +11,6 @@ import Spinner from "../components/Spinner"
 const CanchaDetalle = () => {
     const { id } = useParams()
     const { court, loading, error } = useCourts({ id })
-    console.log(court)
     return (
         <main className="min-h-screen bg-[rgb(0,0,26)]">
             <section className="container mx-auto px-4 py-8">
@@ -19,6 +18,7 @@ const CanchaDetalle = () => {
                     <ArrowLeft className="h-4 w-4" />
                     Volver a la búsqueda
                 </button>
+                
                 {loading && <Spinner />}
 
                 {!loading && error && "error"}

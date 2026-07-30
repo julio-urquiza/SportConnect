@@ -23,6 +23,16 @@ function Navbar() {
         {
           user && (
             <>
+              
+              <Link
+                className="relative flex items-center gap-2 py-1 text-white transition-opacity hover:opacity-80"
+                to={"/login"}>
+
+                <span className="text-base">
+                  Login
+                </span>
+                {/* <div className="absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-orange-500" /> */}
+              </Link>
               <Link
                 className="relative flex items-center gap-2 py-1 text-white transition-opacity hover:opacity-80"
                 to={"/"}>
