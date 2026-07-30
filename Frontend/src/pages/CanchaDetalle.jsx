@@ -3,8 +3,15 @@ import PortadaCard from "../components/PortadaCard";
 import InfoCard from "../components/InfoCard";
 import ServiciosCard from "../components/ServiciosCard";
 import ReservaForm from "../components/ReservaForm";
+import { useCourts } from "../hooks/useCourts";
+import { useParams } from "react-router-dom";
+import Spinner from "../components/Spinner"
+
 
 const CanchaDetalle = () => {
+    const { id } = useParams()
+    const { court, loading, error } = useCourts({ id })
+    console.log(court)
     return (
         <main className="min-h-screen bg-[rgb(0,0,26)]">
             <section className="container mx-auto px-4 py-8">
@@ -12,14 +19,24 @@ const CanchaDetalle = () => {
                     <ArrowLeft className="h-4 w-4" />
                     Volver a la búsqueda
                 </button>
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div className="space-y-5 lg:col-span-2">
-                        <PortadaCard imagen={"https://images.unsplash.com/photo-1622163642998-1ea32b0bbc67?w=800&amp;q=80"} nombre={"nombre"}/>
-                        <InfoCard ubicacion={"Gerli"} puntuacion={4.5} precioHora={14000}/>
-                        <ServiciosCard sericios={["techada","duchas", "parrilla","estacionamiento","luz"]}/>
+                {loading && <Spinner />}
+
+                {!loading && error && "error"}
+
+                {!loading && !error && (
+                    "no hay canchas"
+                )}
+
+                {!loading && !error &&
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div className="space-y-5 lg:col-span-2">
+                            <PortadaCard imagen={court.imagenes[0]} nombre={court.nombre} />
+                            <InfoCard ubicacion={`${court.direccion}, ${court.ubicacion}`} puntuacion={4.5} precioHora={court.precioPorHora} />
+                            <ServiciosCard servicios={court.servicios} />
+                        </div>
+                        <ReservaForm />
                     </div>
-                    <ReservaForm />
-                </div>
+                }
             </section>
         </main >
     )

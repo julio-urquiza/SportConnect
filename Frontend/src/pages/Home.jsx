@@ -108,7 +108,7 @@ function Home() {
                 {/* Encabezado */}
                 <div className="mb-6 flex items-center justify-between">
                     <p className="text-sm text-gray-400">
-                        <span className="font-medium text-white">9</span> canchas encontradas
+                        <span className="font-medium text-white">{courts.length}</span> canchas encontradas
                     </p>
 
                     <div className="flex items-center gap-2 text-sm text-gray-400">
@@ -121,7 +121,7 @@ function Home() {
                 <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
                     {loading && "cargando"}
 
-                    {!loading && error && "erorr"}
+                    {!loading && error && "error"}
 
                     {!loading && !error && !courts.length && (
                         "no hay canchas"
