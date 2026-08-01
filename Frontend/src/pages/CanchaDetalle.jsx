@@ -24,17 +24,17 @@ const CanchaDetalle = () => {
                 {!loading && error && "error"}
 
                 {!loading && !error && (
-                    "no hay canchas"
+                    "Info no encontrada"
                 )}
 
                 {!loading && !error &&
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         <div className="space-y-5 lg:col-span-2">
                             <PortadaCard imagen={court.imagenes[0]} nombre={court.nombre} />
                             <InfoCard ubicacion={`${court.direccion}, ${court.ubicacion}`} puntuacion={4.5} precioHora={court.precioPorHora} />
                             <ServiciosCard servicios={court.servicios} />
                         </div>
-                        <ReservaForm />
+                        <ReservaForm horariosCancha={court.horariosDisponibles} precioPorHora={court.precioPorHora}/>
                     </div>
                 }
             </section>

@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 function CourtCard({cancha}) {
   const navigate = useNavigate()
-  console.log(cancha)
   return (
     <article 
       className="group overflow-hidden rounded-2xl border border-gray-700 bg-[#00001A]/80 shadow-lg transition hover:-translate-y-1 hover:shadow-xl"

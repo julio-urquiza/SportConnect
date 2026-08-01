@@ -45,9 +45,9 @@ const canchaSchema = new mongoose.Schema({
   }],
 
   horariosDisponibles: [{
-    dia: String,
-    inicio: String,
-    fin: String
+    dia: Number,
+    inicio: Number,
+    fin: Number
   }],
 
   duenio: {
