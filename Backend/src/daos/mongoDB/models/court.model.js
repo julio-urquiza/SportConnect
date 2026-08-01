@@ -1,61 +1,75 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
 const canchaSchema = new mongoose.Schema({
   nombre: {
     type: String,
-    required: true
+    required: true,
   },
 
   deporte: {
     type: String,
     required: true,
-    enum: ["futbol", "padel", "tenis", "basquet"]
+    enum: ["futbol", "padel", "tenis", "basquet"],
   },
 
   descripcion: {
-    type: String
+    type: String,
   },
 
   ubicacion: {
     type: String,
-    required: true
+    required: true,
   },
 
   direccion: {
     type: String,
-    required: true
+    required: true,
   },
 
   precioPorHora: {
     type: Number,
-    required: true
+    required: true,
   },
 
-  imagenes: [{
-    type: String
-  }],
+  imagenes: [
+    {
+      type: String,
+    },
+  ],
 
   disponible: {
     type: Boolean,
-    default: true
+    default: true,
   },
 
-  servicios: [{
-    type: String
-  }],
+  servicios: [
+    {
+      type: String,
+    },
+  ],
 
-  horariosDisponibles: [{
-    dia: Number,
-    inicio: Number,
-    fin: Number
-  }],
+  horariosDisponibles: [
+    {
+      dia: {
+        type: Number,
+        min: 0,
+        max: 6,
+      },
+      horas: [
+        {
+          type: Number,
+          min: 0,
+          max: 23,
+        },
+      ],
+    },
+  ],
 
   duenio: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Usuario",
-    required: true
-  }
+    required: true,
+  },
+});
 
-})
-
-export default mongoose.model("Courts", canchaSchema)
+export default mongoose.model("Courts", canchaSchema);

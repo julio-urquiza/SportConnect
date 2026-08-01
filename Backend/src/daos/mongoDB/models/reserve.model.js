@@ -12,19 +12,28 @@ const ReserveSchema = new mongoose.Schema(
       ref: "Cancha",
       required: true,
     },
-    complejo: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Complejo",
-      required: true,
-    },
+    // complejo: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "Complejo",
+    //   required: true,
+    // },
     fecha: {
       type: Date,
       required: true,
     },
     horarios: {
-      dia: Number,
-      inicio: Number,
-      fin: Number,
+      dia: {
+        type: Number,
+        min: 0,
+        max: 6,
+      },
+      horas: [
+        {
+          type: Number,
+          min: 0,
+          max: 23,
+        },
+      ],
     },
     precio: {
       type: Number,

@@ -34,7 +34,7 @@ const CanchaDetalle = () => {
                             <InfoCard ubicacion={`${court.direccion}, ${court.ubicacion}`} puntuacion={4.5} precioHora={court.precioPorHora} />
                             <ServiciosCard servicios={court.servicios} />
                         </div>
-                        <ReservaForm horariosCancha={court.horariosDisponibles} precioPorHora={court.precioPorHora}/>
+                        <ReservaForm horariosCancha={court.horariosDisponibles} precioPorHora={court.precioPorHora} idCancha={id}/>
                     </div>
                 }
             </section>

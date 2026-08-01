@@ -4,8 +4,12 @@ import { useState } from "react";
 import { DayPicker } from "@daypicker/react";
 import { es } from "@daypicker/react/locale";
 import "@daypicker/react/style.css";
+import { useReserve } from "../hooks/useReserve.js"
+import { useNavigate } from "react-router-dom";
 
-const ReservaForm = ({ horariosCancha, precioPorHora }) => {
+const ReservaForm = ({ horariosCancha, precioPorHora, idCancha }) => {
+    const navigate = useNavigate()
+    const { createReserve, loading, error } = useReserve()
     const [fecha, setFecha] = useState(new Date());
     const [horario, setHorario] = useState([])
 
@@ -23,24 +27,28 @@ const ReservaForm = ({ horariosCancha, precioPorHora }) => {
         month: "long",
     });
 
-    const horarios = (() => {
-        const dias = []
-        horariosCancha.forEach(item => {
-            if (item.dia == fecha.getDay()) {
-                for (let i = item.inicio; i <= item.fin; i++) {
-                    dias.push(i);
-                }
-            }
-        })
-        return dias
-    })()
-
-    const diasCerrado = [0, 1, 2, 3, 4, 5, 6].reduce((acc, numero) => {
-        if (!(horariosCancha.map(item => item.dia).includes(numero))) {
-            acc.push(numero)
+    const horarios = horariosCancha.reduce((acc, item) => {
+        if (item.dia == fecha.getDay()) {
+            acc.push(...item.horas)
         }
         return acc
     }, []);
+
+
+    const diasCerrado = horariosCancha.reduce((acc, item) => {
+        if (item.horas.length == 0) {
+            acc.push(item.dia)
+        }
+        return acc
+    }, []);
+
+    const onClick = async () => {
+        // console.log({fecha, horarios:{dia:fecha.getDay(), horas:horario},precio:precioPorHora * horario.length, cancha:idCancha})
+        const respuesta = await createReserve({ fecha, horarios: { dia: fecha.getDay(), horas: horario }, precio: precioPorHora * horario.length, cancha: idCancha })
+        if (respuesta) {
+            navigate("/reservas")
+        }
+    }
 
     return (
         <div className="sticky top-20 rounded-2xl border border-gray-700 bg-[#00001A]/60 p-5">
@@ -143,14 +151,23 @@ const ReservaForm = ({ horariosCancha, precioPorHora }) => {
                         : false
                 }
                 className={`flex w-full items-center justify-center gap-2 rounded-2xl py-3.5 text-lg font-bold text-white shadow-lg shadow-green-500/35 
-                    ${
-                        horario.length == 0
-                            ? "line-through cursor-not-allowed bg-green-700 py-3.5"
-                            : "bg-green-500 transition hover:bg-green-400 "
-                    }`}>
+                    ${horario.length == 0
+                        ? "line-through cursor-not-allowed bg-green-700 py-3.5"
+                        : "bg-green-500 transition hover:bg-green-400 "
+                    }`}
+                onClick={onClick}
+            >
                 <CalendarCheck className="h-5 w-5" />
-                CONFIRMAR RESERVA
+                {loading
+                    ? "CONFIRMANDO RESERVA"
+                    : "CONFIRMAR RESERVA"}
             </button>
+
+            {error && (
+                <p className="mt-3 text-center text-xs text-gray-400">
+                    {error}
+                </p>
+            )}
 
             <Link
                 className="mt-2 flex w-full items-center justify-center gap-2 rounded-2xl border border-green-500/25 bg-green-500/10 py-2.5 text-sm text-green-400 transition-opacity hover:opacity-80"
