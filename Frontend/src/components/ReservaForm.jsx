@@ -5,7 +5,7 @@ import { DayPicker } from "@daypicker/react";
 import { es } from "@daypicker/react/locale";
 import "@daypicker/react/style.css";
 
-const ReservaForm = ({ horariosCancha, precioPorHora}) => {
+const ReservaForm = ({ horariosCancha, precioPorHora }) => {
     const [fecha, setFecha] = useState(new Date());
     const [horario, setHorario] = useState([])
 
@@ -67,7 +67,7 @@ const ReservaForm = ({ horariosCancha, precioPorHora}) => {
                         locale={es}
                         weekStartsOn={1}
                         selected={fecha}
-                        onSelect={(fecha)=>{
+                        onSelect={(fecha) => {
                             setFecha(fecha)
                             setHorario([])
                         }}
@@ -100,43 +100,54 @@ const ReservaForm = ({ horariosCancha, precioPorHora}) => {
                                     }
                                     `}
                                 onClick={horario.includes(item)
-                                        ? () => quitarHorario(item)
-                                        : () => agregarHorario(item)
-                                    }
-                                >
-                                {item}.00 hs
+                                    ? () => quitarHorario(item)
+                                    : () => agregarHorario(item)
+                                }
+                            >
+                                {item}.00 - {item}.59 hs
                             </button>
                         ))
                     }
+                </div>
             </div>
-        </div>
 
-            {/* resumen */ }
-    <div className="mb-4 rounded-xl border border-orange-500/30 bg-orange-500/10 p-4">
-        <p className="mb-2 text-xs font-semibold text-orange-500">
-            RESUMEN DE RESERVA
-        </p>
+            {/* resumen */}
+            <div className="mb-4 rounded-xl border border-orange-500/30 bg-orange-500/10 p-4">
+                <p className="mb-2 text-xs font-semibold text-orange-500">
+                    RESUMEN DE RESERVA
+                </p>
 
-        <div className="space-y-1 text-sm text-white">
-            <p>
-                <span className="text-gray-400">Fecha:</span> {fechaFormateada}
-            </p>
+                <div className="space-y-1 text-sm text-white">
+                    <p>
+                        <span className="text-gray-400">Fecha:</span> {fechaFormateada}
+                    </p>
 
-            <p>
-                <span className="text-gray-400">Horario:</span> {horario.map((hora)=> `${hora}:00 hs, `)}
-            </p>
+                    <p>
+                        <span className="text-gray-400">Horario:</span> {horario.map((hora) => `${hora}:00-${hora}:59 hs, `)}
+                    </p>
 
-            <p>
-                <span className="text-gray-400">Total:</span>{" "}
-                <span className="font-semibold text-orange-500">
-                    {precioPorHora*horario.length}
-                </span>
-            </p>
-        </div>
-    </div>
+                    <p>
+                        <span className="text-gray-400">Total:</span>{" "}
+                        <span className="font-semibold text-orange-500">
+                            {precioPorHora * horario.length}
+                        </span>
+                    </p>
+                </div>
+            </div>
 
-    {/* botones */ }
-            <button className="flex w-full items-center justify-center gap-2 rounded-2xl bg-green-500 py-3.5 text-lg font-bold text-white shadow-lg shadow-green-500/35 transition hover:bg-green-600">
+            {/* botones */}
+            <button
+                disabled={
+                    horario.length == 0
+                        ? true
+                        : false
+                }
+                className={`flex w-full items-center justify-center gap-2 rounded-2xl py-3.5 text-lg font-bold text-white shadow-lg shadow-green-500/35 
+                    ${
+                        horario.length == 0
+                            ? "line-through cursor-not-allowed bg-green-700 py-3.5"
+                            : "bg-green-500 transition hover:bg-green-400 "
+                    }`}>
                 <CalendarCheck className="h-5 w-5" />
                 CONFIRMAR RESERVA
             </button>
