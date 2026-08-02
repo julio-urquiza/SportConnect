@@ -6,12 +6,15 @@ import { es } from "@daypicker/react/locale";
 import "@daypicker/react/style.css";
 import { useReserve } from "../hooks/useReserve.js"
 import { useNavigate } from "react-router-dom";
+import { useHorarios } from "../hooks/useHorarios.js";
 
 const ReservaForm = ({ horariosCancha, precioPorHora, idCancha }) => {
     const navigate = useNavigate()
     const { createReserve, loading, error } = useReserve()
     const [fecha, setFecha] = useState(new Date());
     const [horario, setHorario] = useState([])
+
+    const {horariosFiltrados} = useHorarios(idCancha, fecha.toDateString())
 
     const agregarHorario = (hora) => {
         setHorario(prev => [...prev, hora])
@@ -97,22 +100,28 @@ const ReservaForm = ({ horariosCancha, precioPorHora, idCancha }) => {
                 <div className="grid grid-cols-2 gap-2">
 
                     {
-                        horarios.map(item =>
+                        horariosFiltrados.map(item =>
                         (
                             <button
-                                key={item}
-                                className={`rounded-xl py-2.5 text-sm text-white transition 
-                                        ${horario.includes(item)
-                                        ? "bg-linear-to-r from-orange-500/80 to-[#00001A]/70 hover:opacity-90"
-                                        : "border border-gray-700 bg-white/5"
-                                    }
-                                    `}
-                                onClick={horario.includes(item)
-                                    ? () => quitarHorario(item)
-                                    : () => agregarHorario(item)
+                                key={item.hora}
+                                disabled={item.isReserved}
+                                className={item.isReserved 
+                                    ? 
+                                        "cursor-not-allowed rounded-xl border border-gray-800 bg-white/5 py-2.5 text-sm text-gray-700 line-through"
+                                    :
+                                        `rounded-xl py-2.5 text-sm text-white transition 
+                                                ${horario.includes(item.hora)
+                                                ? "bg-linear-to-r from-orange-500/80 to-[#00001A]/70 hover:opacity-90"
+                                                : "border border-gray-700 bg-white/5"
+                                            }
+                                        `
+                                }
+                                onClick={horario.includes(item.hora)
+                                    ? () => quitarHorario(item.hora)
+                                    : () => agregarHorario(item.hora)
                                 }
                             >
-                                {item}.00 - {item}.59 hs
+                                {item.hora}.00 - {item.hora}.59 hs {item.isReserved && "✓"}
                             </button>
                         ))
                     }

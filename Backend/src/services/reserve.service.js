@@ -1,6 +1,7 @@
 import reserveDao from "../daos/mongoDB/reserve.dao.js";
 import courtDao from "../daos/mongoDB/court.dao.js";
 import CustomError from "../utils/customError.js";
+import userDao from "../daos/mongoDB/usuario.dao.js";
 
 class ReserveService{
     constructor(dao){
@@ -64,8 +65,6 @@ crearReserva = async (idUsuario, IdCancha, fecha, horarios, precio) => {
             fecha
         }).select("horarios.horas -_id").lean();
 
-        if (!reservas || reservas.length === 0) return horariosCancha;
-
         const horasReservadas = reservas.flatMap(r => r.horarios.horas);
 
         const fechaConvertida = new Date(fecha)
@@ -77,14 +76,23 @@ crearReserva = async (idUsuario, IdCancha, fecha, horarios, precio) => {
             return acc
         }, []);
 
-        const retorno = horasDisponiblesTotales.map(hora => {
+        let retorno = horasDisponiblesTotales.map(hora => {
             return {
                 hora:hora,
                 isReserved:horasReservadas.includes(hora)
             }
         })
+        
+        const fechaActual = new Date()
 
-        const fechaActual = new Date().getHours()
+        if(fechaActual.getDate() == fechaConvertida.getDate()){
+            retorno = retorno.map(item => {
+                if(item.hora <= fechaActual.getHours()){
+                    item.isReserved = true
+                }
+                return item
+            })
+        }
 
         return retorno;
     }

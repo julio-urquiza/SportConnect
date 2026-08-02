@@ -1,6 +1,9 @@
 import api from "./api";
 
-// Crear un court
 export const createCourtRequest = (data) => {
   return api.post(`/api/reserves`, data)
+};
+
+export const getHoursRequest = (data) => {
+  return api.get(`/api/reserves/horarios`, {params: data})
 };

@@ -26,7 +26,7 @@ class ReserveController{
     }
 
     getHorarios = async (req, res) => {
-        const { idCancha, fecha } = req.body
+        const { idCancha, fecha } = req.query
         const horarios = await this.service.getHorarios(idCancha, fecha)
 
         res.status(201).json({
