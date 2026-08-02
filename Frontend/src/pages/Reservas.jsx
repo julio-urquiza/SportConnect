@@ -1,5 +1,6 @@
 import { ArrowLeft, CalendarCheck } from "lucide-react";
 import { Link } from "react-router-dom"
+import ReservaCard from "../components/ReservaCard";
 
 const Reservas = () => {
     return (
@@ -28,6 +29,16 @@ const Reservas = () => {
                     </h1>
                 </div>
 
+                {/* Estado con reservas */}
+                <div className="space-y-10">
+                    <section>
+                        <p className="mb-4 font-jura text-lg font-bold text-green-400">
+                            ✅ Próximas (1)
+                        </p>
+                        <ReservaCard />
+                    </section>
+                </div>
+
                 {/* Estado vacío */}
                 <div className="py-24 text-center">
                     <div className="mb-4 text-6xl">📅</div>
@@ -40,10 +51,10 @@ const Reservas = () => {
                         Buscá una cancha y hacé tu primera reserva
                     </p>
 
-                    <Link 
+                    <Link
                         className="rounded-2xl bg-linear-to-r from-orange-500/80 to-[#00001A]/70 px-8 py-3 text-lg font-bold text-white transition-opacity hover:opacity-90"
                         to={"/"}
-                        >
+                    >
                         BUSCAR CANCHAS
                     </Link>
                 </div>
