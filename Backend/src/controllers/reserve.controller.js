@@ -5,21 +5,13 @@ class ReserveController{
     constructor(service){
         this.service=service
     }
-
     create = async (req, res) => {
-        // 1. Extraemos el ID del usuario autenticado (inyectado por Passport)
         const idUsuario = req.user._id; 
-        
-        // 2. Extraemos los datos del turno que el usuario quiere reservar
         const {cancha, fecha, horarios, precio } = req.body; 
-
-        // 3. Delegamos toda la lógica compleja al servicio
         const nuevaReserva = await this.service.crearReserva(idUsuario, cancha, fecha, horarios, precio);
 
-        // 4. AC 5: Devuelve confirmación de reserva
         res.status(201).json({
             status: "success",
-            message: "Cancha reservada con éxito",
             reserva: nuevaReserva
         });
     }
@@ -33,6 +25,15 @@ class ReserveController{
         })
     }
 
+    getHorarios = async (req, res) => {
+        const { idCancha, fecha } = req.body
+        const horarios = await this.service.getHorarios(idCancha, fecha)
+
+        res.status(201).json({
+            status: "success",
+            horarios: horarios
+        });
+    } 
 
 
 }
