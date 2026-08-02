@@ -6,24 +6,16 @@ class ReserveDao extends MongoDao{
         super(model)
     }
 
-    findOne = async (filtro) => {
+    getAllReserves = async (filtros = {}) => {
+        return await this.model
+            .find(filtros)
+            .populate("cancha")
+    }
+
+    findOne = async (filtro= {}) => {
         return await this.model.findOne(filtro);
     }
 
-    cancelarReserva = async(idReserva) =>{
-        return await this.update(idReserva,
-            {
-                estado:"cancelada"
-            }
-        )
-    }
-
-    getByUsuario = async (usuarioId) => {
-        return await this.model
-            .find({ usuario: usuarioId })
-            .populate("cancha")
-            .sort({ fechaInicio: 1 });
-    }
 }
 
 export default new ReserveDao(reserveModel)
