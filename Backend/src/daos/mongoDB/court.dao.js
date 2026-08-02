@@ -6,8 +6,8 @@ class CourtDao extends MongoDao {
         super(model)
     }
 
-    async getAllCourts(query, limit = {}, skip = {}) {
-        const courts = await this.model.find(query).limit(limit).skip(skip);
+    async getAllCourts(query, limit = {}, skip = {}, sort={}) {
+        const courts = await this.model.find(query).sort(sort).limit(limit).skip(skip);
         return courts;
     }
 

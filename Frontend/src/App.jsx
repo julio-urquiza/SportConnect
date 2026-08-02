@@ -9,6 +9,7 @@ import CanchaDetalle from './pages/CanchaDetalle.jsx'
 
 function App() {
   return (
+    
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />

@@ -6,8 +6,8 @@ class CourtService {
         this.dao = dao;
     }
     getCourts = async (filtro = {}) => {
-        let { limit, page, ...query } = filtro
-        const courts = await this.dao.getAllCourts(query, limit, page*limit)
+        let { limit, page, sort, ...query } = filtro
+        const courts = await this.dao.getAllCourts(query, limit, page*limit, sort)
         if (!courts) throw new CustomError(400, 'No se pudieron obtener las canchas')
         return courts
     }
