@@ -3,12 +3,12 @@ import courtDao from "../daos/mongoDB/court.dao.js";
 import CustomError from "../utils/customError.js";
 import userDao from "../daos/mongoDB/usuario.dao.js";
 
-class ReserveService{
-    constructor(dao){
-        this.dao=dao;
+class ReserveService {
+    constructor(dao) {
+        this.dao = dao;
     }
 
-crearReserva = async (idUsuario, IdCancha, fecha, horarios, precio) => {
+    crearReserva = async (idUsuario, IdCancha, fecha, horarios, precio) => {
         if (!idUsuario) throw new CustomError(400, "ID de usuario es requerido");
 
         const usuarioExistente = await userDao.getById(idUsuario);
@@ -20,18 +20,21 @@ crearReserva = async (idUsuario, IdCancha, fecha, horarios, precio) => {
         if (!canchaExistente) throw new CustomError(404, "Cancha no encontrada");
 
         if (!fecha) throw new CustomError(400, "Fecha es requerida");
-        if (!horarios || horarios.length === 0) throw new CustomError(400, "Horarios son requeridos");
-        if (!precio || precio <= 0) throw new CustomError(400, "Precio debe ser mayor a 0");
+        if (!horarios || horarios.length === 0)
+            throw new CustomError(400, "Horarios son requeridos");
+        if (!precio || precio <= 0)
+            throw new CustomError(400, "Precio debe ser mayor a 0");
 
         const conflicto = await this.dao.model.exists({
             cancha: IdCancha,
             fecha,
             "horarios.dia": horarios.dia,
             "horarios.horas": {
-                $in: horarios.horas
-            }
-        })
-        if (conflicto) throw new CustomError(409, "La fecha y horario ya están reservados");
+                $in: horarios.horas,
+            },
+        });
+        if (conflicto)
+            throw new CustomError(409, "La fecha y horario ya están reservados");
 
         const nuevaReserva = await this.dao.create({
             usuario: idUsuario,
@@ -39,17 +42,21 @@ crearReserva = async (idUsuario, IdCancha, fecha, horarios, precio) => {
             fecha: fecha,
             horarios: horarios,
             precio: precio,
-            estado: 'confirmada'
+            estado: "confirmada",
         });
         return nuevaReserva;
-    }
+    };
 
-    cancelarReserva= async(idReserva) => {
-        if(!idReserva) throw new CustomError(400, "No se recibio la informacion")
-        const reserva= await this.dao.getById(idReserva)
-        if(!reserva) throw new CustomError(404, "No se encontro una reserva con esa información")
-        return await this.dao.cancelarReserva(idReserva)
-    }
+    cancelarReserva = async (idReserva) => {
+        if (!idReserva) throw new CustomError(400, "No se recibio la informacion");
+        const reserva = await this.dao.getById(idReserva);
+        if (!reserva)
+            throw new CustomError(
+                404,
+                "No se encontro una reserva con esa información",
+            );
+        return await this.dao.cancelarReserva(idReserva);
+    };
 
     getHorarios = async (IdCancha, fecha) => {
         if (!IdCancha) throw new CustomError(400, "Cancha es requerida");
@@ -60,43 +67,62 @@ crearReserva = async (idUsuario, IdCancha, fecha, horarios, precio) => {
 
         const horariosCancha = canchaExistente.horariosDisponibles;
 
-        const reservas = await this.dao.model.find({
-            cancha: IdCancha,
-            fecha
-        }).select("horarios.horas -_id").lean();
+        const reservas = await this.dao.model
+            .find({
+                cancha: IdCancha,
+                fecha,
+            })
+            .select("horarios.horas -_id")
+            .lean();
 
-        const horasReservadas = reservas.flatMap(r => r.horarios.horas);
+        const horasReservadas = reservas.flatMap((r) => r.horarios.horas);
 
-        const fechaConvertida = new Date(fecha)
+        const fechaConvertida = new Date(fecha);
 
         const horasDisponiblesTotales = horariosCancha.reduce((acc, item) => {
             if (item.dia == fechaConvertida.getDay()) {
-                acc.push(...item.horas)
+                acc.push(...item.horas);
             }
-            return acc
+            return acc;
         }, []);
 
-        let retorno = horasDisponiblesTotales.map(hora => {
+        let retorno = horasDisponiblesTotales.map((hora) => {
             return {
-                hora:hora,
-                isReserved:horasReservadas.includes(hora)
-            }
-        })
-        
-        const fechaActual = new Date()
+                hora: hora,
+                isReserved: horasReservadas.includes(hora),
+            };
+        });
 
-        if(fechaActual.getDate() == fechaConvertida.getDate()){
-            retorno = retorno.map(item => {
-                if(item.hora <= fechaActual.getHours()){
-                    item.isReserved = true
+        const fechaActual = new Date();
+
+        if (fechaActual.getDate() == fechaConvertida.getDate()) {
+            retorno = retorno.map((item) => {
+                if (item.hora <= fechaActual.getHours()) {
+                    item.isReserved = true;
                 }
-                return item
-            })
+                return item;
+            });
         }
 
         return retorno;
-    }
+    };
 
+    obtenerReservas = async (filtros = {}) => {
+        const query = {};
+        if (filtros.usuario) query.usuario = filtros.usuario;
+        if (filtros.cancha) query.cancha = filtros.cancha;
+        if (filtros.fecha) query.fecha = filtros.fecha;
+        if (filtros.estado) query.estado = filtros.estado;
+        if (filtros.horarios) {
+            const horas = Array.isArray(filtros.horarios)
+            ? filtros.horarios
+            : [filtros.horarios];
+            query["horarios.horas"] = { $in: horas };
+        }
+        console.log(query)
+        
+        return await this.dao.getAllReserves(query);
+    };
 }
 
-export default new ReserveService(reserveDao)
+export default new ReserveService(reserveDao);

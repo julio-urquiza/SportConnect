@@ -1,13 +1,13 @@
 import reserveService from "../services/reserve.service.js";
 import wrapRoutes from "../utils/wrapRoutes.js";
 
-class ReserveController{
-    constructor(service){
-        this.service=service
+class ReserveController {
+    constructor(service) {
+        this.service = service
     }
     create = async (req, res) => {
-        const idUsuario = req.user._id; 
-        const {cancha, fecha, horarios, precio } = req.body; 
+        const idUsuario = req.user._id;
+        const { cancha, fecha, horarios, precio } = req.body;
         const nuevaReserva = await this.service.crearReserva(idUsuario, cancha, fecha, horarios, precio);
 
         res.status(201).json({
@@ -15,12 +15,12 @@ class ReserveController{
             reserva: nuevaReserva
         });
     }
-    
-    cancelarReserva = async(req,res) =>{
-        const id= req.query.id
-        const reserva= await this.service.cancelarReserva(id)
+
+    cancelarReserva = async (req, res) => {
+        const id = req.query.id
+        const reserva = await this.service.cancelarReserva(id)
         res.status(200).json({
-            estado:"Se cancelo la reserva de la cancha",
+            estado: "Se cancelo la reserva de la cancha",
             reserva
         })
     }
@@ -31,9 +31,18 @@ class ReserveController{
 
         res.status(201).json({
             status: "success",
-            horarios: horarios
+            horarios
         });
-    } 
+    }
+
+    obtenerReservas = async (req, res) => {
+        const reservas = await this.service.obtenerReservas(req.query)
+
+        res.status(201).json({
+            status: "success",
+            reservas
+        });
+    }
 
 
 }
