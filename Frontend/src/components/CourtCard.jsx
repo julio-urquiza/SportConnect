@@ -1,6 +1,6 @@
-import { Star, MapPin } from "lucide-react";
+import {  MapPin } from "lucide-react";
 import { useNavigate } from "react-router-dom"; 
-
+import { SPORTS } from "../constants/sports.js";
 function CourtCard({cancha}) {
   const navigate = useNavigate()
   console.log(cancha)
@@ -22,7 +22,7 @@ function CourtCard({cancha}) {
         <div className="absolute inset-0 bg-linear-to-t from-[#00001A]/90 to-transparent" />
 
         <span className="absolute left-3 top-3 rounded-full border border-orange-500/40 bg-black/60 px-3 py-1 text-xs font-medium text-orange-500 backdrop-blur">
-          🎾 {cancha.deporte}
+          {SPORTS.find(s=> (cancha.deporte=== s.deporte)).logo} {cancha.deporte}
         </span>
         {/* clasificacion */}
         {/* <div className="absolute bottom-3 right-3 flex items-center gap-1 rounded-lg bg-black/60 px-2 py-1 text-xs text-yellow-400 backdrop-blur">
