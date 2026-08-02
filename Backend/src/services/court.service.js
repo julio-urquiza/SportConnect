@@ -6,11 +6,24 @@ class CourtService {
         this.dao = dao;
     }
     getCourts = async (filtro = {}) => {
-        let { limit, page, sort, ...query } = filtro
-        const courts = await this.dao.getAllCourts(query, limit, page*limit, sort)
+        let { limit, page, sort, nombre, ubicacion, ...query } = filtro
+
+        if (nombre) {
+            query.nombre = { $regex: this.#escapeRegex(nombre), $options: "i" }
+        }
+        if (ubicacion) {
+            query.ubicacion = { $regex: this.#escapeRegex(ubicacion), $options: "i" }
+        }
+
+        const courts = await this.dao.getAllCourts(query, limit, page*limit, sort ?? "-createdAt")
         if (!courts) throw new CustomError(400, 'No se pudieron obtener las canchas')
         return courts
     }
+// Evita que caracteres especiales de regex (., *, +, etc.) rompan la búsqueda
+// o generen un patrón no intencionado si el usuario los tipea.
+    #escapeRegex = (str) => {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+}
   
     getCourtById = async (id) => {
         if(!id) throw new CustomError(400, "ID de cancha no proporcionado")

@@ -10,6 +10,8 @@ class CourtController {
         res.status(200).json({ courts })
     }
     
+    
+
     getById = async (req, res) => {
         const { id } = req.params; 
         const court = await this.service.getCourtById(id);
