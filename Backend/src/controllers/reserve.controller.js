@@ -17,7 +17,7 @@ class ReserveController {
     }
 
     cancelarReserva = async (req, res) => {
-        const id = req.query.id
+        const { id } = req.query
         const reserva = await this.service.cancelarReserva(id)
         res.status(200).json({
             estado: "Se cancelo la reserva de la cancha",

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createCourtRequest, getAllReservesRequest } from "../services/reserve.service";
+import { createCourtRequest, getAllReservesRequest, cancelReserveRequest } from "../services/reserve.service";
 
 export const useReserve = () => {
     const [reserves, setReserves] = useState([])
@@ -35,9 +35,23 @@ export const useReserve = () => {
         }
     };
 
+    const cancelReserve = async(id) => {
+        setLoading(true);
+        setError(null);
+        try {
+            const response = await cancelReserveRequest(id);
+            setSuccess(true);
+            return response;
+        } catch (err) {
+            setError(err.response?.data?.message || "No se pudo cancelar la reserva");
+        } finally {
+            setLoading(false);
+        }
+    }
+
     return {
         reserves,
         loading, error, success,
-        createReserve, loadReserves
+        createReserve, loadReserves, cancelReserve
     };
 };

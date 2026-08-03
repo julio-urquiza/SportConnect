@@ -8,11 +8,19 @@ import Spinner from "./Spinner.jsx";
 
 const ListReserves = () => {
     const { user } = useContext(AuthContext)
-    const { reserves, loading, error, loadReserves } = useReserve()
+    const { reserves, loading, error, loadReserves, cancelReserve} = useReserve()
 
     useEffect(() => {
         loadReserves({ usuario: user.id })
     }, [])
+
+    const handleCancelReserve = async (id) => {
+        const cancelledReserve = await cancelReserve(id)
+
+        if (cancelledReserve) {
+            await loadReserves({ usuario: user.id })
+        }
+    }
 
     if (loading) return (<Spinner />)
 
@@ -47,8 +55,8 @@ const ListReserves = () => {
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {
-                        reserves.map((reserve, index) => (
-                            <ReservaCard key={index} reserve={reserve} />
+                        reserves.map((reserve) => (
+                            <ReservaCard key={reserve._id} reserve={reserve} onClickCancel={handleCancelReserve}/>
                         ))
                     }
                 </div>

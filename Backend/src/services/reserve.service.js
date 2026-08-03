@@ -55,7 +55,7 @@ class ReserveService {
                 404,
                 "No se encontro una reserva con esa información",
             );
-        return await this.dao.cancelarReserva(idReserva);
+        return await this.dao.update(idReserva, {estado: "cancelada",});
     };
 
     getHorarios = async (IdCancha, fecha) => {
@@ -71,9 +71,11 @@ class ReserveService {
             .find({
                 cancha: IdCancha,
                 fecha,
+                estado: "confirmada",
             })
             .select("horarios.horas -_id")
             .lean();
+        console.log(reservas)
 
         const horasReservadas = reservas.flatMap((r) => r.horarios.horas);
 

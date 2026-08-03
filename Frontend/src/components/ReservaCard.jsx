@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom"
 
-const ReservaCard = ({ reserve }) => {
-    console.log(reserve)
+const ReservaCard = ({ reserve, onClickCancel}) => {
+    // console.log(reserve)
+    
+    const onclick = async () => {
+        await onClickCancel(reserve._id)
+    }
+
     return (
 
         <div className="rounded-2xl overflow-hidden flex flex-col bg-[#00001a]/70 border border-green-400/30 shadow-lg shadow-green-400/10">
@@ -19,7 +24,12 @@ const ReservaCard = ({ reserve }) => {
                     {reserve.cancha.deporte}
                 </span>
 
-                <span className="absolute top-3 right-3 rounded-full px-3 py-1 text-xs bg-green-600 border border-green-500 text-white">
+                <span className={`absolute top-3 right-3 rounded-full px-3 py-1 text-xs text-white 
+                    ${reserve.estado == "confirmada" 
+                    ? "bg-green-600 border border-green-500"
+                    : "bg-red-600 border border-red-500"}
+                    
+                    `}>
                     {reserve.estado}
                 </span>
             </div>
@@ -54,7 +64,10 @@ const ReservaCard = ({ reserve }) => {
                         Ver cancha
                     </Link>
 
-                    <button className="px-4 py-2 rounded-xl border border-red-500/30 bg-red-500/10 text-red-500 hover:bg-red-500/20">
+                    <button 
+                        className="px-4 py-2 rounded-xl border border-red-500/30 bg-red-500/10 text-red-500 hover:bg-red-500/20"
+                        onClick={onclick}
+                        >
                         Cancelar
                     </button>
                 </div>

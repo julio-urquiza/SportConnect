@@ -11,10 +11,18 @@ import { useHorarios } from "../hooks/useHorarios.js";
 const ReservaForm = ({ horariosCancha, precioPorHora, idCancha }) => {
     const navigate = useNavigate()
     const { createReserve, loading, error } = useReserve()
-    const [fecha, setFecha] = useState(new Date());
+    
+    const startOfDay = (d) => {
+        if (!d) return null
+        const dt = new Date(d)
+        dt.setHours(0,0,0,0)
+        return dt
+    }
+
+    const [fecha, setFecha] = useState(startOfDay(new Date()));
     const [horario, setHorario] = useState([])
 
-    const {horariosFiltrados} = useHorarios(idCancha, fecha.toDateString())
+    const {horariosFiltrados} = useHorarios(idCancha, fecha)
 
     const agregarHorario = (hora) => {
         setHorario(prev => [...prev, hora])
@@ -46,7 +54,6 @@ const ReservaForm = ({ horariosCancha, precioPorHora, idCancha }) => {
     }, []);
 
     const onClick = async () => {
-        // console.log({fecha, horarios:{dia:fecha.getDay(), horas:horario},precio:precioPorHora * horario.length, cancha:idCancha})
         const respuesta = await createReserve({ fecha, horarios: { dia: fecha.getDay(), horas: horario }, precio: precioPorHora * horario.length, cancha: idCancha })
         if (respuesta) {
             navigate("/reservas")
