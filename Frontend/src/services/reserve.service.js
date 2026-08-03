@@ -7,3 +7,7 @@ export const createCourtRequest = (data) => {
 export const getHoursRequest = (data) => {
   return api.get(`/api/reserves/horarios`, {params: data})
 };
+
+export const getAllReservesRequest = (data) => {
+    return api.get(`/api/reserves`, {params: data})
+}

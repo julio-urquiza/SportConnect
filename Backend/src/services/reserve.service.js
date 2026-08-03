@@ -119,7 +119,6 @@ class ReserveService {
             : [filtros.horarios];
             query["horarios.horas"] = { $in: horas };
         }
-        console.log(query)
         
         return await this.dao.getAllReserves(query);
     };

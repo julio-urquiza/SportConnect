@@ -1,31 +1,43 @@
 import { useState } from "react";
-import { createCourtRequest } from "../services/reserve.service";
+import { createCourtRequest, getAllReservesRequest } from "../services/reserve.service";
 
 export const useReserve = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(false);
+    const [reserves, setReserves] = useState([])
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(false);
 
-  const createReserve = async (data) => {
-    setLoading(true);
-    setError(null);
-    setSuccess(false);
-    try {
-      const response = await createCourtRequest(data);
-      setSuccess(true);
-      return response;
-    } catch (err) {
-      setError(err.response?.data?.message || "No se pudo crear la reserva");
-      throw err;
-    } finally {
-      setLoading(false);
-    }
-  };
+    const createReserve = async (data) => {
+        setLoading(true);
+        setError(null);
+        setSuccess(false);
+        try {
+            const response = await createCourtRequest(data);
+            setSuccess(true);
+            return response;
+        } catch (err) {
+            setError(err.response?.data?.message || "No se pudo crear la reserva");
+        } finally {
+            setLoading(false);
+        }
+    };
 
-  return {
-    createReserve,
-    loading,
-    error,
-    success,
-  };
+    const loadReserves = async (data) => {
+        setLoading(true);
+        setError(null);
+        try {
+            const response = await getAllReservesRequest(data);
+            setReserves(response.reservas);
+        } catch (err) {
+            setError(err.response?.data?.message || "No se pudo cargar los datos");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return {
+        reserves,
+        loading, error, success,
+        createReserve, loadReserves
+    };
 };

@@ -6,76 +6,76 @@ import { CalendarCheck, LayoutDashboard } from "lucide-react";
 
 
 function Navbar() {
-  const { user } = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
 
 
-  return (
-    <nav className="flex h-16 w-full items-center border-b border-[#1a1a3a] bg-[#00001a] px-8 justify-between">
-      {/* Logo */}
-      <Link
-        to="/"
-        className="font-jura text-3xl font-bold text-[#ff5a00]"
-      >
-        SportConnect
-      </Link>
+    return (
+        <nav className="flex h-16 w-full items-center border-b border-[#1a1a3a] bg-[#00001a] px-8 justify-between">
+            {/* Logo */}
+            <Link
+                to="/"
+                className="font-jura text-3xl font-bold text-[#ff5a00]"
+            >
+                SportConnect
+            </Link>
 
-      <div className="flex gap-6 items-center">
-        {
-          user && (
-            <>
-              
-              <Link
-                className="relative flex items-center gap-2 py-1 text-white transition-opacity hover:opacity-80"
-                to={"/login"}>
+            <div className="flex gap-6 items-center">
+                {
+                    user && (
+                        <>
 
-                <span className="text-base">
-                  Login
-                </span>
-                {/* <div className="absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-orange-500" /> */}
-              </Link>
-              <Link
-                className="relative flex items-center gap-2 py-1 text-white transition-opacity hover:opacity-80"
-                to={"/"}>
+                            <Link
+                                className="relative flex items-center gap-2 py-1 text-white transition-opacity hover:opacity-80"
+                                to={"/login"}>
 
-                <span className="text-base">
-                  Inicio
-                </span>
-                {/* <div className="absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-orange-500" /> */}
-              </Link>
+                                <span className="text-base">
+                                    Login
+                                </span>
+                                {/* <div className="absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-orange-500" /> */}
+                            </Link>
+                            <Link
+                                className="relative flex items-center gap-2 py-1 text-white transition-opacity hover:opacity-80"
+                                to={"/"}>
 
-              <Link
-                className="relative flex items-center gap-2 py-1 text-white transition-opacity hover:opacity-80"
-                to={"/reservas"}>
+                                <span className="text-base">
+                                    Inicio
+                                </span>
+                                {/* <div className="absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-orange-500" /> */}
+                            </Link>
 
-                <CalendarCheck className="h-4 w-4 text-orange-500" />
-                <span className="text-base font-bold text-orange-500">
-                  Mis Reservas
-                </span>
-                <div className="absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-orange-500" />
-              </Link>
+                            <Link
+                                className="relative flex items-center gap-2 py-1 text-white transition-opacity hover:opacity-80"
+                                to={"/reservas"}>
 
-              <Link 
-                className="relative flex items-center gap-2 py-1 text-orange-500 transition-opacity hover:opacity-80"
-                to={"/dashboard"}>
+                                <CalendarCheck className="h-4 w-4 text-orange-500" />
+                                <span className="text-base font-bold text-orange-500">
+                                    Mis Reservas
+                                </span>
+                                <div className="absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-orange-500" />
+                            </Link>
 
-                <LayoutDashboard className="h-4 w-4" />
+                            <Link
+                                className="relative flex items-center gap-2 py-1 text-orange-500 transition-opacity hover:opacity-80"
+                                to={"/dashboard"}>
 
-                <span className="font-bold">
-                  Mi Dashboard
-                </span>
+                                <LayoutDashboard className="h-4 w-4" />
 
-                <div className="absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-orange-500" />
-              </Link>
+                                <span className="font-bold">
+                                    Mi Dashboard
+                                </span>
 
-              <ProfileButton />
-            </>
+                                <div className="absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-orange-500" />
+                            </Link>
 
-          )
-        }
+                            <ProfileButton />
+                        </>
 
-      </div>
-    </nav>
-  )
+                    )
+                }
+
+            </div>
+        </nav>
+    )
 }
 
 export default Navbar;
