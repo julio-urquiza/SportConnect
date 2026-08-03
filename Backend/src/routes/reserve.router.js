@@ -4,9 +4,10 @@ import passport from "passport";
 
 const router= Router()
 
-router.patch("/cancelar",reserveController.cancelarReserva)
+// router.put("/cancelar",passport.authenticate("jwt", { session: false }), reserveController.cancelarReserva)
+router.put("/cancelar", reserveController.cancelarReserva)
 router.post("/", passport.authenticate("jwt", { session: false }), reserveController.create);
 router.get("/horarios", reserveController.getHorarios)
-// router.get("/horarios", (req,res)=>res.json({a:'a'}))
+router.get("/", reserveController.obtenerReservas)
 
 export default router

@@ -7,9 +7,7 @@ class ReserveDao extends MongoDao{
     }
 
     getAllReserves = async (filtros = {}) => {
-        return await this.model
-            .find(filtros)
-            .populate("cancha")
+        return await this.model.find(filtros).populate("cancha","nombre deporte descripcion ubicacion direccion imagenes")
     }
 
     findOne = async (filtro= {}) => {

@@ -4,12 +4,12 @@ const ReserveSchema = new mongoose.Schema(
   {
     usuario: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Usuario",
+      ref: "Users",
       required: true,
     },
     cancha: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Cancha",
+      ref: "Courts",
       required: true,
     },
     // complejo: {
