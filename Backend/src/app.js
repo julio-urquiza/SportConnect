@@ -8,7 +8,7 @@ const app = express()
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://sportconnectg.netlify.app"
+  "https://sportconnects.netlify.app"
 ]
 
 app.use(cors({
