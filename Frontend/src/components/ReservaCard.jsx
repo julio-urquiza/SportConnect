@@ -4,7 +4,7 @@ const ReservaCard = ({ reserve, onClickCancel}) => {
     // console.log(reserve)
     
     const onclick = async () => {
-        await onClickCancel(reserve._id)
+        await onClickCancel(reserve._id, reserve.estado == "confirmada" ? "cancelada" : "confirmada" )
     }
 
     return (
@@ -65,10 +65,14 @@ const ReservaCard = ({ reserve, onClickCancel}) => {
                     </Link>
 
                     <button 
-                        className="px-4 py-2 rounded-xl border border-red-500/30 bg-red-500/10 text-red-500 hover:bg-red-500/20"
+                        className={`px-4 py-2 rounded-xl border 
+                            ${reserve.estado == "confirmada" 
+                                ? "border-red-500/30 bg-red-500/10 text-red-500 hover:bg-red-500/20" 
+                                : "border-green-500/30 bg-green-500/10 text-green-500 hover:bg-green-500/20"}
+                            `}
                         onClick={onclick}
                         >
-                        Cancelar
+                        {reserve.estado == "confirmada" ? "Cancelar" : "Confirmar"}
                     </button>
                 </div>
             </div>

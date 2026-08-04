@@ -124,6 +124,10 @@ class ReserveService {
         
         return await this.dao.getAllReserves(query);
     };
+
+    modificarReservas = async (id, data ) => {
+        return this.dao.update(id, data )
+    }  
 }
 
 export default new ReserveService(reserveDao);

@@ -13,5 +13,9 @@ export const getAllReservesRequest = (data) => {
 }
 
 export const cancelReserveRequest = (id) => {
-    return api.put(`/api/reserves/cancelar`, null, {params: { id }})
+    return api.put(`/api/reserves/cancelar`, null, { params: { id } })
+}
+
+export const updateReserveRequest = (id, data) => {
+    return api.put(`/api/reserves`, data, { params: { id } })
 }

@@ -16,11 +16,11 @@ export default class MongoDao {
     }
 
     update = async (id, body) => {
-        return await this.model.findByIdAndUpdate(id, body, { new: true })
+        return await this.model.findByIdAndUpdate(id, body, { returnDocument: 'after' })
     }
 
     updateOne = async (params, body) => {
-        return await this.model.findOneAndUpdate(params, body, { new: true })
+        return await this.model.findOneAndUpdate(params, body, { returnDocument: 'after' })
     }
 
     delete = async (id) => {

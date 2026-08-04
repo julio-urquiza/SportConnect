@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createCourtRequest, getAllReservesRequest, cancelReserveRequest } from "../services/reserve.service";
+import { createCourtRequest, getAllReservesRequest, updateReserveRequest } from "../services/reserve.service";
 
 export const useReserve = () => {
     const [reserves, setReserves] = useState([])
@@ -35,11 +35,11 @@ export const useReserve = () => {
         }
     };
 
-    const cancelReserve = async(id) => {
+    const updateReserve = async(id, data) => {
         setLoading(true);
         setError(null);
         try {
-            const response = await cancelReserveRequest(id);
+            const response = await updateReserveRequest(id, data);
             setSuccess(true);
             return response;
         } catch (err) {
@@ -52,6 +52,6 @@ export const useReserve = () => {
     return {
         reserves,
         loading, error, success,
-        createReserve, loadReserves, cancelReserve
+        createReserve, loadReserves, updateReserve
     };
 };

@@ -44,6 +44,15 @@ class ReserveController {
         });
     }
 
+    modificarReserva = async (req, res) => {
+        const { id } = req.query
+        const reserva = await this.service.modificarReservas(id, req.body)
+        res.status(201).json({
+            status: "success",
+            reserva
+        });
+    }
+
 
 }
 
