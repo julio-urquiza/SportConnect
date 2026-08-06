@@ -44,6 +44,15 @@ class ReserveController {
         });
     }
 
+    obtenerReservasDuenio = async (req, res) => {
+        const reservas = await this.service.obtenerReservasDuenio(req.user._id, req.query)
+
+        res.status(200).json({
+            status: "success",
+            reservas
+        });
+    }
+
     modificarReserva = async (req, res) => {
         const { id } = req.query
         const reserva = await this.service.modificarReservas(id, req.body)

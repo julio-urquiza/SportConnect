@@ -7,7 +7,9 @@ const router= Router()
 router.put("/cancelar",passport.authenticate("jwt", { session: false }), reserveController.cancelarReserva)
 router.post("/", passport.authenticate("jwt", { session: false }), reserveController.create);
 router.get("/horarios", reserveController.getHorarios)
+router.get("/duenio", passport.authenticate("jwt", { session: false }), reserveController.obtenerReservasDuenio)
 router.get("/", reserveController.obtenerReservas)
 router.put("/",passport.authenticate("jwt", { session: false }), reserveController.modificarReserva)
+
 
 export default router

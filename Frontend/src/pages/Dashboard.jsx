@@ -1,7 +1,13 @@
 import { LayoutDashboard, CirclePlus, CalendarClock } from "lucide-react";
 import StatCard from "../components/StatCard";
+import { useState } from "react";
+import CourtForm from "../components/CourtForm"
+import EstadoVacioCanchas from "../components/EstadoVacioCanchas"
+import Reservations from "../components/Reservations"
 
 const Dashboard = () => {
+    const [modo, setModo] = useState(1)
+
     return (
         <main className="min-h-screen bg-[rgb(0,0,26)]">
             <section className="container mx-auto px-4 py-8">
@@ -26,44 +32,36 @@ const Dashboard = () => {
                 {/* Tabs */}
                 <div className="mb-6 flex w-fit gap-1 rounded-2xl border border-gray-700 bg-white/5 p-1">
 
-                    <button className="flex items-center gap-2 rounded-xl bg-linear-to-r from-orange-500/80 to-[#00001A]/70 px-5 py-2.5 font-semibold text-white">
+                    <button
+                        className={`flex items-center gap-2 rounded-xl px-5 py-2.5 font-semibold ${modo === 1 ? "bg-linear-to-r from-orange-500/80 to-[#00001A]/70 text-white" : "text-gray-400 transition hover:bg-white/5 hover:text-white"}`}
+                        onClick={() => setModo(1)}
+                    >
                         <LayoutDashboard className="h-4 w-4" />
                         Mis Canchas
                     </button>
 
-                    <button className="flex items-center gap-2 rounded-xl px-5 py-2.5 text-gray-400 transition hover:bg-white/5 hover:text-white">
+                    <button
+                        className={`flex items-center gap-2 rounded-xl px-5 py-2.5 font-semibold ${modo === 2 ? "bg-linear-to-r from-orange-500/80 to-[#00001A]/70 text-white" : "text-gray-400 transition hover:bg-white/5 hover:text-white"}`}
+                        onClick={() => setModo(2)}
+                    >
                         <CirclePlus className="h-4 w-4" />
                         Publicar Cancha
                     </button>
 
-                    <button className="flex items-center gap-2 rounded-xl px-5 py-2.5 text-gray-400 transition hover:bg-white/5 hover:text-white">
+                    <button
+                        className={`flex items-center gap-2 rounded-xl px-5 py-2.5 font-semibold ${modo === 3 ? "bg-linear-to-r from-orange-500/80 to-[#00001A]/70 text-white" : "text-gray-400 transition hover:bg-white/5 hover:text-white"}`}
+                        onClick={() => setModo(3)}
+                    >
                         <CalendarClock className="h-4 w-4" />
                         Reservas Entrantes
                     </button>
 
                 </div>
 
-                {/* Estado vacío */}
-                <div className="flex flex-col items-center justify-center py-20 text-center">
-
-                    <div className="mb-4 text-5xl">
-                        🏟️
-                    </div>
-
-                    <h2 className="mb-2 text-xl font-bold text-white">
-                        Aún no publicaste ninguna cancha
-                    </h2>
-
-                    <p className="mb-5 text-gray-400">
-                        Publicá tu primera cancha y empezá a recibir reservas
-                    </p>
-
-                    <button className="flex items-center gap-2 rounded-2xl bg-linear-to-r from-orange-500/80 to-[#00001A]/70 px-6 py-3 font-bold text-white hover:opacity-90">
-                        <CirclePlus className="h-4 w-4" />
-                        PUBLICAR MI PRIMERA CANCHA
-                    </button>
-
-                </div>
+                {/* Contenido según el modo */}
+                {modo === 1 && <EstadoVacioCanchas />}
+                {modo === 2 && <CourtForm />}
+                {modo === 3 && <Reservations />}
 
             </section>
         </main>
