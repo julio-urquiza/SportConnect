@@ -2,8 +2,8 @@ import { LayoutDashboard, CirclePlus, CalendarClock } from "lucide-react";
 import StatCard from "../components/StatCard";
 import { useState } from "react";
 import CourtForm from "../components/CourtForm"
-import EstadoVacioCanchas from "../components/EstadoVacioCanchas"
 import Reservations from "../components/Reservations"
+import CourtGridOwner from "../components/CourtGridOwner";
 
 const Dashboard = () => {
     const [modo, setModo] = useState(1)
@@ -59,7 +59,7 @@ const Dashboard = () => {
                 </div>
 
                 {/* Contenido según el modo */}
-                {modo === 1 && <EstadoVacioCanchas />}
+                {modo === 1 && <CourtGridOwner />}
                 {modo === 2 && <CourtForm />}
                 {modo === 3 && <Reservations />}
 
