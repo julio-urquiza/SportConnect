@@ -10,7 +10,7 @@ import StatSpinner from "../components/StartSpinner";
 import { useReserve } from "../hooks/useReserve.js"
 
 const Dashboard = () => {
-    const [modo, setModo] = useState(3)
+    const [modo, setModo] = useState(1)
     const { user } = useContext(AuthContext);
     const { courts, courtsLoading, getCourts, createCourt } = useCourts({ id: null, filters: { duenio: user.id } })
     const { reserves, reservesLoading, getReservesOwner } = useReserve()

@@ -10,6 +10,7 @@ class ReserveDao extends MongoDao{
         return await this.model.find(filtros)
             .populate("cancha", "nombre deporte descripcion ubicacion direccion imagenes")
             .populate("usuario", "nombre email")
+            .sort({fecha:-1})
     }
 
     findOne = async (filtro= {}) => {

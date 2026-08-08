@@ -1,7 +1,6 @@
 import ReserveCardOwner from "./ReserveCardOwner.jsx"
 
 export default function Reservations({ reserves }) {
-    console.log()
     return (
         <div className="mx-auto max-w-2xl space-y-6">
 {/* 
