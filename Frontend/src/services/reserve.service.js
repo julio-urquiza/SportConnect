@@ -19,3 +19,7 @@ export const cancelReserveRequest = (id) => {
 export const updateReserveRequest = (id, data) => {
     return api.put(`/api/reserves`, data, { params: { id } })
 }
+
+export const getReserveOwnerRequest = (data) => {
+    return api.get(`/api/reserves/duenio`, { params: data })
+}

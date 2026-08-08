@@ -6,20 +6,18 @@ import Reservations from "../components/Reservations"
 import CourtGridOwner from "../components/CourtGridOwner";
 import { useCourts } from "../hooks/useCourts";
 import { AuthContext } from "../context/AuthContext.jsx"
-
-const StatSpinner = () => (
-    <div className="flex h-6 items-center justify-center">
-        <div className="h-4 w-4 animate-spin rounded-full border-2 border-orange-500/30 border-t-orange-500" />
-    </div>
-);
+import StatSpinner from "../components/StartSpinner";
+import { useReserve } from "../hooks/useReserve.js"
 
 const Dashboard = () => {
-    const [modo, setModo] = useState(2)
+    const [modo, setModo] = useState(3)
     const { user } = useContext(AuthContext);
-    const { courts, loading, getCourts, createCourt } = useCourts({ id: null, filters: { duenio: user.id } })
+    const { courts, courtsLoading, getCourts, createCourt } = useCourts({ id: null, filters: { duenio: user.id } })
+    const { reserves, reservesLoading, getReservesOwner } = useReserve()
 
     useEffect(() => {
         getCourts()
+        getReservesOwner()
     }, [])
 
     return (
@@ -29,7 +27,7 @@ const Dashboard = () => {
                 {/* Encabezado */}
                 <div className="mb-8">
                     <p className="mb-1 text-sm text-gray-400">
-                        Bienvenido, julio@gmail.com
+                        Bienvenido, {user.email}
                     </p>
 
                     <h1 className="text-4xl font-bold text-white">
@@ -38,11 +36,14 @@ const Dashboard = () => {
 
                     <div className="mt-6 grid grid-cols-3 gap-4">
                         <StatCard
-                            value={loading ? <StatSpinner /> : courts.length}
+                            value={courtsLoading ? (<StatSpinner />) : courts.length}
                             color="text-orange-500" label="Canchas publicadas" 
                         />
-                        <StatCard value="0" color="text-white" label="Canchas totales" />
-                        <StatCard value="3" color="text-green-400" label="Reservas entrantes" />
+                        <StatCard 
+                            value={courtsLoading ? (<StatSpinner />) : courts.filter(item => item.disponible==true).length} 
+                            color="text-white" label="Canchas totales" 
+                        />
+                        <StatCard value={reservesLoading ? (<StatSpinner />) : reserves.length} color="text-green-400" label="Reservas entrantes" />
                     </div>
                 </div>
 
@@ -76,9 +77,14 @@ const Dashboard = () => {
                 </div>
 
                 {/* Contenido según el modo */}
-                {modo === 1 && <CourtGridOwner courts={courts} />}
-                {modo === 2 && <CourtForm onCreate={createCourt} />}
-                {modo === 3 && <Reservations />}
+                {!courtsLoading && !reservesLoading && (
+                    <>
+                        {modo === 1 && <CourtGridOwner courts={courts} />}
+                        {modo === 2 && <CourtForm onCreate={createCourt} />}
+                        {modo === 3 && <Reservations reserves={reserves}/>}
+                    </>
+                )
+                }
 
             </section>
         </main>

@@ -83,7 +83,7 @@ export function useCourts({ id, filters }) {
     return {
         courts,
         court,
-        loading,
+        courtsLoading: loading,
         submitting,
         error,
         getCourts,

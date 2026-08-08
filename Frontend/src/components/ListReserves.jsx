@@ -8,7 +8,7 @@ import Spinner from "./Spinner.jsx";
 
 const ListReserves = () => {
     const { user } = useContext(AuthContext)
-    const { reserves, loading, error, loadReserves, updateReserve } = useReserve()
+    const { reserves, reservesLoading, error, loadReserves, updateReserve } = useReserve()
 
     useEffect(() => {
         loadReserves({ usuario: user.id })
@@ -22,7 +22,7 @@ const ListReserves = () => {
         }
     }
 
-    if (loading) return (<Spinner />)
+    if (reservesLoading) return (<Spinner />)
 
     if (error) return ("error")
 

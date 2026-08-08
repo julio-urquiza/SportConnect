@@ -12,7 +12,7 @@ import { useEffect } from "react";
 
 const CanchaDetalle = () => {
     const { id } = useParams()
-    const { court, loading, error, getCourtById } = useCourts({ id })
+    const { court, courtsLoading, error, getCourtById } = useCourts({ id })
 
     useEffect(()=>{
         getCourtById()
@@ -27,15 +27,15 @@ const CanchaDetalle = () => {
                     Volver a la búsqueda
                 </button>
                 
-                {loading && <Spinner />}
+                {courtsLoading && <Spinner />}
 
-                {!loading && error && "error"}
+                {!courtsLoading && error && "error"}
 
-                {!loading && !error && (
+                {!courtsLoading && !error && (
                     "Info no encontrada"
                 )}
 
-                {!loading && !error &&
+                {!courtsLoading && !error &&
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         <div className="space-y-5 lg:col-span-2">
                             <PortadaCard imagen={court.imagenes[0]} nombre={court.nombre} />

@@ -14,26 +14,26 @@ export default function CourtCardOwner({ court }) {
       <div className="relative h-44">
 
         <img
-          src={court.image}
-          alt={court.name}
+          src={court.imagenes[0]}
+          alt={court.nombre}
           className="h-full w-full object-cover"
         />
 
         <div className="absolute inset-0 bg-linear-to-t from-[#00001A]/90 to-transparent" />
 
         <span className="absolute right-3 top-3 rounded-full border border-green-500/40 bg-green-500/20 px-2.5 py-1 text-xs font-semibold text-green-400">
-          {court.status}
+          {court.disponible ? "Disponible" : "Oculta"}
         </span>
 
         <div className="absolute bottom-3 left-3">
 
           <h3 className="font-bold text-white">
-            {court.name}
+            {court.nombre}
           </h3>
 
           <div className="mt-1 flex items-center gap-1 text-xs text-zinc-400">
             <MapPin size={14} />
-            {court.location}
+            {court.direccion}
           </div>
 
         </div>
@@ -47,17 +47,22 @@ export default function CourtCardOwner({ court }) {
         <div className="mb-3 flex items-center justify-between">
 
           <span className="text-xl font-bold text-orange-500">
-            ${court.price.toLocaleString("es-AR")}/hr
+            {court.precioPorHora} /hr
           </span>
 
           <div className="flex items-center gap-1">
-            <Star
-              size={14}
-              className="fill-yellow-400 text-yellow-400"
-            />
-            <span className="text-sm text-white">
-              {court.rating}
-            </span>
+
+            {court.rating && 
+                <>
+                    <Star
+                        size={14}
+                        className="fill-yellow-400 text-yellow-400"
+                    />
+                    <span className="text-sm text-white">
+                        {court.rating}
+                    </span>
+                </>
+            }
           </div>
 
         </div>
