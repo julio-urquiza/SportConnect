@@ -12,14 +12,14 @@ const court = {
 };
 
 const CourtGridOwner = () => {
-    const courts = [court, court, court];
+    const courts = [court, court];
 
     if(!courts.length) return <EstadoVacioCanchas />
 
     return (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {courts.map((court) => (
-                <CourtCardOwner key={court.id} court={court} />
+            {courts.map((court, index) => (
+                <CourtCardOwner key={index} court={court} />
             ))}
         </div>
     )

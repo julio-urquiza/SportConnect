@@ -1,12 +1,26 @@
 import { LayoutDashboard, CirclePlus, CalendarClock } from "lucide-react";
 import StatCard from "../components/StatCard";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import CourtForm from "../components/CourtForm"
 import Reservations from "../components/Reservations"
 import CourtGridOwner from "../components/CourtGridOwner";
+import { useCourts } from "../hooks/useCourts";
+import { AuthContext } from "../context/AuthContext.jsx"
+
+const StatSpinner = () => (
+    <div className="flex h-6 items-center justify-center">
+        <div className="h-4 w-4 animate-spin rounded-full border-2 border-orange-500/30 border-t-orange-500" />
+    </div>
+);
 
 const Dashboard = () => {
-    const [modo, setModo] = useState(1)
+    const [modo, setModo] = useState(2)
+    const { user } = useContext(AuthContext);
+    const { courts, loading, getCourts, createCourt } = useCourts({ id: null, filters: { duenio: user.id } })
+
+    useEffect(() => {
+        getCourts()
+    }, [])
 
     return (
         <main className="min-h-screen bg-[rgb(0,0,26)]">
@@ -23,7 +37,10 @@ const Dashboard = () => {
                     </h1>
 
                     <div className="mt-6 grid grid-cols-3 gap-4">
-                        <StatCard value="0" color="text-orange-500" label="Canchas publicadas" />
+                        <StatCard
+                            value={loading ? <StatSpinner /> : courts.length}
+                            color="text-orange-500" label="Canchas publicadas" 
+                        />
                         <StatCard value="0" color="text-white" label="Canchas totales" />
                         <StatCard value="3" color="text-green-400" label="Reservas entrantes" />
                     </div>
@@ -59,8 +76,8 @@ const Dashboard = () => {
                 </div>
 
                 {/* Contenido según el modo */}
-                {modo === 1 && <CourtGridOwner />}
-                {modo === 2 && <CourtForm />}
+                {modo === 1 && <CourtGridOwner courts={courts} />}
+                {modo === 2 && <CourtForm onCreate={createCourt} />}
                 {modo === 3 && <Reservations />}
 
             </section>

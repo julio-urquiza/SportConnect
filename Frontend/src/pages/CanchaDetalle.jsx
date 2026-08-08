@@ -7,12 +7,18 @@ import { useCourts } from "../hooks/useCourts";
 import { useParams } from "react-router-dom";
 import Spinner from "../components/Spinner"
 import DescripcionCard from "../components/DescripcionCard"
+import { useEffect } from "react";
 
 
 const CanchaDetalle = () => {
     const { id } = useParams()
-    const { court, loading, error } = useCourts({ id })
-    console.log(court)
+    const { court, loading, error, getCourtById } = useCourts({ id })
+
+    useEffect(()=>{
+        getCourtById()
+    },[])
+
+
     return (
         <main className="min-h-screen bg-[rgb(0,0,26)]">
             <section className="container mx-auto px-4 py-8">
