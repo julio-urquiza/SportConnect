@@ -133,27 +133,21 @@ export default function CourtForm({ onCreateCourt, userId }) {
 
     const onSubmitCreate = async (e) => {
         e.preventDefault()
-        try {
-            const returno = await onCreateCourt(
-                image,
-                {
-                    nombre: nombre,
-                    deporte: sport,
-                    descripcion: descripcion,
-                    ubicacion: zona,
-                    direccion: direccion,
-                    precioPorHora: Number(precioPorHora),
-                    disponible: true,
-                    servicios:selectedFacilities,
-                    horariosDisponibles: horarios,
-                    duenio: userId,
-                }
-            )
-            console.log(returno)
-            
-        } catch (error) {
-            console.log(error)
-        }
+        await onCreateCourt(
+            image,
+            {
+                nombre: nombre,
+                deporte: sport,
+                descripcion: descripcion,
+                ubicacion: zona,
+                direccion: direccion,
+                precioPorHora: Number(precioPorHora),
+                disponible: true,
+                servicios:selectedFacilities,
+                horariosDisponibles: horarios,
+                duenio: userId,
+            }
+        )
     }
 
     return (
