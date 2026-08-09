@@ -1,14 +1,21 @@
-import {  MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { useNavigate } from "react-router-dom"; 
 import { SPORTS } from "../constants/sports.js";
+import { useContext } from "react";
+import { ColorContext } from "../context/ColorContext";
+
 function CourtCard({cancha}) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  // 1. Extraemos el tema actual
+  const { theme } = useContext(ColorContext);
+
   return (
     <article 
-      className="group overflow-hidden rounded-2xl border border-gray-700 bg-[#00001A]/80 shadow-lg transition hover:-translate-y-1 hover:shadow-xl"
+      className={`group cursor-pointer overflow-hidden rounded-2xl border shadow-lg transition hover:-translate-y-1 hover:shadow-xl ${
+        theme === 'dark' ? 'border-gray-700 bg-[#00001A]/80' : 'border-gray-200 bg-white'
+      }`}
       onClick={() => navigate(`/cancha/${cancha._id}`)}
-      // onClick={() => navigate("/cancha/1")}
-      >
+    >
 
       {/* Imagen */}
       <div className="relative h-48 overflow-hidden">
@@ -18,26 +25,31 @@ function CourtCard({cancha}) {
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
 
-        <div className="absolute inset-0 bg-linear-to-t from-[#00001A]/90 to-transparent" />
+        {/* Gradiente dinámico sobre la imagen */}
+        <div className={`absolute inset-0 ${
+          theme === 'dark' ? 'bg-linear-to-t from-[#00001A]/90 to-transparent' : ''
+        }`} />
 
-        <span className="absolute left-3 top-3 rounded-full border border-orange-500/40 bg-black/60 px-3 py-1 text-xs font-medium text-orange-500 backdrop-blur">
-          {SPORTS.find(s=> (cancha.deporte=== s.deporte)).logo} {SPORTS.find(s=> (cancha.deporte===s.deporte)).label}
+        {/* Etiqueta del deporte dinámica */}
+        <span className={`absolute left-3 top-3 rounded-full border border-orange-500/40 px-3 py-1 text-xs font-medium text-orange-500 backdrop-blur ${
+          theme === 'dark' ? 'bg-black/60' : 'bg-white/90'
+        }`}>
+          {SPORTS.find(s=> (cancha.deporte === s.deporte))?.logo} {SPORTS.find(s=> (cancha.deporte === s.deporte))?.label}
         </span>
-        {/* clasificacion */}
-        {/* <div className="absolute bottom-3 right-3 flex items-center gap-1 rounded-lg bg-black/60 px-2 py-1 text-xs text-yellow-400 backdrop-blur">
-          <Star className="h-3 w-3 fill-yellow-400" />
-          4.8
-        </div> */}
       </div>
 
       {/* Contenido */}
       <div className="p-4">
 
-        <h3 className="truncate text-xl font-bold text-white">
+        <h3 className={`truncate text-xl font-bold ${
+          theme === 'dark' ? 'text-white' : 'text-gray-900'
+        }`}>
           {cancha.nombre}
         </h3>
 
-        <div className="mt-1 mb-4 flex items-center gap-2 text-sm text-gray-400">
+        <div className={`mt-1 mb-4 flex items-center gap-2 text-sm ${
+          theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+        }`}>
           <MapPin className="h-4 w-4 shrink-0" />
           <span className="truncate">
             {cancha.direccion}
@@ -47,7 +59,9 @@ function CourtCard({cancha}) {
         <div className="flex items-end justify-between">
 
           <div>
-            <p className="text-xs text-gray-400">
+            <p className={`text-xs ${
+              theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+            }`}>
               Precio / hora
             </p>
 
@@ -67,4 +81,4 @@ function CourtCard({cancha}) {
   );
 }
 
-export default CourtCard
+export default CourtCard;

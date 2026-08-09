@@ -8,8 +8,11 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import { ColorContext } from '../context/ColorContext';
 
 function Navbar() {
+  const { theme, toggleTheme } = useContext(ColorContext);
+  
   const { user, logoutRequest } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
@@ -28,27 +31,33 @@ function Navbar() {
     userName.charAt(0).toUpperCase() + userName.slice(1);
 
   useEffect(() => {
-    setMobileOpen(false);
+    const frameId = window.requestAnimationFrame(() => {
+      setMobileOpen(false);
+    });
+
+    return () => window.cancelAnimationFrame(frameId);
   }, [location.pathname]);
 
   const isActive = (path) => {
     if (path === "/") {
       return location.pathname === "/";
     }
-
     return location.pathname.startsWith(path);
   };
 
+  // --- CAMBIO 1: Hacemos que el color del texto dependa del tema ---
   const desktopLinkClass = (path) =>
     `relative flex items-center gap-2 py-1 transition-opacity hover:opacity-80 ${
-      isActive(path) ? "text-orange-500" : "text-white"
+      isActive(path) 
+        ? "text-orange-500" 
+        : (theme === 'dark' ? "text-white" : "text-gray-800")
     }`;
 
   const mobileLinkClass = (path) =>
     `block w-full rounded-xl px-4 py-3 text-left text-base transition ${
       isActive(path)
         ? "bg-orange-500/10 font-bold text-orange-500"
-        : "text-white hover:bg-white/5"
+        : (theme === 'dark' ? "text-white hover:bg-white/5" : "text-gray-800 hover:bg-gray-100")
     }`;
 
   const handleMobileLogout = async () => {
@@ -58,7 +67,11 @@ function Navbar() {
   };
 
   return (
-    <nav className="relative z-50 flex h-16 w-full items-center justify-between border-b border-[#1a1a3a] bg-[#00001a] px-4 md:px-8">
+    // --- CAMBIO 2: Fondo y borde dinámicos para el Nav ---
+    <nav className={`relative z-50 flex h-16 w-full items-center justify-between border-b px-4 md:px-8 ${
+        theme === 'dark' ? 'bg-[#00001a] border-[#1a1a3a]' : 'bg-white border-gray-300'
+    }`}>
+      
       {/* Logo */}
       <Link
         to="/"
@@ -73,7 +86,6 @@ function Navbar() {
           (location.pathname === "/login" ? (
             <Link className={desktopLinkClass("/")} to="/">
               <span className="text-base">Inicio</span>
-
               {isActive("/") && (
                 <div className="absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-orange-500" />
               )}
@@ -81,7 +93,6 @@ function Navbar() {
           ) : (
             <Link className={desktopLinkClass("/login")} to="/login">
               <span className="text-base">Login</span>
-
               {isActive("/login") && (
                 <div className="absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-orange-500" />
               )}
@@ -92,38 +103,23 @@ function Navbar() {
           <>
             <Link className={desktopLinkClass("/")} to="/">
               <span className="text-base font-bold">Inicio</span>
-
               {isActive("/") && (
                 <div className="absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-orange-500" />
               )}
             </Link>
 
-            <Link
-              className={desktopLinkClass("/reservas")}
-              to="/reservas"
-            >
+            <Link className={desktopLinkClass("/reservas")} to="/reservas">
               <CalendarCheck className="h-4 w-4" />
-
-              <span className="text-base font-bold">
-                Mis Reservas
-              </span>
-
+              <span className="text-base font-bold">Mis Reservas</span>
               {isActive("/reservas") && (
                 <div className="absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-orange-500" />
               )}
             </Link>
 
             {isOwner && (
-              <Link
-                className={desktopLinkClass("/dashboard")}
-                to="/dashboard"
-              >
+              <Link className={desktopLinkClass("/dashboard")} to="/dashboard">
                 <LayoutDashboard className="h-4 w-4" />
-
-                <span className="font-bold">
-                  Mi Dashboard
-                </span>
-
+                <span className="font-bold">Mi Dashboard</span>
                 {isActive("/dashboard") && (
                   <div className="absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-orange-500" />
                 )}
@@ -133,9 +129,22 @@ function Navbar() {
             <ProfileButton />
           </>
         )}
+
+        {/* --- CAMBIO 3: Botón de tema en versión Desktop --- */}
+        <button 
+            onClick={toggleTheme}
+            className={`rounded-md border px-3 py-1 text-sm font-semibold transition ${
+                theme === 'dark' 
+                ? 'border-gray-600 text-white hover:bg-gray-800' 
+                : 'border-gray-400 text-gray-800 hover:bg-gray-100'
+            }`}
+        >
+            {theme === 'dark' ? 'Claro' : 'Oscuro'}
+        </button>
+
       </div>
 
-      {/* Botón hamburguesa ñam ñam ñam ñam ñam */}
+      {/* Botón hamburguesa */}
       <button
         type="button"
         className="flex h-11 w-11 items-center justify-center rounded-xl border border-orange-500 text-orange-500 transition hover:bg-orange-500/10 md:hidden"
@@ -150,9 +159,12 @@ function Navbar() {
         )}
       </button>
 
-      {/* Menú mobile ñam ñam ñam ñam*/}
+      {/* Menú mobile */}
+      {/* --- CAMBIO 4: Fondo y borde dinámicos para el menú desplegable --- */}
       <div
-        className={`absolute left-0 right-0 top-16 max-h-[calc(100vh-4rem)] overflow-y-auto border-b border-[#1a1a3a] bg-[#00001a] shadow-2xl transition-all duration-200 md:hidden ${
+        className={`absolute left-0 right-0 top-16 max-h-[calc(100vh-4rem)] overflow-y-auto border-b shadow-2xl transition-all duration-200 md:hidden ${
+            theme === 'dark' ? 'bg-[#00001a] border-[#1a1a3a]' : 'bg-white border-gray-300'
+        } ${
           mobileOpen
             ? "pointer-events-auto translate-y-0 opacity-100"
             : "pointer-events-none -translate-y-3 opacity-0"
@@ -161,58 +173,49 @@ function Navbar() {
         <div className="px-4 py-5">
           {!user &&
             (location.pathname === "/login" ? (
-              <Link
-                className={mobileLinkClass("/")}
-                to="/"
-                onClick={() => setMobileOpen(false)}
-              >
+              <Link className={mobileLinkClass("/")} to="/" onClick={() => setMobileOpen(false)}>
                 Inicio
               </Link>
             ) : (
-              <Link
-                className={mobileLinkClass("/login")}
-                to="/login"
-                onClick={() => setMobileOpen(false)}
-              >
+              <Link className={mobileLinkClass("/login")} to="/login" onClick={() => setMobileOpen(false)}>
                 Login
               </Link>
             ))}
 
           {user && (
             <>
-              {/* Nombre del usuario mas cool para que no sea todo el correo (queda feo sino)*/}
-              <div className="mb-3 border-b border-[#1a1a3a] px-4 pb-4">
+              {/* --- CAMBIO 5: Borde dinámico para el separador del nombre --- */}
+              <div className={`mb-3 border-b px-4 pb-4 ${theme === 'dark' ? 'border-[#1a1a3a]' : 'border-gray-200'}`}>
                 <p className="truncate font-jura text-lg font-bold text-orange-500">
                   {formattedUserName}
                 </p>
               </div>
 
               <div className="flex flex-col gap-1">
-                <Link
-                  className={mobileLinkClass("/")}
-                  to="/"
-                  onClick={() => setMobileOpen(false)}
-                >
+                <Link className={mobileLinkClass("/")} to="/" onClick={() => setMobileOpen(false)}>
                   Inicio
                 </Link>
 
                 {isOwner && (
-                  <Link
-                    className={mobileLinkClass("/dashboard")}
-                    to="/dashboard"
-                    onClick={() => setMobileOpen(false)}
-                  >
+                  <Link className={mobileLinkClass("/dashboard")} to="/dashboard" onClick={() => setMobileOpen(false)}>
                     Mi Dashboard
                   </Link>
                 )}
 
-                <Link
-                  className={mobileLinkClass("/reservas")}
-                  to="/reservas"
-                  onClick={() => setMobileOpen(false)}
-                >
+                <Link className={mobileLinkClass("/reservas")} to="/reservas" onClick={() => setMobileOpen(false)}>
                   Mis Reservas
                 </Link>
+
+                {/* --- CAMBIO 6: Botón de tema en versión Mobile --- */}
+                <button
+                    type="button"
+                    className={`mt-2 w-full rounded-xl px-4 py-3 text-left text-base transition ${
+                        theme === 'dark' ? 'text-white hover:bg-white/5' : 'text-gray-800 hover:bg-gray-100'
+                    }`}
+                    onClick={toggleTheme}
+                >
+                    Cambiar a modo {theme === 'dark' ? 'Claro ' : 'Oscuro '}
+                </button>
 
                 <button
                   type="button"

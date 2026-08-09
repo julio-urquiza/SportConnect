@@ -1,5 +1,7 @@
 import CourtCard from "./CourtCard.jsx";
 import { useCourts } from "../hooks/useCourts.js";
+import { useContext } from "react";
+import { ColorContext } from "../context/ColorContext";
 
 const cancha = {
   id: 1,
@@ -18,9 +20,14 @@ const cancha = {
 
 
 function CourtGrid() {
-  const {courts} = useCourts()
+  const { courts } = useCourts();
+  // Extraemos el tema actual
+  const { theme } = useContext(ColorContext);
+
   return (
-    <div className="mx-auto flex flex-wrap justify-center gap-4 p-4">
+    <div className={`mx-auto flex flex-wrap justify-center gap-4 p-4 transition-colors duration-300 ${
+        theme === 'dark' ? 'bg-[#00001A]' : 'bg-gray-50'
+    }`}>
       {
         courts.map((court, index) => (
           <CourtCard key={index} cancha={court} />
@@ -29,4 +36,4 @@ function CourtGrid() {
     </div>
   ); 
 }
-export default CourtGrid
+export default CourtGrid;

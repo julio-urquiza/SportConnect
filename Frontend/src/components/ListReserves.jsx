@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom"
 import ReservaCard from "./ReservaCard.jsx";
 import { useReserve } from "../hooks/useReserve.js"
-import { useEffect } from "react";
-import { useContext } from "react"
+import { useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthContext.jsx"
+// 1. Importamos el contexto de color
+import { ColorContext } from "../context/ColorContext.jsx";
 import Spinner from "./Spinner.jsx";
 
 const ListReserves = () => {
     const { user } = useContext(AuthContext)
+    // 2. Extraemos el tema actual
+    const { theme } = useContext(ColorContext)
     const { reserves, loading, error, loadReserves, updateReserve } = useReserve()
 
     useEffect(() => {
@@ -26,15 +29,22 @@ const ListReserves = () => {
 
     if (error) return ("error")
 
+    // --- ESTADO 1: Sin reservas ---
     if (reserves.length == 0) return (
         <div className="py-24 text-center">
             <div className="mb-4 text-6xl">📅</div>
 
-            <h2 className="mb-2 text-2xl font-bold text-white">
+            {/* Título dinámico */}
+            <h2 className={`mb-2 text-2xl font-bold ${
+                theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`}>
                 No tenés reservas todavía
             </h2>
 
-            <p className="mb-6 text-gray-400">
+            {/* Subtítulo dinámico */}
+            <p className={`mb-6 ${
+                theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+            }`}>
                 Buscá una cancha y hacé tu primera reserva
             </p>
 
@@ -47,10 +57,14 @@ const ListReserves = () => {
         </div>
     )
 
+    // --- ESTADO 2: Con reservas ---
     return (
         <div className="space-y-10">
             <section>
-                <p className="mb-4 font-jura text-lg font-bold text-green-400">
+                {/* Título de sección dinámico (Cambiamos la intensidad del verde para que resalte en blanco) */}
+                <p className={`mb-4 font-jura text-lg font-bold ${
+                    theme === 'dark' ? 'text-green-400' : 'text-green-600'
+                }`}>
                     ✅ Próximas ({reserves.length})
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -62,7 +76,6 @@ const ListReserves = () => {
                 </div>
             </section>
         </div>
-
     )
 }
 
