@@ -4,6 +4,7 @@ const sports = [
     { id: "padel", label: "🎾 Pádel" },
     { id: "tenis", label: "🎾 Tenis" },
     { id: "futbol", label: "⚽ Fútbol" },
+    { id: "bascket", label: "🏀 Bascket" },
 ];
 
 const zones = [
@@ -59,8 +60,8 @@ function ImageUpload({ imagePreview, onImageChange }) {
     );
 }
 
-export default function CreateCourt() {
-
+export default function CourtForm({ onCreateCourt, userId }) {
+    const [nombre, setNombre] = useState(null)
     const [sport, setSport] = useState("padel");
     const [selectedFacilities, setSelectedFacilities] = useState([]);
     const [facilityInput, setFacilityInput] = useState("");
@@ -74,7 +75,12 @@ export default function CreateCourt() {
         { dia: 5, horas: [] },
         { dia: 6, horas: [] },
     ])
+    const [image, setImage] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
+    const [zona, setZona] = useState(zones[0] || "");
+    const [direccion, setDireccion] = useState("");
+    const [descripcion, setDescripcion] = useState("");
+    const [precioPorHora, setPrecioPorHora] = useState("");
 
     const setHoras = (dia, hora) => {
         setHorarios((prev) =>
@@ -116,15 +122,38 @@ export default function CreateCourt() {
         const file = event.target.files?.[0];
 
         if (!file) {
+            setImage(null);
             setImagePreview(null);
             return;
         }
 
+        setImage(file);
         setImagePreview(URL.createObjectURL(file));
     };
 
-    const onSubmitCreate = () => {
-
+    const onSubmitCreate = async (e) => {
+        e.preventDefault()
+        try {
+            const returno = await onCreateCourt(
+                image,
+                {
+                    nombre: nombre,
+                    deporte: sport,
+                    descripcion: descripcion,
+                    ubicacion: zona,
+                    direccion: direccion,
+                    precioPorHora: Number(precioPorHora),
+                    disponible: true,
+                    servicios:selectedFacilities,
+                    horariosDisponibles: horarios,
+                    duenio: userId,
+                }
+            )
+            console.log(returno)
+            
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -146,6 +175,7 @@ export default function CreateCourt() {
 
                     <input
                         className={inputClass}
+                        onChange={(e) => setNombre(e.target.value)}
                         placeholder="Ej: Padel Club Palermo Norte"
                     />
                 </div>
@@ -179,7 +209,7 @@ export default function CreateCourt() {
                     <div>
                         <label className={labelClass}>Zona *</label>
 
-                        <select className={inputClass}>
+                        <select className={inputClass} value={zona} onChange={(e) => setZona(e.target.value)}>
                             {zones.map((zone) => (
                                 <option
                                     key={zone}
@@ -198,6 +228,8 @@ export default function CreateCourt() {
                         <input
                             className={inputClass}
                             placeholder="Av. Santa Fe 1234"
+                            value={direccion}
+                            onChange={(e) => setDireccion(e.target.value)}
                         />
                     </div>
 
@@ -214,6 +246,8 @@ export default function CreateCourt() {
                         type="number"
                         className={inputClass}
                         placeholder="12000"
+                        value={precioPorHora}
+                        onChange={(e) => setPrecioPorHora(e.target.value)}
                     />
                 </div>
 
@@ -226,6 +260,8 @@ export default function CreateCourt() {
                     <textarea
                         className={`${inputClass} min-h-30 resize-none`}
                         placeholder="Describe la cancha, instalaciones y detalles relevantes"
+                        value={descripcion}
+                        onChange={(e) => setDescripcion(e.target.value)}
                     />
                 </div>
 

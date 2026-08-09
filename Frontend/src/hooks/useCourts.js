@@ -5,6 +5,8 @@ import {
     createCourtRequest,
     updateCourtRequest,
 } from "../services/courtService";
+import { uploadImageRequest } from "../services/upload.service.js"
+
 
 export function useCourts({ id, filters }) {
     const [courts, setCourts] = useState([]);
@@ -45,14 +47,18 @@ export function useCourts({ id, filters }) {
         }
     }, [id]);
 
-    const createCourt = async (courtData) => {
+    const createCourt = async (file, courtData) => {
         try {
             setSubmitting(true);
             setError(null);
-
-            const { data } = await createCourtRequest(courtData);
-            await getCourts(); // refresca el listado
-            return data.court;
+            let data = null
+            const response = await uploadImageRequest(file)
+            if(!response)throw new Error("No se pudo subir la imagen")
+            courtData.imagenes=[response.url]
+            data = await createCourtRequest(courtData)
+            if(!data) throw new Error("no se puedo crear la cancha")
+            id ? getCourtById() : getCourts()
+            return data
         } catch (err) {
             setError(err.response?.data?.message ?? "No se pudo crear la cancha");
             throw err;
@@ -66,10 +72,9 @@ export function useCourts({ id, filters }) {
             setSubmitting(true);
             setError(null);
 
-            const { data } = await updateCourtRequest(id, courtData);
+            const data = await updateCourtRequest(id, courtData);
             setCourt(data.court);
-            await getCourts(); // refresca el listado
-            return data.court;
+            return data
         } catch (err) {
             setError(
                 err.response?.data?.message ?? "No se pudo actualizar la cancha",

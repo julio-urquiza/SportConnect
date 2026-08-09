@@ -107,6 +107,7 @@ class CourtService {
                 for (const hour of horas) if (typeof hour !== 'number' || hour < 0 || hour > 23) throw new CustomError(400, 'Hora inválida en horariosDisponibles')
             }
         }
+        console.log(courtData)
 
         if (!duenio || typeof duenio !== 'string') {
             throw new CustomError(400, 'Dueño inválido')
@@ -116,6 +117,7 @@ class CourtService {
         courtData.nombre = nombre.trim()
         courtData.ubicacion = ubicacion.trim()
         courtData.direccion = direccion.trim()
+
 
         const newCourt = await this.dao.create(courtData)
         if (!newCourt) throw new CustomError(500, "Error al crear la cancha")

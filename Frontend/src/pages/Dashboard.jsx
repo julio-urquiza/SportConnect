@@ -14,7 +14,7 @@ const Dashboard = () => {
     const { user } = useContext(AuthContext);
     const { courts, courtsLoading, getCourts, createCourt } = useCourts({ id: null, filters: { duenio: user.id } })
     const { reserves, reservesLoading, getReservesOwner } = useReserve()
-
+    
     useEffect(() => {
         getCourts()
         getReservesOwner()
@@ -77,13 +77,14 @@ const Dashboard = () => {
                 </div>
 
                 {/* Contenido según el modo */}
-                {!courtsLoading && !reservesLoading && (
-                    <>
-                        {modo === 1 && <CourtGridOwner courts={courts} />}
-                        {modo === 2 && <CourtForm onCreate={createCourt} />}
-                        {modo === 3 && <Reservations reserves={reserves}/>}
-                    </>
-                )
+                {!courtsLoading && !reservesLoading && 
+                    (
+                        <>
+                            {modo === 1 && <CourtGridOwner courts={courts} />}
+                            {modo === 2 && <CourtForm onCreateCourt={createCourt} userId={user.id} />}
+                            {modo === 3 && <Reservations reserves={reserves}/>}
+                        </>
+                    )
                 }
 
             </section>
