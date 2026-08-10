@@ -12,7 +12,7 @@ import { useReserve } from "../hooks/useReserve.js"
 const Dashboard = () => {
     const [modo, setModo] = useState(1)
     const { user } = useContext(AuthContext);
-    const { courts, courtsLoading, getCourts, createCourt } = useCourts({ id: null, filters: { duenio: user.id } })
+    const { courts, courtsLoading, getCourts, createCourt, updateCourt, deleteCourt } = useCourts({ id: null, filters: { duenio: user.id } })
     const { reserves, reservesLoading, getReservesOwner } = useReserve()
     
     useEffect(() => {
@@ -80,7 +80,7 @@ const Dashboard = () => {
                 {!courtsLoading && !reservesLoading && 
                     (
                         <>
-                            {modo === 1 && <CourtGridOwner courts={courts} />}
+                            {modo === 1 && <CourtGridOwner courts={courts} onUpdate={updateCourt} onDelete={deleteCourt}/>}
                             {modo === 2 && <CourtForm onCreateCourt={createCourt} userId={user.id} />}
                             {modo === 3 && <Reservations reserves={reserves}/>}
                         </>

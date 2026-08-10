@@ -4,6 +4,7 @@ import {
     getCourtByIdRequest,
     createCourtRequest,
     updateCourtRequest,
+    deleteCourtRequest
 } from "../services/courtService";
 import { uploadImageRequest } from "../services/upload.service.js"
 
@@ -56,7 +57,7 @@ export function useCourts({ id, filters }) {
             if(!response)throw new Error("No se pudo subir la imagen")
             courtData.imagenes=[response.url]
             data = await createCourtRequest(courtData)
-            if(!data) throw new Error("no se puedo crear la cancha")
+            if(!data) throw new Error("No se pudo crear la cancha")
             id ? getCourtById() : getCourts()
             return data
         } catch (err) {
@@ -67,17 +68,37 @@ export function useCourts({ id, filters }) {
         }
     };
 
-    const updateCourt = async (courtData) => {
+    const updateCourt = async (courtId,courtData) => {
         try {
             setSubmitting(true);
             setError(null);
 
-            const data = await updateCourtRequest(id, courtData);
-            setCourt(data.court);
+            const data = await updateCourtRequest(courtId, courtData);
+            if(!data) throw new Error("No se pudo modificar la cancha")
+            id ? getCourtById() : getCourts()
             return data
         } catch (err) {
             setError(
                 err.response?.data?.message ?? "No se pudo actualizar la cancha",
+            );
+            throw err;
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+    const deleteCourt = async (courtId) => {
+        try {
+            setSubmitting(true);
+            setError(null);
+
+            const data = await deleteCourtRequest(courtId);
+            if(!data) throw new Error("No se pudo eliminar la cancha")
+            id ? getCourtById() : getCourts()
+            return data
+        } catch (err) {
+            setError(
+                err.response?.data?.message ?? "No se pudo eliminar la cancha",
             );
             throw err;
         } finally {
@@ -95,5 +116,6 @@ export function useCourts({ id, filters }) {
         getCourtById,
         createCourt,
         updateCourt,
+        deleteCourt,
     };
 }

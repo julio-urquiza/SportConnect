@@ -107,7 +107,6 @@ class CourtService {
                 for (const hour of horas) if (typeof hour !== 'number' || hour < 0 || hour > 23) throw new CustomError(400, 'Hora inválida en horariosDisponibles')
             }
         }
-        console.log(courtData)
 
         if (!duenio || typeof duenio !== 'string') {
             throw new CustomError(400, 'Dueño inválido')
@@ -122,6 +121,13 @@ class CourtService {
         const newCourt = await this.dao.create(courtData)
         if (!newCourt) throw new CustomError(500, "Error al crear la cancha")
         return newCourt
+    }
+
+    deleteCourt = async (id) => {
+        if (!id) throw new CustomError(400, "ID de cancha no proporcionado")
+        const court = await this.dao.delete(id)
+        if (!court) throw new CustomError(404, "No se pudo eliminar la cancha")
+        return court; 
     }
 }
 
