@@ -6,10 +6,10 @@ import { SPORTS } from "../constants/sports.js";
 import Spinner from "../components/Spinner.jsx";
 
 function Home() {
-    const [filters, setFilters] = useState({ deporte: null, sort: "relevancia" , ubicacion: null});
+    const [filters, setFilters] = useState({ deporte: null, sort: "relevancia", ubicacion: null });
     const [searchInput, setSearchInput] = useState("");
     const [localidadInput, setLocalidadInput] = useState("");
-    const { courts, loading, error } = useCourts({ id: null, filters });
+    const { courts, loading, error, getCourts } = useCourts({ id: null, filters });
 
     const handleDeporte = (deporte) => {
         setFilters((prev) => ({
@@ -22,15 +22,15 @@ function Home() {
         setFilters((prev) => ({ ...prev, sort }));
     };
 
-    const handleSearchInput= (e) =>{
+    const handleSearchInput = (e) => {
         setSearchInput(e.target.value)
     }
 
-    const handleLocalidadInput= (e)=>{
+    const handleLocalidadInput = (e) => {
         setLocalidadInput(e.target.value)
     }
 
-        useEffect(() => {
+    useEffect(() => {
         const timeoutId = setTimeout(() => {
             setFilters((prev) => ({ ...prev, nombre: searchInput }));
         }, 400);
@@ -39,7 +39,7 @@ function Home() {
     }, [searchInput]);
 
 
-        useEffect(() => {
+    useEffect(() => {
         const timeoutId = setTimeout(() => {
             setFilters((prev) => ({ ...prev, ubicacion: localidadInput }));
         }, 400);
@@ -47,6 +47,9 @@ function Home() {
         return () => clearTimeout(timeoutId);
     }, [localidadInput]);
 
+    useEffect(()=>{
+        getCourts()
+    },[filters])
     return (
         <main className="min-h-screen bg-[#00001A]">
             <section className="relative overflow-hidden border-b border-[#1A1A3A] px-4 py-16">
@@ -91,11 +94,11 @@ function Home() {
                             <div className="flex items-center gap-2 text-gray-400">
                                 <MapPin className="h-4 w-4" />
                                 <input
-                                type="text"
-                                value={localidadInput}
-                                onChange={handleLocalidadInput}
-                                placeholder="Buscá por localidad..." 
-                                className="bg-transparent text-white placeholder:text-gray-400 outline-none"/>
+                                    type="text"
+                                    value={localidadInput}
+                                    onChange={handleLocalidadInput}
+                                    placeholder="Buscá por localidad..."
+                                    className="bg-transparent text-white placeholder:text-gray-400 outline-none" />
                             </div>
                         </div>
                     </div>
@@ -109,7 +112,7 @@ function Home() {
                                     ${filters.deporte === s.deporte
                                         ? " from-orange-500/80 to-[#00001A]/70"
                                         : "text-gray-400 hover:bg-white/10"
-                                }`}
+                                    }`}
                             >
                                 <span>{s.logo}</span>
                                 {s.label}
