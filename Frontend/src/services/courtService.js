@@ -20,3 +20,6 @@ export const updateCourtRequest = (id, data) => {
   return api.put(`/api/court/${id}`, data)
 };
 
+export const deleteCourtRequest = (id) => {
+  return api.delete(`/api/court/${id}`)
+};

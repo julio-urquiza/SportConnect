@@ -9,8 +9,6 @@ class CourtController {
         const courts = await this.service.getCourts(req.query)
         res.status(200).json({ courts })
     }
-    
-    
 
     getById = async (req, res) => {
         const { id } = req.params; 
@@ -27,6 +25,12 @@ class CourtController {
     create = async (req, res) => {
         const court = await this.service.createCourt(req.body);
         res.status(201).json({ message: "Cancha creada exitosamente", court });
+    }
+
+    delete =async (req, res) => {
+        const { id } = req.params;
+        const court = await this.service.deleteCourt(id)
+        res.status(200).json({message: "Cancha eliminada con éxito", court})
     }
 }
 
