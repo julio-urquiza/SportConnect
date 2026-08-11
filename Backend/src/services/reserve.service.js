@@ -194,8 +194,7 @@ class ReserveService {
         if (filtros.cancha) query.cancha = filtros.cancha
         if (filtros.fecha) query.fecha = filtros.fecha
         if (filtros.estado) query.estado = filtros.estado
-
-<<<<<<< HEAD
+        
         return await this.dao.getAllReserves(query)
     }
 
@@ -323,7 +322,6 @@ class ReserveService {
 
         return await reserveDao.getHistorialPagos(query)
     }
-=======
     obtenerReservasDuenio = async (idDuenio, filtros = {}) => {
         if (!idDuenio) throw new CustomError(401, "Usuario no autenticado");
 
@@ -371,7 +369,6 @@ class ReserveService {
     modificarReservas = async (id, data ) => {
         return this.dao.update(id, data )
     }  
->>>>>>> a05d156c71aeb117e5cafefa5642559470a52285
 }
 
 export default new ReserveService(reserveDao)

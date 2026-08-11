@@ -14,7 +14,7 @@ const MENSAJES_PAGO = {
 
 const ListReserves = () => {
     const { user } = useContext(AuthContext)
-    const { reserves, loading, error, loadReserves, cancelReserve } = useReserve()
+    const { reserves, reservesLoading, error, loadReserves, cancelReserve } = useReserve()
     const [searchParams] = useSearchParams()
     const mensajePago = MENSAJES_PAGO[searchParams.get("pago")]
 
@@ -37,16 +37,11 @@ const ListReserves = () => {
     }, [reserves])
 
     const handleCancelReserve = async (id) => {
-        const resultado = await cancelReserve(id)
-        if (resultado) {
-          
-    const handleCancelReserve = async (id, state) => {
-        const cancelledReserve = await updateReserve(id, { estado: state })
+        const cancelledReserve = await cancelReserve(id)
         if (cancelledReserve) {
+            await loadReserves({ usuario: user.id })
         }
     }
-
-    if (loading && reserves.length === 0) return (<Spinner />)
 
     if (reservesLoading) return (<Spinner />)
 
@@ -54,11 +49,13 @@ const ListReserves = () => {
 
     return (
         <div className="space-y-6">
-            {mensajePago && (
-                <div className={`rounded-xl border px-4 py-3 text-sm ${mensajePago.clase}`}>
-                    {mensajePago.texto}
-                </div>
-            )}
+            {mensajePago &&
+                (
+                    <div className={`rounded-xl border px-4 py-3 text-sm ${mensajePago.clase}`}>
+                        {mensajePago.texto}
+                    </div>
+                )
+            }
 
             {reserves.length === 0 ? (
                 <div className="py-24 text-center">
@@ -87,5 +84,6 @@ const ListReserves = () => {
         </div>
     )
 }
+
 
 export default ListReserves

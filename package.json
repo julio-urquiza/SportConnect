@@ -8,7 +8,6 @@
     "dev": "concurrently \"npm run backend\" \"npm run frontend\""
   },
   "dependencies": {
-    "api": "^7.0.0",
-    "node-cron": "^4.6.0"
+    "api": "^7.0.0"
   }
 }
