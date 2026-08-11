@@ -5,12 +5,18 @@ import './styles/index.css'
 import App from './App.jsx'
 import { AuthProvider } from "./context/AuthContext.jsx";
 
+//importo el colorProvider para poder envolver la app y proveer el contexto de color
+import { ColorProvider } from "./context/ColorContext.jsx";
+
+// En la parte de abajo agrego el ColorProvider envolviendo el BrowserRouter y el App, Para que toda la app tenga acceso al contexto de color
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+<StrictMode>
     <AuthProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <ColorProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ColorProvider>
     </AuthProvider>
-  </StrictMode>,
+  </StrictMode>
 )

@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext.jsx"
+import { AuthContext } from "../context/AuthContext.jsx";
+import { ColorContext } from "../context/ColorContext.jsx"; 
+// 1. Importamos ColorContext
 
 const menuItems = [
     {
@@ -24,6 +26,7 @@ export default function ProfileDropdown() {
     const [open, setOpen] = useState(false);
     const ref = useRef(null);
     const { user, logoutRequest } = useContext(AuthContext);
+    const { theme } = useContext(ColorContext); // 2. Consumimos el tema
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -43,18 +46,21 @@ export default function ProfileDropdown() {
                     onClick={() => setOpen((v) => !v)}
                     className={`
                         relative w-11 h-11 rounded-full overflow-hidden
-                        ring-2 ring-offset-2 ring-offset-zinc-950
+                        ring-2 ring-offset-2
                         transition-all duration-200 cursor-pointer
                         focus:outline-none
+                        ${theme === "dark" ? "ring-offset-zinc-950" : "ring-offset-white"}
                         ${open
                             ? "ring-green-500 scale-95"
-                            : "ring-zinc-700 hover:ring-green-400 hover:scale-105"
+                            : theme === "dark"
+                                ? "ring-zinc-700 hover:ring-green-400 hover:scale-105"
+                                : "ring-zinc-300 hover:ring-green-500 hover:scale-105"
                         }`
                     }
                     aria-label="Abrir menú de usuario"
                     aria-expanded={open}
                 >
-                    {user.avatar 
+                    {user?.avatar 
                         ? 
                             (<img
                                 src={user.avatar}
@@ -64,7 +70,7 @@ export default function ProfileDropdown() {
                         : 
                             (<div className="w-full h-full bg-linear-to-br from-green-700 to-green-400 flex items-center justify-center">
                                 <span className="text-white text-sm font-semibold tracking-wide select-none">
-                                    {user.email.slice(0, 2).toUpperCase()}
+                                    {user?.email?.slice(0, 2).toUpperCase() || "US"}
                                 </span>
                             </div>)
                     }
@@ -74,10 +80,12 @@ export default function ProfileDropdown() {
                 <div
                     className={`
                         absolute right-0 mt-3 w-64
-                        bg-zinc-900 border border-zinc-800
-                        rounded-2xl shadow-2xl shadow-black/60
-                        overflow-hidden z-50
-                        transition-all duration-200 origin-top-right
+                        rounded-2xl shadow-2xl overflow-hidden z-50
+                        transition-all duration-200 origin-top-right border
+                        ${theme === "dark"
+                            ? "bg-zinc-900 border-zinc-800 text-white shadow-black/60"
+                            : "bg-white border-zinc-200 text-zinc-900 shadow-zinc-300/50"
+                        }
                         ${open
                             ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
                             : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
@@ -86,18 +94,24 @@ export default function ProfileDropdown() {
                     role="menu"
                 >
                     {/* User header */}
-                    <div className="px-4 py-4 border-b border-zinc-800 flex items-center gap-3">
+                    <div className={`px-4 py-4 border-b flex items-center gap-3 ${
+                        theme === "dark" ? "border-zinc-800" : "border-zinc-100"
+                    }`}>
                         <div className="w-10 h-10 rounded-full bg-linear-to-br from-green-700 to-green-400 flex items-center justify-center shrink-0">
                             <span className="text-white text-sm font-semibold">
-                                {user.email.slice(0, 2).toUpperCase()}
+                                {user?.email?.slice(0, 2).toUpperCase() || "US"}
                             </span>
                         </div>
                         <div className="min-w-0">
-                            <p className="text-white text-sm font-medium leading-tight truncate">
-                                {user.name}
+                            <p className={`text-sm font-medium leading-tight truncate ${
+                                theme === "dark" ? "text-white" : "text-zinc-900"
+                            }`}>
+                                {user?.name || "Usuario"}
                             </p>
-                            <p className="text-zinc-400 text-xs leading-tight truncate mt-0.5">
-                                {user.email}
+                            <p className={`text-xs leading-tight truncate mt-0.5 ${
+                                theme === "dark" ? "text-zinc-400" : "text-zinc-500"
+                            }`}>
+                                {user?.email}
                             </p>
                         </div>
                     </div>
@@ -114,26 +128,32 @@ export default function ProfileDropdown() {
                                             console.log("Acción:", item.action);
                                             setOpen(false);
                                         }}
-                                        className="
+                                        className={`
                                             w-full flex items-center gap-3
-                                            px-4 py-2.5 text-sm text-zinc-300
-                                            hover:bg-zinc-800 hover:text-white
-                                            transition-colors duration-100 text-left
-                                            focus:outline-none focus:bg-zinc-800
-                                            "
+                                            px-4 py-2.5 text-sm transition-colors duration-100 text-left
+                                            focus:outline-none
+                                            ${theme === "dark"
+                                                ? "text-zinc-300 hover:bg-zinc-800 hover:text-white focus:bg-zinc-800"
+                                                : "text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900 focus:bg-zinc-100"
+                                            }
+                                        `}
                                     >
                                         {item.label}
                                     </button>
                                 ))}
                                 {gi < menuItems.length - 1 && (
-                                    <div className="my-1.5 mx-3 border-t border-zinc-800" />
+                                    <div className={`my-1.5 mx-3 border-t ${
+                                        theme === "dark" ? "border-zinc-800" : "border-zinc-200"
+                                    }`} />
                                 )}
                             </div>
                         ))}
                     </div>
 
                     {/* Sign out */}
-                    <div className="border-t border-zinc-800 py-2">
+                    <div className={`border-t py-2 ${
+                        theme === "dark" ? "border-zinc-800" : "border-zinc-100"
+                    }`}>
                         <button
                             role="menuitem"
                             onClick={() => {
@@ -141,13 +161,16 @@ export default function ProfileDropdown() {
                                 setOpen(false);
                                 navigate("/");
                             }}
-                            className="
+                            className={`
                                 w-full flex items-center gap-3
-                                px-4 py-2.5 text-sm text-red-400
-                                hover:bg-red-500/10 hover:text-red-300
+                                px-4 py-2.5 text-sm text-red-500
                                 transition-colors duration-100 text-left
-                                focus:outline-none focus:bg-red-500/10
-                            "
+                                focus:outline-none
+                                ${theme === "dark"
+                                    ? "hover:bg-red-500/10 hover:text-red-400 focus:bg-red-500/10"
+                                    : "hover:bg-red-50 hover:text-red-600 focus:bg-red-50"
+                                }
+                            `}
                         >
                             Cerrar sesión
                         </button>
