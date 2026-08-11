@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createCourtRequest, getAllReservesRequest, updateReserveRequest, getReserveOwnerRequest } from "../services/reserve.service";
 
+
 export const useReserve = () => {
     const [reserves, setReserves] = useState([])
     const [loading, setLoading] = useState(false);
@@ -16,7 +17,7 @@ export const useReserve = () => {
             setSuccess(true);
             return response;
         } catch (err) {
-            setError(err.response?.data?.message || "No se pudo crear la reserva");
+            setError(err.response?.data?.error || "No se pudo crear la reserva");
         } finally {
             setLoading(false);
         }
@@ -29,21 +30,30 @@ export const useReserve = () => {
             const response = await getAllReservesRequest(data);
             setReserves(response.reservas);
         } catch (err) {
-            setError(err.response?.data?.message || "No se pudo cargar los datos");
+            setError(err.response?.data?.error || "No se pudo cargar los datos");
         } finally {
             setLoading(false);
         }
     };
 
-    const updateReserve = async(id, data) => {
+    const cancelReserve = async (id) => {
+        setError(null);
+        try {
+            const response = await cancelReserveRequest(id);
+            return response;
+        } catch (err) {
+            setError(err.response?.data?.error || "No se pudo cancelar la reserva");
+        }
+    }
+
+    const getReservesOwner = async() => {
         setLoading(true);
         setError(null);
         try {
-            const response = await updateReserveRequest(id, data);
-            setSuccess(true);
-            return response;
+            const response = await getReserveOwnerRequest();
+            setReserves(response.reservas);
         } catch (err) {
-            setError(err.response?.data?.message || "No se pudo cancelar la reserva");
+            setError(err.response?.data?.message || "No se pudo cargar los datos");
         } finally {
             setLoading(false);
         }
@@ -65,6 +75,6 @@ export const useReserve = () => {
     return {
         reserves,
         reservesLoading:loading, error, success,
-        createReserve, loadReserves, updateReserve, getReservesOwner
+        createReserve, loadReserves, updateReserve, getReservesOwner, cancelReserve
     };
 };

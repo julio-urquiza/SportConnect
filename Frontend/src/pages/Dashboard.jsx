@@ -8,8 +8,14 @@ import { useCourts } from "../hooks/useCourts";
 import { AuthContext } from "../context/AuthContext.jsx"
 import StatSpinner from "../components/StartSpinner";
 import { useReserve } from "../hooks/useReserve.js"
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+    const navigate= useNavigate()
+    const toDashboardPagos=()=>{
+        navigate('/dashboard/pagos')
+    }
+
     const [modo, setModo] = useState(1)
     const { user } = useContext(AuthContext);
     const { courts, courtsLoading, getCourts, createCourt, updateCourt, deleteCourt } = useCourts({ id: null, filters: { duenio: user.id } })
@@ -73,7 +79,11 @@ const Dashboard = () => {
                         <CalendarClock className="h-4 w-4" />
                         Reservas Entrantes
                     </button>
-
+                    <button 
+                    onClick={toDashboardPagos}
+                    className="flex items-center gap-2 rounded-xl px-5 py-2.5 text-gray-400 transition hover:bg-white/5 hover:text-white">
+                    Configurar cobros con Mercado Pago
+                    </button>
                 </div>
 
                 {/* Contenido según el modo */}

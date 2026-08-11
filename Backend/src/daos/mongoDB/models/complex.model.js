@@ -28,8 +28,7 @@ const complexSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Usuario",
     required: true
-  }
-
+  },
 })
 
 export default mongoose.model("Complex", complexSchema)

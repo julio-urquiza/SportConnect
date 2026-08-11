@@ -1,53 +1,83 @@
-import mongoose from "mongoose";
+import mongoose from "mongoose"
 
-const ReserveSchema = new mongoose.Schema(
-  {
+const ReserveSchema = new mongoose.Schema({
     usuario: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Users",
-      required: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Usuario",
+        required: true
     },
     cancha: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Courts",
-      required: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Courts",
+        required: true
     },
-    // complejo: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "Complejo",
-    //   required: true,
-    // },
     fecha: {
-      type: Date,
-      required: true,
+        type: Date,
+        required: true
     },
-    horarios: {
-      dia: {
+    // Hora de inicio y fin como número (0-23), consistente con
+    // Court.horariosDisponibles. Rango contiguo: [horaInicio, horaFin).
+    horaInicio: {
         type: Number,
+        required: true,
         min: 0,
-        max: 6,
-      },
-      horas: [
-        {
-          type: Number,
-          min: 0,
-          max: 23,
-        },
-      ],
+        max: 23
+    },
+    horaFin: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 24
     },
     precio: {
-      type: Number,
-      required: true,
+        type: Number,
+        required: true
     },
     estado: {
-      type: String,
-      enum: ["pendiente", "confirmada", "cancelada", "finalizada"],
-      default: "confirmada",
+        type: String,
+        enum: [
+            "pendiente_pago",
+            "confirmada",
+            "cancelada",
+            "expirada",
+            "finalizada",
+            "reembolsada"
+        ],
+        default: "pendiente_pago"
     },
-  },
-  {
-    timestamps: true,
-  },
-);
 
-export default mongoose.model("Reserve", ReserveSchema);
+    // --- Datos de Mercado Pago ---
+    mpPreferenceId: { type: String },
+    mpPaymentId: { type: String },
+    mpStatus: { type: String },
+    mpStatusDetail: { type: String },
+
+    // --- Montos ---
+    montoTotal: { type: Number },
+    comisionSportConnect: { type: Number, default: 0 },
+    montoDuenio: { type: Number },
+
+    // --- Tiempos del ciclo de vida ---
+    expiraEn: { type: Date },
+    pagadoEn: { type: Date },
+
+    // --- Cancelación ---
+    canceladoPor: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Usuario"
+    },
+    motivoCancelacion: { type: String }
+}, {
+    timestamps: true
+})
+
+// La prevención de double-booking ahora la garantiza el índice único
+// de ReservedSlot (una hora ocupada = un documento), no un índice acá.
+
+// Para el job de expiración: buscar rápido reservas pendientes vencidas
+ReserveSchema.index({ estado: 1, expiraEn: 1 })
+
+// Para reconciliar webhooks por mpPaymentId
+ReserveSchema.index({ mpPaymentId: 1 })
+
+export default mongoose.model("Reserve", ReserveSchema)

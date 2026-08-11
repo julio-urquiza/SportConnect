@@ -2,9 +2,13 @@
   "devDependencies": {
     "concurrently": "^10.0.4"
   },
-    "scripts": {
+  "scripts": {
     "frontend": "npm --prefix frontend run dev",
     "backend": "npm --prefix backend run dev",
     "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+  },
+  "dependencies": {
+    "api": "^7.0.0",
+    "node-cron": "^4.6.0"
   }
 }
