@@ -1,6 +1,7 @@
 import { Clock, User } from "lucide-react";
 
 const ReserveCardOwner = ({ reserve }) => {
+    console.log(reserve)
     return (
         <div
             className="flex items-center gap-4 rounded-2xl border border-zinc-700 bg-[#00001A]/60 p-4"
@@ -20,7 +21,7 @@ const ReserveCardOwner = ({ reserve }) => {
                 </div>
 
                 <p className="truncate text-sm text-zinc-400">
-                    {reserve.horarios.horas.map(item => `${item}:00-${item}:59 hs, `)}
+                    {/* {reserve.horarios.horas.map(item => `${item}:00-${item}:59 hs, `)} */}
                 </p>
 
                 <p className="truncate text-sm text-zinc-400">

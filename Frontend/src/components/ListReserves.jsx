@@ -18,7 +18,6 @@ const ListReserves = () => {
     const [searchParams] = useSearchParams()
     const mensajePago = MENSAJES_PAGO[searchParams.get("pago")]
 
-
     useEffect(() => {
         loadReserves({ usuario: user.id })
     }, [])

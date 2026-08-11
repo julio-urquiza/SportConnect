@@ -3,7 +3,7 @@ import mongoose from "mongoose"
 const ReserveSchema = new mongoose.Schema({
     usuario: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Usuario",
+        ref: "Users",
         required: true
     },
     cancha: {
