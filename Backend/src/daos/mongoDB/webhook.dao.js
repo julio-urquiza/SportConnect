@@ -1,5 +1,5 @@
-import webHookModel from "./models/webhook.model.js"
-import webhookEvent from "./models/webhook.model.js"
+import webHookModel from "./models/webHook.model.js"
+import webhookEvent from "./models/webHook.model.js"
 import MongoDao from "./mongo.dao.js"
 
 class WebhookDao extends MongoDao {
