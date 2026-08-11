@@ -5,7 +5,7 @@ import Spinner from "./Spinner"
 
 const ConexionMercadoPago = () => {
     const { estado, loading, error, cargarEstado, conectar, desconectar } = useMercadoPago()
-
+ 
     useEffect(() => {
         cargarEstado()
     }, [cargarEstado])
