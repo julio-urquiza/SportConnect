@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createCourtRequest, getAllReservesRequest, updateReserveRequest } from "../services/reserve.service";
+import { createCourtRequest, getAllReservesRequest, cancelReserveRequest } from "../services/reserve.service";
 
 export const useReserve = () => {
     const [reserves, setReserves] = useState([])
@@ -16,7 +16,7 @@ export const useReserve = () => {
             setSuccess(true);
             return response;
         } catch (err) {
-            setError(err.response?.data?.message || "No se pudo crear la reserva");
+            setError(err.response?.data?.error || "No se pudo crear la reserva");
         } finally {
             setLoading(false);
         }
@@ -29,29 +29,25 @@ export const useReserve = () => {
             const response = await getAllReservesRequest(data);
             setReserves(response.reservas);
         } catch (err) {
-            setError(err.response?.data?.message || "No se pudo cargar los datos");
+            setError(err.response?.data?.error || "No se pudo cargar los datos");
         } finally {
             setLoading(false);
         }
     };
 
-    const updateReserve = async(id, data) => {
-        setLoading(true);
+    const cancelReserve = async (id) => {
         setError(null);
         try {
-            const response = await updateReserveRequest(id, data);
-            setSuccess(true);
+            const response = await cancelReserveRequest(id);
             return response;
         } catch (err) {
-            setError(err.response?.data?.message || "No se pudo cancelar la reserva");
-        } finally {
-            setLoading(false);
+            setError(err.response?.data?.error || "No se pudo cancelar la reserva");
         }
     }
 
     return {
         reserves,
         loading, error, success,
-        createReserve, loadReserves, updateReserve
+        createReserve, loadReserves, cancelReserve
     };
 };

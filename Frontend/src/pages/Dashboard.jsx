@@ -1,7 +1,15 @@
 import { LayoutDashboard, CirclePlus, CalendarClock } from "lucide-react";
 import StatCard from "../components/StatCard";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+
+    const navigate= useNavigate()
+
+    const toDashboardPagos=()=>{
+        navigate('/dashboard/pagos')
+    }
+
     return (
         <main className="min-h-screen bg-[rgb(0,0,26)]">
             <section className="container mx-auto px-4 py-8">
@@ -40,7 +48,11 @@ const Dashboard = () => {
                         <CalendarClock className="h-4 w-4" />
                         Reservas Entrantes
                     </button>
-
+                    <button 
+                    onClick={toDashboardPagos}
+                    className="flex items-center gap-2 rounded-xl px-5 py-2.5 text-gray-400 transition hover:bg-white/5 hover:text-white">
+                    Configurar cobros con Mercado Pago
+                    </button>
                 </div>
 
                 {/* Estado vacío */}

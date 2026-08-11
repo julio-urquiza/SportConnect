@@ -1,6 +1,7 @@
 import { Router } from "express";
 import reserveController from "../controllers/reserve.controller.js";
 import passport from "passport";
+import { verificarRol } from "../middlewares/verificarRol.js"
 
 const router= Router()
 
@@ -9,5 +10,10 @@ router.post("/", passport.authenticate("jwt", { session: false }), reserveContro
 router.get("/horarios", reserveController.getHorarios)
 router.get("/", reserveController.obtenerReservas)
 router.put("/",passport.authenticate("jwt", { session: false }), reserveController.modificarReserva)
-
+router.get(
+    "/historial-pagos",
+    passport.authenticate("jwt", { session: false }),
+    verificarRol("owner"),
+    reserveController.obtenerHistorialPagos
+)
 export default router

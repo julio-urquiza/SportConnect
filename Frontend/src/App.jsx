@@ -6,6 +6,7 @@ import Reservas from './pages/Reservas.jsx'
 import './styles/App.css'
 import Dashboard from './pages/Dashboard.jsx'
 import CanchaDetalle from './pages/CanchaDetalle.jsx'
+import DashboardPagos from './pages/dashboardPagos.jsx'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/reservas" element={<Reservas />} />
         <Route path="/cancha/:id" element={<CanchaDetalle />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/pagos" element={<DashboardPagos />} />
       </Route>
     </Routes>
   )

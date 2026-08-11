@@ -19,3 +19,7 @@ export const cancelReserveRequest = (id) => {
 export const updateReserveRequest = (id, data) => {
     return api.put(`/api/reserves`, data, { params: { id } })
 }
+
+export const historialPagosRequest = (filtros = {}) => {
+    return api.get("/api/reserves/historial-pagos", { params: filtros })
+}

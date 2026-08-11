@@ -14,6 +14,13 @@ class ReserveDao extends MongoDao{
         return await this.model.findOne(filtro);
     }
 
+    getHistorialPagos = async (filtros = {}) => {
+        return await this.model
+            .find(filtros)
+            .populate("cancha", "nombre deporte ubicacion direccion")
+            .populate("usuario", "name surname email")
+            .sort({ pagadoEn: -1, createdAt: -1 })
+    }
 }
 
 export default new ReserveDao(reserveModel)
