@@ -1,6 +1,6 @@
 import { ArrowLeft } from "lucide-react"
 import { Link, useSearchParams } from "react-router-dom"
-import ConexionMercadoPago from "../components/ConexionMercadoPago"
+import ConexionMercadoPago from "../components/conexionMercadoPago"
 import TablaHistorialPagos from "../components/TablaHistorialPagos"
 
 const DashboardPagos = () => {
