@@ -346,6 +346,28 @@ class ReserveService {
         return await this.dao.getAllReserves(query);
     };
 
+    obtenerReservasDuenio = async (idDuenio, filtros = {}) => {
+        if (!idDuenio) throw new CustomError(401, "Usuario no autenticado");
+
+        const duenio = await userDao.getById(idDuenio);
+        if (!duenio) throw new CustomError(404, "Usuario no encontrado");
+        if (duenio.role !== "owner") {
+            throw new CustomError(403, "Solo los dueños de cancha pueden consultar sus reservas");
+        }
+
+        const canchas = await courtDao.model.find({ duenio: idDuenio }).select("_id").lean();
+        const idsCanchas = canchas.map((cancha) => cancha._id);
+
+        if (idsCanchas.length === 0) return [];
+
+        const query = { cancha: { $in: idsCanchas } };
+        if (filtros.fecha) query.fecha = filtros.fecha;
+        if (filtros.estado) query.estado = filtros.estado;
+        if (filtros.usuario) query.usuario = filtros.usuario;
+
+        return await this.dao.getAllReserves(query);
+    };
+
     modificarReservas = async (id, data ) => {
         return this.dao.update(id, data )
     }  

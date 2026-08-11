@@ -1,9 +1,6 @@
 import { useState } from "react";
-<<<<<<< HEAD
-import { createCourtRequest, getAllReservesRequest, cancelReserveRequest } from "../services/reserve.service";
-=======
 import { createCourtRequest, getAllReservesRequest, updateReserveRequest, getReserveOwnerRequest } from "../services/reserve.service";
->>>>>>> a05d156c71aeb117e5cafefa5642559470a52285
+
 
 export const useReserve = () => {
     const [reserves, setReserves] = useState([])
@@ -62,14 +59,22 @@ export const useReserve = () => {
         }
     }
 
+    const getReservesOwner = async() => {
+        setLoading(true);
+        setError(null);
+        try {
+            const response = await getReserveOwnerRequest();
+            setReserves(response.reservas);
+        } catch (err) {
+            setError(err.response?.data?.message || "No se pudo cargar los datos");
+        } finally {
+            setLoading(false);
+        }
+    }
+
     return {
         reserves,
-<<<<<<< HEAD
-        loading, error, success,
-        createReserve, loadReserves, cancelReserve
-=======
         reservesLoading:loading, error, success,
-        createReserve, loadReserves, updateReserve, getReservesOwner
->>>>>>> a05d156c71aeb117e5cafefa5642559470a52285
+        createReserve, loadReserves, updateReserve, getReservesOwner, cancelReserve
     };
 };

@@ -11,7 +11,6 @@ router.get("/horarios", reserveController.getHorarios)
 router.get("/duenio", passport.authenticate("jwt", { session: false }), reserveController.obtenerReservasDuenio)
 router.get("/", reserveController.obtenerReservas)
 router.put("/",passport.authenticate("jwt", { session: false }), reserveController.modificarReserva)
-<<<<<<< HEAD
 router.get(
     "/historial-pagos",
     passport.authenticate("jwt", { session: false }),
@@ -19,8 +18,6 @@ router.get(
     reserveController.obtenerHistorialPagos
 )
 export default router
-=======
 
 
-export default router
->>>>>>> a05d156c71aeb117e5cafefa5642559470a52285
+

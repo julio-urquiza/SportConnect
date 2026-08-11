@@ -12,10 +12,6 @@ import { useEffect } from "react";
 
 const CanchaDetalle = () => {
     const { id } = useParams()
-<<<<<<< HEAD
-    const { court, loading, error } = useCourts({ id })
-    
-=======
     const { court, courtsLoading, error, getCourtById } = useCourts({ id })
 
     useEffect(()=>{
@@ -23,7 +19,6 @@ const CanchaDetalle = () => {
     },[])
 
 
->>>>>>> a05d156c71aeb117e5cafefa5642559470a52285
     return (
         <main className="min-h-screen bg-[rgb(0,0,26)]">
             <section className="container mx-auto px-4 py-8">

@@ -1,16 +1,5 @@
 import { LayoutDashboard, CirclePlus, CalendarClock } from "lucide-react";
 import StatCard from "../components/StatCard";
-<<<<<<< HEAD
-import { useNavigate } from "react-router-dom";
-
-const Dashboard = () => {
-
-    const navigate= useNavigate()
-
-    const toDashboardPagos=()=>{
-        navigate('/dashboard/pagos')
-    }
-=======
 import { useState, useContext, useEffect } from "react";
 import CourtForm from "../components/CourtForm"
 import Reservations from "../components/Reservations"
@@ -19,8 +8,14 @@ import { useCourts } from "../hooks/useCourts";
 import { AuthContext } from "../context/AuthContext.jsx"
 import StatSpinner from "../components/StartSpinner";
 import { useReserve } from "../hooks/useReserve.js"
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+    const navigate= useNavigate()
+    const toDashboardPagos=()=>{
+        navigate('/dashboard/pagos')
+    }
+
     const [modo, setModo] = useState(1)
     const { user } = useContext(AuthContext);
     const { courts, courtsLoading, getCourts, createCourt, updateCourt, deleteCourt } = useCourts({ id: null, filters: { duenio: user.id } })
@@ -30,7 +25,6 @@ const Dashboard = () => {
         getCourts()
         getReservesOwner()
     }, [])
->>>>>>> a05d156c71aeb117e5cafefa5642559470a52285
 
     return (
         <main className="min-h-screen bg-[rgb(0,0,26)]">

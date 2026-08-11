@@ -20,11 +20,10 @@ export const updateReserveRequest = (id, data) => {
     return api.put(`/api/reserves`, data, { params: { id } })
 }
 
-<<<<<<< HEAD
 export const historialPagosRequest = (filtros = {}) => {
     return api.get("/api/reserves/historial-pagos", { params: filtros })
-=======
+}
+
 export const getReserveOwnerRequest = (data) => {
     return api.get(`/api/reserves/duenio`, { params: data })
->>>>>>> a05d156c71aeb117e5cafefa5642559470a52285
 }

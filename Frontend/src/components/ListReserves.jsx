@@ -14,19 +14,15 @@ const MENSAJES_PAGO = {
 
 const ListReserves = () => {
     const { user } = useContext(AuthContext)
-<<<<<<< HEAD
     const { reserves, loading, error, loadReserves, cancelReserve } = useReserve()
     const [searchParams] = useSearchParams()
     const mensajePago = MENSAJES_PAGO[searchParams.get("pago")]
-=======
-    const { reserves, reservesLoading, error, loadReserves, updateReserve } = useReserve()
->>>>>>> a05d156c71aeb117e5cafefa5642559470a52285
+
 
     useEffect(() => {
         loadReserves({ usuario: user.id })
     }, [])
 
-<<<<<<< HEAD
     // Mientras haya reservas pendientes de pago, refresco cada 5s
     // para reflejar la confirmación en cuanto llegue el webhook.
     useEffect(() => {
@@ -43,20 +39,16 @@ const ListReserves = () => {
     const handleCancelReserve = async (id) => {
         const resultado = await cancelReserve(id)
         if (resultado) {
-=======
+          
     const handleCancelReserve = async (id, state) => {
         const cancelledReserve = await updateReserve(id, { estado: state })
         if (cancelledReserve) {
->>>>>>> a05d156c71aeb117e5cafefa5642559470a52285
-            await loadReserves({ usuario: user.id })
         }
     }
 
-<<<<<<< HEAD
     if (loading && reserves.length === 0) return (<Spinner />)
-=======
+
     if (reservesLoading) return (<Spinner />)
->>>>>>> a05d156c71aeb117e5cafefa5642559470a52285
 
     if (error) return ("error")
 
