@@ -7,16 +7,20 @@ import { useCourts } from "../hooks/useCourts";
 import { useParams } from "react-router-dom";
 import Spinner from "../components/Spinner"
 import DescripcionCard from "../components/DescripcionCard"
+import { useContext } from "react";
+import { ColorContext } from "../context/ColorContext.jsx";
 
 
 const CanchaDetalle = () => {
+    const { theme } = useContext(ColorContext);
+    const isDark = theme === "dark";
     const { id } = useParams()
     const { court, loading, error } = useCourts({ id })
     console.log(court)
     return (
-        <main className="min-h-screen bg-[rgb(0,0,26)]">
+        <main className={`min-h-screen transition-colors duration-200 ${isDark ? "bg-[#00001A]" : "bg-slate-50"}`}>
             <section className="container mx-auto px-4 py-8">
-                <button className="mb-6 flex items-center gap-2 text-sm text-gray-400 transition-colors hover:text-white">
+                <button className={`mb-6 flex items-center gap-2 text-sm transition-colors ${isDark ? "text-gray-400 hover:text-white" : "text-slate-500 hover:text-slate-900"}`}>
                     <ArrowLeft className="h-4 w-4" />
                     Volver a la búsqueda
                 </button>

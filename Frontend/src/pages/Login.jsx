@@ -1,9 +1,12 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import ContainerForm from "../components/ContainerForm.jsx"
 import RoleCard from "../components/RoleCard.jsx"
 import { Users, Building2 } from "lucide-react";
+import { ColorContext } from "../context/ColorContext.jsx";
 
 function Login() {
+    const { theme } = useContext(ColorContext);
+    const isDark = theme === "dark";
     const [modal, setModal] = useState(true)
     const userType = useRef(null)
     return (
@@ -15,7 +18,7 @@ function Login() {
                 className="absolute inset-0 h-full w-full object-cover"
             />
             {/* sombreado */}
-            <div className="absolute inset-0 bg-[#00001a]/70" />
+            <div className={`absolute inset-0 ${isDark ? "bg-[#00001a]/70" : "bg-slate-900/55"}`} />
 
             <div className="relative z-10 flex h-full flex-col min-h-screen items-center justify-center gap-10 px-8 py-10 lg:flex-row lg:justify-between lg:px-24">
 
@@ -39,13 +42,13 @@ function Login() {
 
                 {modal
                     ? (
-                        <div className="w-full max-w-sm rounded-3xl border border-[#383838] bg-[#00001a]/70 p-6">
+                        <div className={`w-full max-w-sm rounded-3xl border p-6 backdrop-blur ${isDark ? "border-[#383838] bg-[#00001a]/70" : "border-white/50 bg-white/90 shadow-2xl"}`}>
 
-                            <h2 className="font-jura text-2xl font-bold text-white">
+                            <h2 className={`font-jura text-2xl font-bold ${isDark ? "text-white" : "text-slate-900"}`}>
                                 ¿Cómo querés entrar?
                             </h2>
 
-                            <p className="mb-6 mt-1 text-sm text-white/50">
+                            <p className={`mb-6 mt-1 text-sm ${isDark ? "text-white/50" : "text-slate-600"}`}>
                                 Elegí tu tipo de cuenta para continuar
                             </p>
 

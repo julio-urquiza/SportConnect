@@ -8,10 +8,12 @@ import {
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { ColorContext } from "../context/ColorContext.jsx";
 
 const ProfileButton = () => {
   const navigate = useNavigate();
   const { user, logoutRequest } = useContext(AuthContext);
+  const { theme } = useContext(ColorContext);
   const [open, setOpen] = useState(false);
 
   const isOwner = user?.rol === "owner" || user?.role === "owner";
@@ -50,19 +52,19 @@ const ProfileButton = () => {
 
       {/* Menú desplegable */}
       <div
-        className={`absolute right-0 z-50 mt-2 w-56 overflow-hidden rounded-2xl border border-gray-700 bg-[#000030] shadow-2xl transition-all duration-150 ${
+        className={`absolute right-0 z-50 mt-2 w-56 overflow-hidden rounded-2xl border shadow-2xl transition-all duration-150 ${theme === "dark" ? "border-gray-700 bg-[#000030]" : "border-slate-200 bg-white shadow-slate-300/40"} ${
           open
             ? "pointer-events-auto translate-y-0 scale-100 opacity-100"
             : "pointer-events-none -translate-y-2 scale-95 opacity-0"
         }`}
       >
         {/* Información del usuario */}
-        <div className="border-b border-gray-700 px-4 py-3">
-          <p className="text-xs text-gray-400">
+        <div className={`border-b px-4 py-3 ${theme === "dark" ? "border-gray-700" : "border-slate-200"}`}>
+          <p className={`text-xs ${theme === "dark" ? "text-gray-400" : "text-slate-500"}`}>
             Sesión iniciada como
           </p>
 
-          <p className="truncate font-medium text-white">
+          <p className={`truncate font-medium ${theme === "dark" ? "text-white" : "text-slate-900"}`}>
             {userLabel}
           </p>
         </div>
@@ -70,7 +72,7 @@ const ProfileButton = () => {
         {/* Visible para usuario común y owner */}
         <button
           type="button"
-          className="flex w-full items-center gap-2 px-4 py-3 text-left text-white transition hover:bg-white/5"
+          className={`flex w-full items-center gap-2 px-4 py-3 text-left transition ${theme === "dark" ? "text-white hover:bg-white/5" : "text-slate-800 hover:bg-slate-100"}`}
           onClick={() => handleNavigate("/reservas")}
         >
           <CalendarCheck className="h-4 w-4" />
@@ -81,7 +83,7 @@ const ProfileButton = () => {
         {isOwner && (
           <button
             type="button"
-            className="flex w-full items-center gap-2 px-4 py-3 text-left text-white transition hover:bg-white/5"
+            className={`flex w-full items-center gap-2 px-4 py-3 text-left transition ${theme === "dark" ? "text-white hover:bg-white/5" : "text-slate-800 hover:bg-slate-100"}`}
             onClick={() => handleNavigate("/dashboard")}
           >
             <LayoutDashboard className="h-4 w-4" />

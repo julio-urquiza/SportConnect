@@ -1,13 +1,20 @@
 // src/context/ColorContext.jsx
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useMemo, useState } from 'react';
 
 // 1. Creamos el contexto (el canal de comunicación)
 export const ColorContext = createContext();
 
 // 2. Creamos el Provider (el componente que envuelve y provee los datos)
 export const ColorProvider = ({ children }) => {
-    // Definimos el estado inicial (por defecto, modo claro)
-    const [theme, setTheme] = useState('light');
+    const [theme, setTheme] = useState(() => {
+        return localStorage.getItem('sportconnect-theme') || 'light';
+    });
+
+    useEffect(() => {
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+        localStorage.setItem('sportconnect-theme', theme);
+    }, [theme]);
 
     // Función para alternar entre oscuro y claro
     const toggleTheme = () => {
@@ -15,7 +22,7 @@ export const ColorProvider = ({ children }) => {
     };
 
     // Empaquetamos lo que queremos compartir con el resto de la app
-    const data = { theme, toggleTheme };
+    const data = useMemo(() => ({ theme, toggleTheme }), [theme]);
 
     return (
         <ColorContext.Provider value={data}>

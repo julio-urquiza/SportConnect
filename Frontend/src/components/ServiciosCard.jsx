@@ -1,9 +1,13 @@
 import { CircleCheck } from "lucide-react";
+import { useContext } from "react";
+import { ColorContext } from "../context/ColorContext.jsx";
 
 const ServiciosCard = ({ servicios }) => {
+    const { theme } = useContext(ColorContext);
+    const isDark = theme === "dark";
     return (
-        <div className="rounded-2xl border border-gray-700 bg-[#00001A]/60 p-5">
-            <h3 className="mb-4 text-lg font-bold text-white">
+        <div className={`rounded-2xl border p-5 ${isDark ? "border-gray-700 bg-[#00001A]/60" : "border-slate-200 bg-white shadow-sm"}`}>
+            <h3 className={`mb-4 text-lg font-bold ${isDark ? "text-white" : "text-slate-900"}`}>
                 INSTALACIONES
             </h3>
 

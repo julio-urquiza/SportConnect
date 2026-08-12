@@ -2,10 +2,14 @@ import { SlidersHorizontal, Search, MapPin } from "lucide-react";
 import CourtCard from "../components/CourtCard";
 import { useCourts } from "../hooks/useCourts.js";
 import { useEffect, useState } from "react";
+import { useContext } from "react";
 import { SPORTS } from "../constants/sports.js";
 import Spinner from "../components/Spinner.jsx";
+import { ColorContext } from "../context/ColorContext.jsx";
 
 function Home() {
+    const { theme } = useContext(ColorContext);
+    const isDark = theme === "dark";
     const [filters, setFilters] = useState({ deporte: null, sort: "relevancia" , ubicacion: null});
     const [searchInput, setSearchInput] = useState("");
     const [localidadInput, setLocalidadInput] = useState("");
@@ -48,8 +52,8 @@ function Home() {
     }, [localidadInput]);
 
     return (
-        <main className="min-h-screen bg-[#00001A]">
-            <section className="relative overflow-hidden border-b border-[#1A1A3A] px-4 py-16">
+        <main className={`min-h-screen transition-colors duration-200 ${isDark ? "bg-[#00001A]" : "bg-slate-50"}`}>
+            <section className={`relative overflow-hidden border-b px-4 py-16 ${isDark ? "border-[#1A1A3A]" : "border-slate-200"}`}>
                 <div className="absolute inset-0">
                     <img
                         src="https://images.unsplash.com/photo-1715431900724-6bf15144ae0e?w=1920&h=800&fit=crop&crop=center&auto=format"
@@ -66,7 +70,7 @@ function Home() {
 
                 <div className="container relative z-10 mx-auto">
                     <div className="mb-10 text-center">
-                        <p className="mb-2 text-gray-400">Bienvenido a</p>
+                        <p className="mb-2 text-gray-300">Bienvenido a</p>
                         <h1 className="mb-2 text-4xl font-bold text-gray-100 md:text-6xl">
                             SportConnect
                         </h1>
@@ -76,7 +80,7 @@ function Home() {
                     </div>
 
                     <div className="mx-auto max-w-2xl">
-                        <div className="flex flex-col gap-3 rounded-2xl border border-white/15 bg-[#00001A]/60 p-4 backdrop-blur-xl md:flex-row md:items-center">
+                        <div className="flex flex-col gap-3 rounded-2xl border border-white/20 bg-[#00001A]/70 p-4 backdrop-blur-xl md:flex-row md:items-center">
                             <div className="flex flex-1 items-center gap-3">
 
                                 <Search className="h-5 w-5 shrink-0 text-orange-500" />
@@ -88,7 +92,7 @@ function Home() {
                                     className="w-full bg-transparent text-white placeholder:text-gray-400 outline-none"
                                 />
                             </div>
-                            <div className="flex items-center gap-2 text-gray-400">
+                            <div className="flex items-center gap-2 text-gray-300">
                                 <MapPin className="h-4 w-4" />
                                 <input
                                 type="text"
@@ -105,10 +109,10 @@ function Home() {
                             <button
                                 key={s.id}
                                 onClick={() => handleDeporte(s.deporte)}
-                                className={`flex cursor-pointer items-center gap-2 rounded-full border-gray-700 bg-white/5 bg-linear-to-r px-4 py-2 text-sm transition hover:scale-105  hover:text-white font-semibold
+                                className={`flex cursor-pointer items-center gap-2 rounded-full border bg-white/15 bg-linear-to-r px-4 py-2 text-sm font-semibold text-gray-200 transition hover:scale-105 hover:text-white
                                     ${filters.deporte === s.deporte
                                         ? " from-orange-500/80 to-[#00001A]/70"
-                                        : "text-gray-400 hover:bg-white/10"
+                                        : "hover:bg-white/10"
                                 }`}
                             >
                                 <span>{s.logo}</span>
@@ -121,16 +125,16 @@ function Home() {
 
             <section className="container mx-auto px-4 py-8">
                 <div className="mb-6 flex items-center justify-between">
-                    <p className="text-sm text-gray-400">
-                        <span className="font-medium text-white">{courts.length}</span> canchas encontradas
+                    <p className={`text-sm ${isDark ? "text-gray-400" : "text-slate-600"}`}>
+                        <span className={`font-medium ${isDark ? "text-white" : "text-slate-900"}`}>{courts.length}</span> canchas encontradas
                     </p>
 
-                    <div className="flex items-center gap-2 text-sm text-gray-400">
+                    <div className={`flex items-center gap-2 text-sm ${isDark ? "text-gray-400" : "text-slate-600"}`}>
                         <SlidersHorizontal className="h-4 w-4" />
                         <select
                             value={filters.sort}
                             onChange={(e) => handleSort(e.target.value)}
-                            className="cursor-pointer bg-transparent text-gray-300 outline-none"
+                            className={`cursor-pointer bg-transparent outline-none ${isDark ? "text-gray-300" : "text-slate-700"}`}
                         >
                             <option value="-createdAt">Ordenar por relevancia</option>
                             <option value="precioPorHora">Precio: menor a mayor</option>

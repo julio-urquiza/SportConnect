@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom"
+import { useContext } from "react";
+import { ColorContext } from "../context/ColorContext.jsx";
 
 const ReservaCard = ({ reserve, onClickCancel}) => {
+    const { theme } = useContext(ColorContext);
+    const isDark = theme === "dark";
     // console.log(reserve)
     
     const onclick = async () => {
@@ -9,7 +13,7 @@ const ReservaCard = ({ reserve, onClickCancel}) => {
 
     return (
 
-        <div className="rounded-2xl overflow-hidden flex flex-col bg-[#00001a]/70 border border-green-400/30 shadow-lg shadow-green-400/10">
+        <div className={`flex flex-col overflow-hidden rounded-2xl border border-green-400/30 shadow-lg shadow-green-400/10 ${isDark ? "bg-[#00001a]/70" : "bg-white"}`}>
 
             <div className="relative h-36 overflow-hidden bg-[#000030]">
                 <img
@@ -35,15 +39,15 @@ const ReservaCard = ({ reserve, onClickCancel}) => {
             </div>
 
             <div className="p-4 flex flex-col gap-2">
-                <h3 className="text-white font-bold text-lg">
+                <h3 className={`text-lg font-bold ${isDark ? "text-white" : "text-slate-900"}`}>
                     {reserve.cancha.nombre}
                 </h3>
 
-                <p className="text-gray-400 text-sm">
+                <p className={`text-sm ${isDark ? "text-gray-400" : "text-slate-500"}`}>
                     📍 {reserve.cancha.direccion}, {reserve.cancha.ubicacion},
                 </p>
 
-                <p className="text-gray-200 text-sm">
+                <p className={`text-sm ${isDark ? "text-gray-200" : "text-slate-700"}`}>
                     📅 {new Date(reserve.fecha).toLocaleDateString("es-AR", {
                         weekday: "long",
                         day: "numeric",
@@ -51,14 +55,14 @@ const ReservaCard = ({ reserve, onClickCancel}) => {
                     })}
                 </p>
 
-                <p className="text-gray-200 text-sm">
+                <p className={`text-sm ${isDark ? "text-gray-200" : "text-slate-700"}`}>
                     🕒 {reserve.horarios.horas.map(item => `${item}:00-${item}:59 hs, `)}
                     <span className="text-orange-500 font-semibold">$ {reserve.precio}</span>
                 </p>
 
                 <div className="flex gap-2 mt-3">
                     <Link 
-                        className="flex flex-1 items-center justify-center py-2 rounded-xl border border-gray-700 bg-white/5 hover:bg-white/10 text-white"
+                        className={`flex flex-1 items-center justify-center rounded-xl border py-2 ${isDark ? "border-gray-700 bg-white/5 text-white hover:bg-white/10" : "border-slate-200 bg-slate-50 text-slate-800 hover:bg-slate-100"}`}
                         to={`/cancha/${reserve.cancha._id}`}
                         >
                         Ver cancha

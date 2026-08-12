@@ -1,14 +1,17 @@
 import { Calendar, Clock, CalendarCheck } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { DayPicker } from "@daypicker/react";
 import { es } from "@daypicker/react/locale";
 import "@daypicker/react/style.css";
 import { useReserve } from "../hooks/useReserve.js"
 import { useNavigate } from "react-router-dom";
 import { useHorarios } from "../hooks/useHorarios.js";
+import { ColorContext } from "../context/ColorContext.jsx";
 
 const ReservaForm = ({ horariosCancha, precioPorHora, idCancha }) => {
+    const { theme } = useContext(ColorContext);
+    const isDark = theme === "dark";
     const navigate = useNavigate()
     const { createReserve, loading, error } = useReserve()
     
@@ -61,23 +64,23 @@ const ReservaForm = ({ horariosCancha, precioPorHora, idCancha }) => {
     }
 
     return (
-        <div className="sticky top-20 rounded-2xl border border-gray-700 bg-[#00001A]/60 p-5">
+        <div className={`sticky top-20 rounded-2xl border p-5 ${isDark ? "border-gray-700 bg-[#00001A]/60" : "border-slate-200 bg-white shadow-sm"}`}>
 
             <div className="mb-5 flex items-center gap-2">
                 <Calendar className="h-5 w-5 text-orange-500" />
 
-                <h3 className="text-lg font-bold text-white">
+                <h3 className={`text-lg font-bold ${isDark ? "text-white" : "text-slate-900"}`}>
                     RESERVAR CANCHA
                 </h3>
             </div>
 
             {/* fechas */}
             <div className="mb-5">
-                <label className="mb-2 block text-xs text-gray-400">
+                <label className={`mb-2 block text-xs ${isDark ? "text-gray-400" : "text-slate-500"}`}>
                     Fecha
                 </label>
 
-                <div className="flex justify-center items-center mb-5 rounded-xl border border-gray-700 bg-gray-1000 p-3 text-white [--rdp-accent-color:#f97316] [--rdp-accent-background-color:#7c2d12] [--rdp-cell_disabled_color:#6b7280] [--rdp-cell_today_color:#f97316]">
+                <div className={`mb-5 flex items-center justify-center rounded-xl border p-3 [--rdp-accent-color:#f97316] [--rdp-accent-background-color:#7c2d12] [--rdp-cell_disabled_color:#6b7280] [--rdp-cell_today_color:#f97316] ${isDark ? "border-gray-700 text-white" : "border-slate-200 bg-slate-50 text-slate-900"}`}>
                     <DayPicker
                         animate
                         mode="single"
@@ -97,9 +100,9 @@ const ReservaForm = ({ horariosCancha, precioPorHora, idCancha }) => {
             {/* horarios */}
             <div className="mb-5">
                 <div className="mb-3 flex items-center gap-2">
-                    <Clock className="h-4 w-4 text-gray-400" />
+                    <Clock className={`h-4 w-4 ${isDark ? "text-gray-400" : "text-slate-500"}`} />
 
-                    <label className="text-xs text-gray-400">
+                    <label className={`text-xs ${isDark ? "text-gray-400" : "text-slate-500"}`}>
                         {horarios.length == 0 && "No hay "} Horarios disponibles
                     </label>
                 </div>
@@ -116,10 +119,10 @@ const ReservaForm = ({ horariosCancha, precioPorHora, idCancha }) => {
                                     ? 
                                         "cursor-not-allowed rounded-xl border border-gray-800 bg-white/5 py-2.5 text-sm text-gray-700 line-through"
                                     :
-                                        `rounded-xl py-2.5 text-sm text-white transition 
+                                        `rounded-xl py-2.5 text-sm transition ${isDark ? "text-white" : "text-slate-800"} 
                                                 ${horario.includes(item.hora)
                                                 ? "bg-linear-to-r from-orange-500/80 to-[#00001A]/70 hover:opacity-90"
-                                                : "border border-gray-700 bg-white/5"
+                                                : (isDark ? "border border-gray-700 bg-white/5" : "border border-slate-200 bg-slate-50")
                                             }
                                         `
                                 }
@@ -141,17 +144,17 @@ const ReservaForm = ({ horariosCancha, precioPorHora, idCancha }) => {
                     RESUMEN DE RESERVA
                 </p>
 
-                <div className="space-y-1 text-sm text-white">
+                <div className={`space-y-1 text-sm ${isDark ? "text-white" : "text-slate-800"}`}>
                     <p>
-                        <span className="text-gray-400">Fecha:</span> {fechaFormateada}
+                        <span className={isDark ? "text-gray-400" : "text-slate-500"}>Fecha:</span> {fechaFormateada}
                     </p>
 
                     <p>
-                        <span className="text-gray-400">Horario:</span> {horario.map((hora) => `${hora}:00-${hora}:59 hs, `)}
+                        <span className={isDark ? "text-gray-400" : "text-slate-500"}>Horario:</span> {horario.map((hora) => `${hora}:00-${hora}:59 hs, `)}
                     </p>
 
                     <p>
-                        <span className="text-gray-400">Total:</span>{" "}
+                        <span className={isDark ? "text-gray-400" : "text-slate-500"}>Total:</span>{" "}
                         <span className="font-semibold text-orange-500">
                             {precioPorHora * horario.length}
                         </span>
@@ -192,7 +195,7 @@ const ReservaForm = ({ horariosCancha, precioPorHora, idCancha }) => {
                 Ver todas mis reservas →
             </Link>
 
-            <p className="mt-3 text-center text-xs text-gray-400">
+            <p className={`mt-3 text-center text-xs ${isDark ? "text-gray-400" : "text-slate-500"}`}>
                 Al confirmar aceptás los términos y condiciones
             </p>
 
