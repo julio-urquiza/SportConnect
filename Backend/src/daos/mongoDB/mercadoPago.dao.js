@@ -23,7 +23,10 @@ class MercadoPagoDao extends MongoDao {
   }
 
   async crearOReemplazarCuenta(datos) {
+    
+      console.log("Edf23")
     await this.model.updateMany(
+
       {
         usuario: datos.usuario,
         status: "connected"
@@ -35,6 +38,8 @@ class MercadoPagoDao extends MongoDao {
         }
       }
     );
+
+    console.log("2AcF3d")
 
     return await this.model.create(datos);
   }
