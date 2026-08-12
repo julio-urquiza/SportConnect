@@ -170,7 +170,7 @@ class ReserveService {
             hora,
             isReserved: horasOcupadas.includes(hora)
         }))
-
+        
         const fechaActual = new Date()
         // Comparación por día completo, no solo por día-del-mes
         // (el original comparaba solo getDate(), que falla entre meses distintos)
@@ -181,7 +181,7 @@ class ReserveService {
             })
         }
 
-        return retorno
+        return retorno.sort((a,b) => a.hora - b.hora)
     }
 
     /**

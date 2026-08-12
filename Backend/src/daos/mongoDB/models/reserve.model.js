@@ -15,19 +15,19 @@ const ReserveSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    // Hora de inicio y fin como número (0-23), consistente con
-    // Court.horariosDisponibles. Rango contiguo: [horaInicio, horaFin).
-    horaInicio: {
-        type: Number,
-        required: true,
-        min: 0,
-        max: 23
-    },
-    horaFin: {
-        type: Number,
-        required: true,
-        min: 1,
-        max: 24
+    horarios: {
+        dia: {
+            type: Number,
+            min: 0,
+            max: 6,
+        },
+        horas: [
+            {
+                type: Number,
+                min: 0,
+                max: 23,
+            },
+        ],
     },
     precio: {
         type: Number,
