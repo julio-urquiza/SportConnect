@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import { usePayment } from "../hooks/usePayment.js"
+import { SPORTS } from "../constants/sports.js"
 
 const ESTILOS_ESTADO = {
     pendiente_pago: "bg-amber-600 border border-amber-500",
@@ -37,7 +38,7 @@ const ReservaCard = ({ reserve, onClickCancel }) => {
                 <div className="absolute inset-0 bg-linear-to-t from-[#00001a]/90 to-transparent" />
 
                 <span className="absolute top-3 left-3 rounded-full px-3 py-1 text-xs bg-black/70 border border-orange-500/40 text-orange-500">
-                    {reserve.cancha.deporte}
+                    {SPORTS.find(s =>(s.deporte===reserve.cancha.deporte).logo)} {SPORTS.find(s =>(s.deporte===reserve.cancha.deporte).label)}
                 </span>
 
                 <span className={`absolute top-3 right-3 rounded-full px-3 py-1 text-xs text-white ${ESTILOS_ESTADO[reserve.estado] || "bg-gray-600"}`}>
@@ -74,7 +75,7 @@ const ReservaCard = ({ reserve, onClickCancel }) => {
                     {puedePagar && (
                         <button
                             disabled={pagando}
-                            className="px-4 py-2 rounded-xl border border-green-500/30 bg-green-500/10 text-green-400 hover:bg-green-500/20 disabled:opacity-50"
+                            className="px-4 py-2 rounded-xl border border-green-500/30 bg-green-500/10 text-green-400 hover:bg-green-500/20 disabled:opacity-50 cursor-pointer"
                             onClick={() => pagarReserva(reserve._id)}
                         >
                             {pagando ? "..." : "Pagar ahora"}
@@ -83,7 +84,7 @@ const ReservaCard = ({ reserve, onClickCancel }) => {
 
                     {puedeCancelar && (
                         <button
-                            className="px-4 py-2 rounded-xl border border-red-500/30 bg-red-500/10 text-red-500 hover:bg-red-500/20"
+                            className="px-4 py-2 rounded-xl border border-red-500/30 bg-red-500/10 text-red-500 hover:bg-red-500/20 cursor-pointer"
                             onClick={() => onClickCancel(reserve._id)}
                         >
                             Cancelar

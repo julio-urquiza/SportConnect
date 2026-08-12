@@ -30,7 +30,7 @@ const ListReserves = () => {
 
         const intervalo = setInterval(() => {
             loadReserves({ usuario: user.id })
-        }, 5000)
+        }, 30000)
 
         return () => clearInterval(intervalo)
     }, [reserves])
