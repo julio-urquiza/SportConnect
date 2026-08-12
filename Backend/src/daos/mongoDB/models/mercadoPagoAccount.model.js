@@ -106,19 +106,13 @@ mercadoPagoAccountSchema.index({ mpUserId: 1 })
  * Hook pre-save: cifra accessToken y refreshToken antes de persistir,
  * pero solo si fueron modificados (evita re-cifrar en cada save si no cambiaron).
  */
-mercadoPagoAccountSchema.pre("save", function encryptTokensBeforeSave(next) {
-  try {
-    if (this.isModified("accessToken")) {
-      this.accessToken = encrypt(this.accessToken)
-    }
+mercadoPagoAccountSchema.pre("save", function encryptTokensBeforeSave() {
+  if (this.isModified("accessToken")) {
+    this.accessToken = encrypt(this.accessToken)
+  }
 
-    if (this.isModified("refreshToken")) {
-      this.refreshToken = encrypt(this.refreshToken)
-    }
-
-    next()
-  } catch (error) {
-    next(error)
+  if (this.isModified("refreshToken")) {
+    this.refreshToken = encrypt(this.refreshToken)
   }
 })
 
