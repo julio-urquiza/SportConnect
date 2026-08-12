@@ -21,7 +21,7 @@ const ReserveCardOwner = ({ reserve }) => {
                 </div>
 
                 <p className="truncate text-sm text-zinc-400">
-                    {/* {reserve.horarios.horas.map(item => `${item}:00-${item}:59 hs, `)} */}
+                    {reserve.horarios.horas.map(item => `${item}:00-${item}:59 hs, `)}
                 </p>
 
                 <p className="truncate text-sm text-zinc-400">
