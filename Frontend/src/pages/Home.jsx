@@ -110,7 +110,7 @@ function Home() {
                                 onClick={() => handleDeporte(s.deporte)}
                                 className={`flex cursor-pointer items-center gap-2 rounded-full border-gray-700 bg-white/5 bg-linear-to-r px-4 py-2 text-sm transition hover:scale-105  hover:text-white font-semibold
                                     ${filters.deporte === s.deporte
-                                        ? " from-orange-500/80 to-[#00001A]/70"
+                                        ? "text-gray-400 from-orange-500/80 to-[#00001A]/70"
                                         : "text-gray-400 hover:bg-white/10"
                                     }`}
                             >
