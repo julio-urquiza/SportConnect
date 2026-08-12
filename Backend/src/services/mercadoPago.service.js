@@ -20,8 +20,8 @@ class MercadoPagoService {
 
     const state = crypto.randomBytes(24).toString("hex")
 
-    await mercadoPagoDao.crearOAuthState(usuarioId, state)
-    console.log(state)
+      await oauthStateDao.crearOAuthState(usuarioId, state)    
+      console.log(state)
     const params = new URLSearchParams({
       client_id: process.env.MP_CLIENT_ID,
       response_type: "code",
@@ -52,7 +52,7 @@ class MercadoPagoService {
       )
     }
 
-    const oauthState = await mercadoPagoDao.consumirOAuthState(state)
+    const oauthState = await oauthStateDao.consumirOAuthState(state)
 
     if (!oauthState) {
       throw new Error(
