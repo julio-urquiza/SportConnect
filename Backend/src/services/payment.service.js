@@ -4,7 +4,7 @@ import reserveDao from "../daos/mongoDB/reserve.dao.js"
 import reservedSlotDao from "../daos/mongoDB/reservedSlot.dao.js"
 import courtDao from "../daos/mongoDB/court.dao.js"
 import mercadoPagoDao from "../daos/mongoDB/mercadoPago.dao.js"
-import webhookEvent from "../daos/mongoDB/webhook.dao.js"
+import webhookEventDao from "../daos/mongoDB/webhook.dao.js"
 import CustomError from "../utils/customError.js"
 
 const MP_PREFERENCES_URL = "https://api.mercadopago.com/checkout/preferences"
@@ -54,7 +54,7 @@ class PaymentService {
             items: [{
                 id: String(cancha._id),
                 title: `Reserva - ${cancha.nombre}`,
-                description: `${new Date(reserva.fecha).toLocaleDateString("es-AR")} de ${reserva.horaInicio}:00 a ${reserva.horaFin}:00`,
+                description: `${new Date(reserva.fecha).toLocaleDateString("es-AR")} de ${Math.min(...reserva.horarios.horas)}:00 a ${Math.max(...reserva.horarios.horas) + 1}:00`, 
                 quantity: 1,
                 currency_id: "ARS",
                 unit_price: montoTotal

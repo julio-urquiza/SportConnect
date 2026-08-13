@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import Spinner from "../components/Spinner"
 import DescripcionCard from "../components/DescripcionCard"
 import { useEffect } from "react";
+import useTitulo from "../hooks/useTitle";
 
 
 const CanchaDetalle = () => {
@@ -16,8 +17,10 @@ const CanchaDetalle = () => {
 
     useEffect(()=>{
         getCourtById()
+
     },[])
 
+    useTitulo("Reserva tu Cancha")
 
     return (
         <main className="min-h-screen bg-[rgb(0,0,26)]">
@@ -31,14 +34,10 @@ const CanchaDetalle = () => {
 
                 {!courtsLoading && error && "error"}
 
-                {!courtsLoading && !error && (
-                    "Info no encontrada"
-                )}
-
                 {!courtsLoading && !error &&
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         <div className="space-y-5 lg:col-span-2">
-                            <PortadaCard imagen={court.imagenes[0]} nombre={court.nombre} />
+                            <PortadaCard imagen={court.imagenes[0]} nombre={court.nombre} deporte={court.deporte}/>
                             <InfoCard ubicacion={`${court.direccion}, ${court.ubicacion}`} puntuacion={4.5} precioHora={court.precioPorHora} />
                             <DescripcionCard descripcion={court.descripcion}/>
                             <ServiciosCard servicios={court.servicios} />

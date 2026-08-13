@@ -1,15 +1,26 @@
 import { ArrowLeft, CalendarCheck } from "lucide-react";
 import ListReserves from "../components/ListReserves.jsx";
+import useTitulo from "../hooks/useTitle.js";
+import { useNavigate } from "react-router-dom";
 
 
 
 const Reservas = () => {
+    useTitulo("Tus Reservas")
+
+    const navigate=useNavigate()
+
+    const retroceder=()=>{
+        navigate('/')
+    }
     return (
         <main className="min-h-screen bg-[rgb(0,0,26)]">
             <section className="container mx-auto px-4 py-8">
                 {/* Breadcrumb */}
                 <div className="mb-8 flex items-center gap-3">
-                    <button className="flex items-center gap-2 text-sm text-gray-400 transition-colors hover:text-white">
+                    <button 
+                    onClick={retroceder}
+                    className="flex items-center gap-2 text-sm text-gray-400 transition-colors hover:text-white">
                         <ArrowLeft className="h-4 w-4" />
                         Inicio
                     </button>

@@ -15,10 +15,10 @@ function CourtCard({cancha}) {
         <img
           src={cancha.imagenes[0]}
           alt={cancha.nombre}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 cursor-pointer"
         />
 
-        <div className="absolute inset-0 bg-linear-to-t from-[#00001A]/90 to-transparent" />
+        <div className="image-overlay absolute inset-0 bg-linear-to-t from-[#00001A]/90 to-transparent" />
 
         <span className="absolute left-3 top-3 rounded-full border border-orange-500/40 bg-black/60 px-3 py-1 text-xs font-medium text-orange-500 backdrop-blur">
           {SPORTS.find(s=> (cancha.deporte=== s.deporte)).logo} {SPORTS.find(s=> (cancha.deporte===s.deporte)).label}
@@ -56,7 +56,7 @@ function CourtCard({cancha}) {
             </p>
           </div>
 
-          <button className="rounded-xl bg-green-500 px-4 py-2 font-bold text-white shadow-lg shadow-green-500/30 transition hover:bg-green-600">
+          <button className="rounded-xl bg-green-500 px-4 py-2 font-bold text-white shadow-lg shadow-green-500/30 transition hover:bg-green-600 cursor-pointer">
             RESERVAR →
           </button>
 

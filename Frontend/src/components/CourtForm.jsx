@@ -168,7 +168,7 @@ export default function CourtForm({ onCreateCourt, userId }) {
                     <label className={labelClass}>Nombre de la cancha *</label>
 
                     <input
-                        className={inputClass}
+                        className= {`cursor-pointer ${inputClass} `}
                         onChange={(e) => setNombre(e.target.value)}
                         placeholder="Ej: Padel Club Palermo Norte"
                     />
@@ -185,7 +185,7 @@ export default function CourtForm({ onCreateCourt, userId }) {
                                 type="button"
                                 key={item.id}
                                 onClick={() => setSport(item.id)}
-                                className={`flex-1 rounded-xl border py-2.5 transition ${sport === item.id
+                                className={`cursor-pointer flex-1 rounded-xl border py-2.5 transition ${sport === item.id
                                     ? "border-orange-500 bg-orange-500/20 text-orange-500"
                                     : "border-zinc-700 bg-white/5 text-zinc-400"
                                     }`}
@@ -203,7 +203,7 @@ export default function CourtForm({ onCreateCourt, userId }) {
                     <div>
                         <label className={labelClass}>Zona *</label>
 
-                        <select className={inputClass} value={zona} onChange={(e) => setZona(e.target.value)}>
+                        <select className={`cursor-pointer ${inputClass}`} value={zona} onChange={(e) => setZona(e.target.value)}>
                             {zones.map((zone) => (
                                 <option
                                     key={zone}
@@ -345,7 +345,7 @@ export default function CourtForm({ onCreateCourt, userId }) {
                                 key={hour}
                                 type="button"
                                 onClick={() => setHoras(diaSeleccionado, hour)}
-                                className={`rounded-xl border py-2 transition ${horarios[diaSeleccionado].horas.includes(hour)
+                                className={`cursor-pointer rounded-xl border py-2 transition ${horarios[diaSeleccionado].horas.includes(hour)
                                     ? "border-orange-500 bg-orange-500/20 text-orange-500"
                                     : "border-zinc-700 bg-white/5 text-zinc-400"
                                     }`}
@@ -362,7 +362,7 @@ export default function CourtForm({ onCreateCourt, userId }) {
 
                 <button
                     type="submit"
-                    className="w-full rounded-2xl bg-linear-to-r from-orange-500 to-[#00001A] py-3 font-bold text-white shadow-lg shadow-orange-500/30 transition hover:scale-[1.02]"
+                    className=" cursor-pointer w-full rounded-2xl bg-linear-to-r from-orange-500 to-[#00001A] py-3 font-bold text-white shadow-lg shadow-orange-500/30 transition hover:scale-[1.02]"
                 >
                     PUBLICAR CANCHA
                 </button>
