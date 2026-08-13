@@ -126,8 +126,8 @@ const ReservaForm = ({ horariosCancha, precioPorHora, idCancha }) => {
                                             ? "cursor-not-allowed rounded-xl border border-gray-800 bg-white/5 py-2.5 text-sm text-gray-600"
                                             : `rounded-xl py-2.5 text-sm text-white transition ${
                                                 seleccionado
-                                                    ? "bg-linear-to-r from-orange-500/80 to-[#00001A]/70 hover:opacity-90"
-                                                    : "border border-gray-700 bg-white/5"
+                                                    ? "cursor-pointer bg-linear-to-r from-orange-500/80 to-[#00001A]/70 hover:opacity-90"
+                                                    : "cursor-pointer border border-gray-700 bg-white/5"
                                             }`
                                 }
                                 onClick={() => toggleHora(item.hora)}
@@ -161,7 +161,7 @@ const ReservaForm = ({ horariosCancha, precioPorHora, idCancha }) => {
 
             <button
                 disabled={horario.length === 0 || cargando}
-                className={`flex w-full items-center justify-center gap-2 rounded-2xl py-3.5 text-lg font-bold text-white shadow-lg shadow-green-500/35 ${
+                className={`cursor-pointer flex w-full items-center justify-center gap-2 rounded-2xl py-3.5 text-lg font-bold text-white shadow-lg shadow-green-500/35 ${
                     horario.length === 0 || cargando
                         ? "cursor-not-allowed bg-green-700 opacity-70"
                         : "bg-green-500 transition hover:bg-green-400"
@@ -177,7 +177,7 @@ const ReservaForm = ({ horariosCancha, precioPorHora, idCancha }) => {
             )}
 
             <Link
-                className="mt-2 flex w-full items-center justify-center gap-2 rounded-2xl border border-green-500/25 bg-green-500/10 py-2.5 text-sm text-green-400 transition-opacity hover:opacity-80"
+                className="mt-2 flex w-full items-center justify-center gap-2 rounded-2xl border border-green-500/25 bg-green-500/10 py-2.5 text-sm text-green-400 transition-opacity hover:opacity-80 cursor-pointer"
                 to={"/reservas"}
             >
                 Ver todas mis reservas →

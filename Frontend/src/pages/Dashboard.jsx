@@ -64,12 +64,12 @@ const Dashboard = () => {
                         className={`flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 font-semibold sm:justify-start ${modo === 1 ? "bg-linear-to-r from-orange-500/80 to-[#00001A]/70 text-white" : "text-gray-400 transition hover:bg-white/5 hover:text-white"}`}
                         onClick={() => setModo(1)}
                     >
-                        <LayoutDashboard className="h-4 w-4" />
+                        <LayoutDashboard className="h-4 w-4 cursor-pointer" />
                         Mis Canchas
                     </button>
 
                     <button
-                        className={`flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 font-semibold sm:justify-start ${modo === 2 ? "bg-linear-to-r from-orange-500/80 to-[#00001A]/70 text-white" : "text-gray-400 transition hover:bg-white/5 hover:text-white"}`}
+                        className={`flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 font-semibold sm:justify-start ${modo === 2 ? "bg-linear-to-r from-orange-500/80 to-[#00001A]/70 text-white" : "text-gray-400 transition hover:bg-white/5 hover:text-white cursor-pointer"}`}
                         onClick={() => setModo(2)}
                     >
                         <CirclePlus className="h-4 w-4" />
@@ -77,7 +77,7 @@ const Dashboard = () => {
                     </button>
 
                     <button
-                        className={`flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 font-semibold sm:justify-start ${modo === 3 ? "bg-linear-to-r from-orange-500/80 to-[#00001A]/70 text-white" : "text-gray-400 transition hover:bg-white/5 hover:text-white"}`}
+                        className={`flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 font-semibold sm:justify-start ${modo === 3 ? "bg-linear-to-r from-orange-500/80 to-[#00001A]/70 text-white" : "text-gray-400 transition hover:bg-white/5 hover:text-white cursor-pointer"}`}
                         onClick={() => setModo(3)}
                     >
                         <CalendarClock className="h-4 w-4" />
@@ -87,7 +87,7 @@ const Dashboard = () => {
 
                     <button
                     onClick={toDashboardPagos}
-                    className="payment-settings-button flex w-full items-center justify-center rounded-xl border border-orange-500/40 bg-orange-500/10 px-5 py-2.5 font-semibold text-orange-500 transition hover:bg-orange-500/20 md:w-auto">
+                    className="payment-settings-button flex w-full items-center justify-center rounded-xl border border-orange-500/40 bg-orange-500/10 px-5 py-2.5 font-semibold text-orange-500 transition hover:bg-orange-500/20 md:w-auto cursor-pointer">
                     Configurar cobros con Mercado Pago
                     </button>
                 </div>
