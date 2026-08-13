@@ -1,9 +1,11 @@
 import { ArrowLeft, CalendarCheck } from "lucide-react";
 import ListReserves from "../components/ListReserves.jsx";
+import useTitulo from "../hooks/useTitle.js";
 
 
 
 const Reservas = () => {
+    useTitulo("Tus Reservas")
     return (
         <main className="min-h-screen bg-[rgb(0,0,26)]">
             <section className="container mx-auto px-4 py-8">
