@@ -6,10 +6,26 @@ import { SPORTS } from "../constants/sports.js";
 import Spinner from "../components/Spinner.jsx";
 import useTitulo from "../hooks/useTitle.js";
 
+const HERO_IMAGES = [
+    {
+        src: "https://images.unsplash.com/photo-1715431900724-6bf15144ae0e?w=1920&h=800&fit=crop&crop=center&auto=format",
+        alt: "Cancha de tenis",
+    },
+    {
+        src: "https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=1920&h=800&fit=crop&crop=center&auto=format",
+        alt: "Cancha de fútbol",
+    },
+    {
+        src: "https://images.unsplash.com/photo-1518604666860-9ed391f76460?w=1920&h=800&fit=crop&crop=center&auto=format",
+        alt: "Cancha de pádel",
+    },
+];
+
 function Home() {
     const [filters, setFilters] = useState({ deporte: null, sort: "relevancia", ubicacion: null });
     const [searchInput, setSearchInput] = useState("");
     const [localidadInput, setLocalidadInput] = useState("");
+    const [heroImageIndex, setHeroImageIndex] = useState(0);
     const { courts, loading, error, getCourts } = useCourts({ id: null, filters });
 
     useTitulo("Busca tu cancha")
@@ -52,20 +68,44 @@ function Home() {
     useEffect(()=>{
         getCourts()
     },[filters])
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setHeroImageIndex((currentIndex) => (currentIndex + 1) % HERO_IMAGES.length);
+        }, 6000);
+
+        return () => clearInterval(intervalId);
+    }, []);
+
     return (
         <main className="min-h-screen bg-[#00001A]">
             <section className="relative overflow-hidden border-b border-[#1A1A3A] px-4 py-16">
                 <div className="absolute inset-0">
-                    <img
-                        src="https://images.unsplash.com/photo-1715431900724-6bf15144ae0e?w=1920&h=800&fit=crop&crop=center&auto=format"
-                        alt="Tenis"
-                        className="h-full w-full object-cover"
-                    />
+                    {HERO_IMAGES.map((image, index) => (
+                        <img
+                            key={image.src}
+                            src={image.src}
+                            alt={index === heroImageIndex ? image.alt : ""}
+                            aria-hidden={index !== heroImageIndex}
+                            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
+                                index === heroImageIndex ? "opacity-100" : "opacity-0"
+                            }`}
+                        />
+                    ))}
                     <div className="theme-hero-overlay absolute inset-0 bg-linear-to-br from-[#00001A]/90 via-[#00001A]/75 to-[#00001A]/90" />
                     <div className="absolute bottom-4 right-6 z-10 flex items-center gap-2">
-                        <button className="h-2 w-2 rounded-full bg-white/30 transition-all" />
-                        <button className="h-2 w-6 rounded-full bg-orange-500 transition-all" />
-                        <button className="h-2 w-2 rounded-full bg-white/30 transition-all" />
+                        {HERO_IMAGES.map((image, index) => (
+                            <button
+                                key={image.src}
+                                type="button"
+                                onClick={() => setHeroImageIndex(index)}
+                                aria-label={`Mostrar imagen de ${image.alt.toLowerCase()}`}
+                                aria-current={index === heroImageIndex}
+                                className={`h-2 rounded-full transition-all ${
+                                    index === heroImageIndex ? "w-6 bg-orange-500" : "w-2 bg-white/30 hover:bg-white/60"
+                                }`}
+                            />
+                        ))}
                     </div>
                 </div>
 
