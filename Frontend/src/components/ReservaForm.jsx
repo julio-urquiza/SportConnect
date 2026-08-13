@@ -59,7 +59,12 @@ const ReservaForm = ({ horariosCancha, precioPorHora, idCancha }) => {
     }, []);
 
     const onClick = async () => {
-        const respuesta = await createReserve({ fecha, horarios: { dia: fecha.getDay(), horas: horario }, precio: precioPorHora * horario.length, cancha: idCancha })
+        const respuesta = await createReserve({
+            cancha: idCancha,
+            fecha,
+            horarios: { dia: fecha.getDay(), horas: horario },
+            precio: precioPorHora * horario.length
+        })
 
         if (respuesta?.reserva?._id) {
             await pagarReserva(respuesta.reserva._id)

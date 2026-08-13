@@ -60,7 +60,7 @@ const ReservaCard = ({ reserve, onClickCancel }) => {
                 </p>
 
                 <p className="text-gray-200 text-sm">
-                    🕒 {reserve.horaInicio}:00 - {reserve.horaFin}:00 hs{" "}
+                    🕒 {Math.min(...reserve.horarios.horas)}:00 - {Math.max(...reserve.horarios.horas) + 1}:00 hs{" "}
                     <span className="text-orange-500 font-semibold">$ {reserve.precio}</span>
                 </p>
 
