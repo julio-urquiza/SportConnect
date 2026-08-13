@@ -2,10 +2,12 @@ import { useState, useRef } from "react";
 import ContainerForm from "../components/ContainerForm.jsx"
 import RoleCard from "../components/RoleCard.jsx"
 import { Users, Building2 } from "lucide-react";
+import useTitulo from "../hooks/useTitle.js";
 
 function Login() {
     const [modal, setModal] = useState(true)
     const userType = useRef(null)
+    useTitulo("Unite")
     return (
         <main className="relative flex-1 overflow-hidden ">
             {/* fondo */}

@@ -4,6 +4,7 @@ import { useCourts } from "../hooks/useCourts.js";
 import { useEffect, useState } from "react";
 import { SPORTS } from "../constants/sports.js";
 import Spinner from "../components/Spinner.jsx";
+import useTitulo from "../hooks/useTitle.js";
 
 function Home() {
     const [filters, setFilters] = useState({ deporte: null, sort: "relevancia", ubicacion: null });
@@ -11,6 +12,7 @@ function Home() {
     const [localidadInput, setLocalidadInput] = useState("");
     const { courts, loading, error, getCourts } = useCourts({ id: null, filters });
 
+    useTitulo("Busca tu cancha")
     const handleDeporte = (deporte) => {
         setFilters((prev) => ({
             ...prev,

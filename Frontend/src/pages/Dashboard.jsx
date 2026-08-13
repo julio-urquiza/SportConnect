@@ -9,6 +9,7 @@ import { AuthContext } from "../context/AuthContext.jsx"
 import StatSpinner from "../components/StartSpinner";
 import { useReserve } from "../hooks/useReserve.js"
 import { useNavigate } from "react-router-dom";
+import useTitulo from "../hooks/useTitle.js";
 
 const Dashboard = () => {
     const navigate= useNavigate()
@@ -25,6 +26,8 @@ const Dashboard = () => {
         getCourts()
         getReservesOwner()
     }, [])
+
+    useTitulo("Tus Canchas")
 
     return (
         <main className="min-h-screen bg-[rgb(0,0,26)]">

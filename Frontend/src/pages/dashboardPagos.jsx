@@ -2,11 +2,12 @@ import { ArrowLeft } from "lucide-react"
 import { Link, useSearchParams } from "react-router-dom"
 import ConexionMercadoPago from "../components/conexionMercadoPago"
 import TablaHistorialPagos from "../components/TablaHistorialPagos"
+import useTitulo from "../hooks/useTitle"
 
 const DashboardPagos = () => {
     const [searchParams] = useSearchParams()
     const estadoConexion = searchParams.get("estado")
-
+    useTitulo("Tus Cobros")
     return (
         <main className="min-h-screen bg-[rgb(0,0,26)]">
             <section className="container mx-auto max-w-2xl px-4 py-8 space-y-6">

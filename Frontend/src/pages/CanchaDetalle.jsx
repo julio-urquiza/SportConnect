@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import Spinner from "../components/Spinner"
 import DescripcionCard from "../components/DescripcionCard"
 import { useEffect } from "react";
+import useTitulo from "../hooks/useTitle";
 
 
 const CanchaDetalle = () => {
@@ -16,8 +17,10 @@ const CanchaDetalle = () => {
 
     useEffect(()=>{
         getCourtById()
+
     },[])
 
+    useTitulo("Reserva tu Cancha")
 
     return (
         <main className="min-h-screen bg-[rgb(0,0,26)]">
