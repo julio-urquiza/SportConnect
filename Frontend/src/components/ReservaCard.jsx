@@ -35,7 +35,7 @@ const ReservaCard = ({ reserve, onClickCancel }) => {
                     alt={reserve.cancha.nombre}
                     className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-[#00001a]/90 to-transparent" />
+                <div className="image-overlay absolute inset-0 bg-linear-to-t from-[#00001a]/90 to-transparent" />
 
                 <span className="absolute top-3 left-3 rounded-full px-3 py-1 text-xs bg-black/70 border border-orange-500/40 text-orange-500">
                     {SPORTS.find(s =>(s.deporte===reserve.cancha.deporte).logo)} {SPORTS.find(s =>(s.deporte===reserve.cancha.deporte).label)}

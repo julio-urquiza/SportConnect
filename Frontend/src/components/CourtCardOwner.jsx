@@ -20,7 +20,7 @@ export default function CourtCardOwner({ court, onUpdate, onDelete }) {
                     className="h-full w-full object-cover"
                 />
 
-                <div className="absolute inset-0 bg-linear-to-t from-[#00001A]/90 to-transparent" />
+                <div className="image-overlay absolute inset-0 bg-linear-to-t from-[#00001A]/90 to-transparent" />
 
                 <span className={`absolute right-3 top-3 rounded-full border border-green-500/40 bg-green-500/20 px-2.5 py-1 text-xs font-semibold text-white 
                     ${court.disponible 
@@ -29,7 +29,7 @@ export default function CourtCardOwner({ court, onUpdate, onDelete }) {
                     {court.disponible ? "Pública" : "Oculta"}
                 </span>
 
-                <div className="absolute bottom-3 left-3">
+                <div className="image-content absolute bottom-3 left-3">
 
                     <h3 className="font-bold text-white">
                         {court.nombre}
