@@ -11,6 +11,14 @@ import { uploadImageRequest } from "../services/upload.service.js"
 
 export function useCourts({ id, filters }) {
     const [courts, setCourts] = useState([]);
+    const [pagination, setPagination] = useState({
+        total: 0,
+        page: 1,
+        limit: 15,
+        totalPages: 0,
+        hasPreviousPage: false,
+        hasNextPage: false,
+    });
     const [court, setCourt] = useState(null);
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
@@ -23,6 +31,7 @@ export function useCourts({ id, filters }) {
 
             const data = await getCourtsRequest(filters);
             setCourts(data.courts);
+            setPagination(data.pagination);
         } catch (err) {
             setError(
                 err.response?.data?.message ?? "No se pudieron cargar las canchas",
@@ -108,6 +117,7 @@ export function useCourts({ id, filters }) {
 
     return {
         courts,
+        pagination,
         court,
         courtsLoading: loading,
         submitting,

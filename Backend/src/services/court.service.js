@@ -6,18 +6,88 @@ class CourtService {
         this.dao = dao;
     }
     getCourts = async (filtro = {}) => {
-        let { limit, page, sort, nombre, ubicacion, ...query } = filtro
+        let {
+            limit = 15,
+            page = 1,
+            sort,
+            nombre,
+            ubicacion,
+            ...query
+        } = filtro;
 
-        if (nombre) {
-            query.nombre = { $regex: this.#escapeRegex(nombre), $options: "i" }
-        }
-        if (ubicacion) {
-            query.ubicacion = { $regex: this.#escapeRegex(ubicacion), $options: "i" }
+        // Convertimos los query params, que llegan como strings, a números seguros.
+        const parsedLimit = Math.min(
+            Math.max(Number.parseInt(limit, 10) || 15, 1),
+            50
+        );
+
+        const parsedPage = Math.max(
+            Number.parseInt(page, 10) || 1,
+            1
+        );
+
+        // Búsqueda por nombre.
+        if (nombre?.trim()) {
+            query.nombre = {
+                $regex: this.#escapeRegex(nombre.trim()),
+                $options: "i",
+            };
         }
 
-        const courts = await this.dao.getAllCourts(query, limit, page * limit, sort ?? "-createdAt")
-        if (!courts) throw new CustomError(400, 'No se pudieron obtener las canchas')
-        return courts
+        // Búsqueda por ubicación.
+        if (ubicacion?.trim()) {
+            query.ubicacion = {
+                $regex: this.#escapeRegex(ubicacion.trim()),
+                $options: "i",
+            };
+        }
+
+        const sortOptions = {
+            relevancia: { createdAt: -1, _id: -1 },
+            "-createdAt": { createdAt: -1, _id: -1 },
+            createdAt: { createdAt: 1, _id: 1 },
+            precioPorHora: { precioPorHora: 1, _id: 1 },
+            "-precioPorHora": { precioPorHora: -1, _id: -1 },
+        };
+
+        const safeSort = sortOptions[sort] ?? sortOptions.relevancia;
+
+        // La página 1 empieza en 0.
+        // Página 2 con limit 15 empieza en 15.
+        // Página 3 empieza en 30, etc.
+        const skip = (parsedPage - 1) * parsedLimit;
+
+        // Traemos las canchas de esta página y el total en paralelo.
+        const [courts, total] = await Promise.all([
+            this.dao.getAllCourts(
+                query,
+                parsedLimit,
+                skip,
+                safeSort
+            ),
+            this.dao.countCourts(query),
+        ]);
+
+        if (!courts) {
+            throw new CustomError(
+                400,
+                "No se pudieron obtener las canchas"
+            );
+        }
+
+        const totalPages = Math.ceil(total / parsedLimit);
+
+        return {
+            courts,
+            pagination: {
+                total,
+                page: parsedPage,
+                limit: parsedLimit,
+                totalPages,
+                hasPreviousPage: parsedPage > 1,
+                hasNextPage: parsedPage < totalPages,
+            },
+        };
     }
     // Evita que caracteres especiales de regex (., *, +, etc.) rompan la búsqueda
     // o generen un patrón no intencionado si el usuario los tipea.

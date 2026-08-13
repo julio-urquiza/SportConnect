@@ -6,8 +6,9 @@ class CourtController {
         this.service = service;
     }
     getCourts = async (req, res) => {
-        const courts = await this.service.getCourts(req.query)
-        res.status(200).json({ courts })
+        const result = await this.service.getCourts(req.query);
+
+        res.status(200).json(result);
     }
 
     getById = async (req, res) => {
