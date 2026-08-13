@@ -6,12 +6,12 @@ class ReserveController {
         this.service = service
     }
 
-    create = async (req, res) => {
+create = async (req, res) => {
         const idUsuario = req.user._id
-        const { cancha, fecha, horaInicio, horaFin, precio } = req.body
+        const { cancha, fecha, horarios, precio } = req.body
 
         const nuevaReserva = await this.service.crearReserva(
-            idUsuario, cancha, fecha, horaInicio, horaFin, precio
+            idUsuario, cancha, fecha, horarios?.horas, precio
         )
 
         res.status(201).json({ status: "success", reserva: nuevaReserva })

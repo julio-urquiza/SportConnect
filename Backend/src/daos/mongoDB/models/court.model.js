@@ -67,7 +67,7 @@ const canchaSchema = new mongoose.Schema({
 
   duenio: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Usuario",
+    ref: "Users",
     required: true,
   },
 });

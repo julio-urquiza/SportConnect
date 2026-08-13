@@ -25,7 +25,7 @@ class ReserveService {
      * @param {number} precio
      * @returns {Promise<object>}
      */
-    crearReserva = async (idUsuario, idCancha, fecha, horaInicio, horaFin, precio) => {
+crearReserva = async (idUsuario, idCancha, fecha, horas, precio) => {
         if (!idUsuario) throw new CustomError(400, "ID de usuario es requerido")
 
         const usuarioExistente = await userDao.getById(idUsuario)
@@ -38,18 +38,12 @@ class ReserveService {
 
         if (!fecha) throw new CustomError(400, "Fecha es requerida")
 
-        if (horaInicio === undefined || horaFin === undefined) {
+        if (!Array.isArray(horas) || horas.length === 0) {
             throw new CustomError(400, "Horario es requerido")
-        }
-        if (horaFin <= horaInicio) {
-            throw new CustomError(400, "La hora de fin debe ser mayor a la hora de inicio")
         }
         if (!precio || precio <= 0) {
             throw new CustomError(400, "Precio debe ser mayor a 0")
         }
-
-        const horas = []
-        for (let h = horaInicio; h < horaFin; h++) horas.push(h)
 
         const idReserva = new mongoose.Types.ObjectId()
         const session = await mongoose.startSession()
@@ -76,13 +70,16 @@ class ReserveService {
 
                 const expiraEn = new Date(Date.now() + MINUTOS_EXPIRACION_PAGO * 60 * 1000)
 
+                // El "dia" lo calculamos nosotros desde la fecha, no lo
+                // tomamos del body: si el cliente mandara un dia distinto
+                // al que realmente corresponde a esa fecha, quedaría
+                // guardado un dato inconsistente.
                 const [reserva] = await this.dao.model.create([{
                     _id: idReserva,
                     usuario: idUsuario,
                     cancha: idCancha,
                     fecha,
-                    horaInicio,
-                    horaFin,
+                    horarios: { dia: new Date(fecha).getDay(), horas },
                     precio,
                     estado: "pendiente_pago",
                     montoTotal: precio,

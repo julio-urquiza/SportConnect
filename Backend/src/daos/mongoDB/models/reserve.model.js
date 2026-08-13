@@ -64,20 +64,25 @@ const ReserveSchema = new mongoose.Schema({
     // --- Cancelación ---
     canceladoPor: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Usuario"
+        ref: "Users" // corregido
     },
-    motivoCancelacion: { type: String }
+    motivoCancelacion: { type: String },
+
+    // --- Reembolso ---
+    montoReembolsado: { type: Number },
+    reembolsadoEn: { type: Date },
+    reembolsadoPor: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Users" // corregido
+    }
 }, {
     timestamps: true
 })
 
-// La prevención de double-booking ahora la garantiza el índice único
+// La prevención de double-booking la garantiza el índice único
 // de ReservedSlot (una hora ocupada = un documento), no un índice acá.
 
-// Para el job de expiración: buscar rápido reservas pendientes vencidas
 ReserveSchema.index({ estado: 1, expiraEn: 1 })
-
-// Para reconciliar webhooks por mpPaymentId
 ReserveSchema.index({ mpPaymentId: 1 })
 
 export default mongoose.model("Reserve", ReserveSchema)
