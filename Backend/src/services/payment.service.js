@@ -4,7 +4,7 @@ import reserveDao from "../daos/mongoDB/reserve.dao.js"
 import reservedSlotDao from "../daos/mongoDB/reservedSlot.dao.js"
 import courtDao from "../daos/mongoDB/court.dao.js"
 import mercadoPagoDao from "../daos/mongoDB/mercadoPago.dao.js"
-import webhookEvent from "../daos/mongoDB/webhook.dao.js"
+import webhookEventDao from "../daos/mongoDB/webhook.dao.js"
 import CustomError from "../utils/customError.js"
 
 const MP_PREFERENCES_URL = "https://api.mercadopago.com/checkout/preferences"
