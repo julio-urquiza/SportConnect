@@ -59,7 +59,7 @@ function Home() {
                         alt="Tenis"
                         className="h-full w-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-linear-to-br from-[#00001A]/90 via-[#00001A]/75 to-[#00001A]/90" />
+                    <div className="theme-hero-overlay absolute inset-0 bg-linear-to-br from-[#00001A]/90 via-[#00001A]/75 to-[#00001A]/90" />
                     <div className="absolute bottom-4 right-6 z-10 flex items-center gap-2">
                         <button className="h-2 w-2 rounded-full bg-white/30 transition-all" />
                         <button className="h-2 w-6 rounded-full bg-orange-500 transition-all" />

@@ -15,7 +15,7 @@ function Login() {
                 className="absolute inset-0 h-full w-full object-cover"
             />
             {/* sombreado */}
-            <div className="absolute inset-0 bg-[#00001a]/70" />
+            <div className="theme-login-overlay absolute inset-0 bg-[#00001a]/70" />
 
             <div className="relative z-10 flex h-full flex-col min-h-screen items-center justify-center gap-10 px-8 py-10 lg:flex-row lg:justify-between lg:px-24">
 

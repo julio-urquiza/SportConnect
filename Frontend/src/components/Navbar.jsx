@@ -1,16 +1,20 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext.jsx";
+import { ThemeContext } from "../context/ThemeContext.jsx";
 import ProfileButton from "./ProfileButton.jsx";
 import {
   CalendarCheck,
   LayoutDashboard,
   Menu,
+  Moon,
+  Sun,
   X,
 } from "lucide-react";
 
 function Navbar() {
   const { user, logoutRequest } = useContext(AuthContext);
+  const { isDark, toggleTheme } = useContext(ThemeContext);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -56,6 +60,18 @@ function Navbar() {
     setMobileOpen(false);
     navigate("/login");
   };
+
+  const themeButton = (
+    <button
+      type="button"
+      onClick={toggleTheme}
+      className="theme-toggle flex h-10 w-10 items-center justify-center rounded-xl border border-orange-500/60 text-orange-500 transition hover:bg-orange-500/10"
+      aria-label={isDark ? "Activar modo claro" : "Activar modo oscuro"}
+      title={isDark ? "Activar modo claro" : "Activar modo oscuro"}
+    >
+      {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+    </button>
+  );
 
   return (
     <nav className="relative z-50 flex h-16 w-full items-center justify-between border-b border-[#1a1a3a] bg-[#00001a] px-4 md:px-8">
@@ -133,6 +149,8 @@ function Navbar() {
             <ProfileButton />
           </>
         )}
+
+        {themeButton}
       </div>
 
       {/* Botón hamburguesa ñam ñam ñam ñam ñam */}
@@ -224,6 +242,17 @@ function Navbar() {
               </div>
             </>
           )}
+
+          <div className="mt-4 border-t border-[#1a1a3a] pt-4">
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="theme-toggle flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-orange-500 transition hover:bg-orange-500/10"
+            >
+              {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              {isDark ? "Modo claro" : "Modo oscuro"}
+            </button>
+          </div>
         </div>
       </div>
     </nav>

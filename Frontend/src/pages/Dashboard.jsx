@@ -54,10 +54,11 @@ const Dashboard = () => {
                 </div>
 
                 {/* Tabs */}
-                <div className="mb-6 flex w-fit gap-1 rounded-2xl border border-gray-700 bg-white/5 p-1">
+                <div className="mb-6 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                  <div className="flex w-full flex-col gap-1 rounded-2xl border border-gray-700 bg-white/5 p-1 sm:w-fit sm:flex-row">
 
                     <button
-                        className={`flex items-center gap-2 rounded-xl px-5 py-2.5 font-semibold ${modo === 1 ? "bg-linear-to-r from-orange-500/80 to-[#00001A]/70 text-white" : "text-gray-400 transition hover:bg-white/5 hover:text-white"}`}
+                        className={`flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 font-semibold sm:justify-start ${modo === 1 ? "bg-linear-to-r from-orange-500/80 to-[#00001A]/70 text-white" : "text-gray-400 transition hover:bg-white/5 hover:text-white"}`}
                         onClick={() => setModo(1)}
                     >
                         <LayoutDashboard className="h-4 w-4" />
@@ -65,7 +66,7 @@ const Dashboard = () => {
                     </button>
 
                     <button
-                        className={`flex items-center gap-2 rounded-xl px-5 py-2.5 font-semibold ${modo === 2 ? "bg-linear-to-r from-orange-500/80 to-[#00001A]/70 text-white" : "text-gray-400 transition hover:bg-white/5 hover:text-white"}`}
+                        className={`flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 font-semibold sm:justify-start ${modo === 2 ? "bg-linear-to-r from-orange-500/80 to-[#00001A]/70 text-white" : "text-gray-400 transition hover:bg-white/5 hover:text-white"}`}
                         onClick={() => setModo(2)}
                     >
                         <CirclePlus className="h-4 w-4" />
@@ -73,15 +74,17 @@ const Dashboard = () => {
                     </button>
 
                     <button
-                        className={`flex items-center gap-2 rounded-xl px-5 py-2.5 font-semibold ${modo === 3 ? "bg-linear-to-r from-orange-500/80 to-[#00001A]/70 text-white" : "text-gray-400 transition hover:bg-white/5 hover:text-white"}`}
+                        className={`flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 font-semibold sm:justify-start ${modo === 3 ? "bg-linear-to-r from-orange-500/80 to-[#00001A]/70 text-white" : "text-gray-400 transition hover:bg-white/5 hover:text-white"}`}
                         onClick={() => setModo(3)}
                     >
                         <CalendarClock className="h-4 w-4" />
                         Reservas Entrantes
                     </button>
-                    <button 
+                  </div>
+
+                    <button
                     onClick={toDashboardPagos}
-                    className="flex items-center gap-2 rounded-xl px-5 py-2.5 text-gray-400 transition hover:bg-white/5 hover:text-white">
+                    className="payment-settings-button flex w-full items-center justify-center rounded-xl border border-orange-500/40 bg-orange-500/10 px-5 py-2.5 font-semibold text-orange-500 transition hover:bg-orange-500/20 md:w-auto">
                     Configurar cobros con Mercado Pago
                     </button>
                 </div>
