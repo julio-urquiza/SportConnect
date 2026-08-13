@@ -118,6 +118,19 @@ html[data-theme="light"] .theme-login-overlay {
   background-color: rgb(245 247 251 / 82%) !important;
 }
 
+/* Las fotos mantienen su brillo en el tema claro; el overlay queda sólo para
+   asegurar que los textos superpuestos se lean con claridad. */
+html[data-theme="light"] .image-overlay {
+  background: linear-gradient(to top, rgb(15 23 42 / 58%), rgb(15 23 42 / 4%)) !important;
+}
+
+html[data-theme="light"] .image-content [class~="text-white"],
+html[data-theme="light"] .image-content [class~="text-zinc-400"],
+html[data-theme="light"] .image-content [class~="text-gray-400"] {
+  color: #ffffff !important;
+  text-shadow: 0 1px 3px rgb(0 0 0 / 70%);
+}
+
 /* El selector de tema necesita contraste propio en la barra clara. */
 html[data-theme="light"] .theme-toggle {
   background-color: #172033 !important;

@@ -18,7 +18,7 @@ function CourtCard({cancha}) {
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
 
-        <div className="absolute inset-0 bg-linear-to-t from-[#00001A]/90 to-transparent" />
+        <div className="image-overlay absolute inset-0 bg-linear-to-t from-[#00001A]/90 to-transparent" />
 
         <span className="absolute left-3 top-3 rounded-full border border-orange-500/40 bg-black/60 px-3 py-1 text-xs font-medium text-orange-500 backdrop-blur">
           {SPORTS.find(s=> (cancha.deporte=== s.deporte)).logo} {SPORTS.find(s=> (cancha.deporte===s.deporte)).label}

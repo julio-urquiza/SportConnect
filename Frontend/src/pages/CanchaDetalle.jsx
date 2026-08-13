@@ -31,14 +31,10 @@ const CanchaDetalle = () => {
 
                 {!courtsLoading && error && "error"}
 
-                {!courtsLoading && !error && (
-                    "Info no encontrada"
-                )}
-
                 {!courtsLoading && !error &&
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         <div className="space-y-5 lg:col-span-2">
-                            <PortadaCard imagen={court.imagenes[0]} nombre={court.nombre} />
+                            <PortadaCard imagen={court.imagenes[0]} nombre={court.nombre} deporte={court.deporte}/>
                             <InfoCard ubicacion={`${court.direccion}, ${court.ubicacion}`} puntuacion={4.5} precioHora={court.precioPorHora} />
                             <DescripcionCard descripcion={court.descripcion}/>
                             <ServiciosCard servicios={court.servicios} />
